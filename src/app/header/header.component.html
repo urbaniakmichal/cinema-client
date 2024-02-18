@@ -1,0 +1,23 @@
+<header>
+    <div class="logo">
+        <a routerLink="/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/800px-Angular_full_color_logo.svg.png">
+        </a>
+    </div>
+    <nav class="header-menu">
+        <ul>
+            @for (item of headerMenuItemInterface; track item) {
+                <li>
+                    <a href="#">{{ item.name }}</a>
+                </li>
+            }
+        </ul>
+    </nav>
+    <div class="account-dropdown">
+        <button>Account</button>
+        <div class="dropdown-content">
+            <a routerLink="/login">Login</a>
+            <a routerLink="/register">Register</a>
+        </div>
+    </div>
+</header>

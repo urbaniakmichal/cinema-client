@@ -1,0 +1,15 @@
+<section class="repertoire">
+    <nav class="repertoire-menu">
+        <ul>
+            <li *ngFor="let day of moviesRepertoirePayload; let i = index">
+                <button 
+                    [ngClass]="'day_' + i" [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'" 
+                    (click)="togglePressed(i)"
+                    (click)="onClick(i)">
+                    
+                    {{ day.repertoireDay }}
+                </button>
+              </li>
+        </ul>
+    </nav>
+</section>

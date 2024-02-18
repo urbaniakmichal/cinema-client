@@ -1,0 +1,29 @@
+.repertoire-menu ul {
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px 20px 20px;
+}
+
+.repertoire-menu ul li {
+    padding: 20px 20px 20px 20px;
+    text-align: center;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.repertoire-menu ul li button {
+    border: 1px black solid;
+    background-color: antiquewhite;
+}
+
+.repertoire {
+    border: green 4px solid;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.repertoire-movies {
+    display: flex;
+    justify-content: center;
+}

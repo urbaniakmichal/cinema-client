@@ -1,0 +1,13 @@
+<section class="repertoire">
+
+    <app-repertoire-menu 
+        [moviesRepertoirePayload]="moviesRepertoirePayload"
+        (buttonClicked)="handleButtonClick($event)">
+    </app-repertoire-menu>  
+
+    <app-repertoire-movies 
+        [moviesRepertoirePayload]="moviesRepertoirePayload"
+        [selectedIndex]="selectedButtonIndex">
+    </app-repertoire-movies>
+
+</section>

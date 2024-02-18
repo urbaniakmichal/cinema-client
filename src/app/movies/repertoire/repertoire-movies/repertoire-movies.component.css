@@ -1,0 +1,35 @@
+.movies-short-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.movies-short-details div, ul {
+    padding: 20px 20px 20px 20px;
+}
+
+.movies-short-details-hours {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+}
+
+.movies-short-details-hours li { 
+    padding: 20px 20px 20px 20px;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.movies-image, .movies-container{
+    padding: 12px 12px 12px 12px;
+}
+
+.movies-image img {
+    height: 210px;
+    width: 150px;
+}
+
+.movies-container {
+    display: flex;
+    justify-content: center;
+    border: pink 4px solid;
+}
