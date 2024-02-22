@@ -1,0 +1,58 @@
+<section class="movie-detail-section">
+    <div class="movie-detail-container">
+        <div class="movie-detail-title">
+            <h1>{{ moviesRepertoirePayload.title }}</h1>
+            <button (click)="navigateToTicket(moviesRepertoirePayload.id)">ZAREZERWUJ</button>
+        </div>
+        <div class="movie-detail-trailer">
+            <iframe width="560" height="315" [src]="getYoutubeUrl()" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="movie-detail-more-information">
+            <div class="movie-detail-more-information-details">
+                <div>
+                    <div class="movie-detail-more-information-details-premiere">
+                        <div>Premiere:</div>
+                        <div>{{ moviesRepertoirePayload.premiere }}</div>
+                    </div>
+                    <div class="movie-detail-more-information-details-duration">
+                        <div>Duration:</div>
+                        <div>{{ moviesRepertoirePayload.duration }}</div>
+                    </div>
+                </div>
+                <div class="movie-detail-more-information-description">
+                    <div>{{ moviesRepertoirePayload.description }}</div>
+                </div>
+                <div>
+                    <div>
+                        <div>TYTUŁ ORYGINALNY:</div>
+                        <div>{{ moviesRepertoirePayload.title }}</div>
+                    </div>
+                    <div>
+                        <div>GATUNEK FILMU:</div>
+                        <div>{{ moviesRepertoirePayload.genre }}</div>
+                    </div>
+                    <div>
+                        <div>OBSADA:</div>
+                        <div>{{ moviesRepertoirePayload.cast }}</div>
+                    </div>
+                    <div>
+                        <div>REŻYSER:</div>
+                        <div>{{ moviesRepertoirePayload.director }}</div>
+                    </div>
+                    <div>
+                        <div>PRODUKCJA:</div>
+                        <div>{{ moviesRepertoirePayload.production }}</div>
+                    </div>
+                    <div>
+                        <div>JĘZYK ORYGINALNY:</div>
+                        <div>{{ moviesRepertoirePayload.language }}</div>
+                    </div>
+                    <div>
+                        <div>TEN FILM GRAMY W:</div>
+                        <div>{{ moviesRepertoirePayload.type }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

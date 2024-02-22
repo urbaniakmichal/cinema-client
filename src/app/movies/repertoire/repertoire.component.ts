@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesRepertoirePayload } from '../../data-structures/MoviesRepertoirePayloadInterface';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { RepertoireMenuComponent } from './repertoire-menu/repertoire-menu.component';
 import { RepertoireMoviesComponent } from './repertoire-movies/repertoire-movies.component';
+import { RootMoviesRepertoirePayload } from '../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
 
 @Component({
   selector: 'app-repertoire',
@@ -20,8 +20,8 @@ import { RepertoireMoviesComponent } from './repertoire-movies/repertoire-movies
 })
 export class RepertoireComponent implements OnInit {
 
-    moviesRepertoireUrl = "http://localhost:9091/api/v1/repertoire/movies";
-    moviesRepertoirePayload!: MoviesRepertoirePayload[];
+    moviesRepertoireUrl = "http://localhost:9092/api/v1/repertoire/movies";
+    rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
   
     selectedButtonIndex: number | null = null;
 
@@ -29,10 +29,10 @@ export class RepertoireComponent implements OnInit {
     constructor(private http: HttpClient) {}
   
     ngOnInit(): void {
-          this.http.get<MoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
-              (data: MoviesRepertoirePayload[]) => {                
-                  this.moviesRepertoirePayload = data;
-                  console.log(this.moviesRepertoirePayload);
+          this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
+              (data: RootMoviesRepertoirePayload[]) => {                
+                  this.rootMoviesRepertoirePayload = data;
+                  console.log(this.rootMoviesRepertoirePayload);
               }
           );
     }

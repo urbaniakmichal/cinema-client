@@ -13,13 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'primeng/api/public_api';
 import { BrowserModule } from '@angular/platform-browser';
 import { Observable, tap, catchError } from 'rxjs';
-import { HeaderDropdownMenu } from './data-structures/HeaderDropdownMenuInterface';
-import { MoviesRepertoirePayload } from './data-structures/MoviesRepertoirePayloadInterface';
 import { RepertoireComponent } from "./movies/repertoire/repertoire.component";
 import { FooterComponent } from './footer/footer.component';
 import { RepertoireMoviesComponent } from './movies/repertoire/repertoire-movies/repertoire-movies.component';
 import { RepertoireMenuComponent } from './movies/repertoire/repertoire-menu/repertoire-menu.component';
-import { AdvertisementsComponent } from "./advertisements/advertisements.component";
+import { AnnouncementsComponent } from './movies/announcements/announcements.component';
+import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
+import { SelectSeatComponent } from './ticket/select-seat/select-seat.component';
+import { OrderingTicketComponent } from './ticket/ordering-ticket/ordering-ticket.component';
 
 @Component({
     selector: 'app-root',
@@ -39,7 +40,10 @@ import { AdvertisementsComponent } from "./advertisements/advertisements.compone
         FooterComponent,
         RepertoireMoviesComponent,
         RepertoireMenuComponent,
-        AdvertisementsComponent
+        AnnouncementsComponent,
+        MovieDetailsComponent,
+        SelectSeatComponent,
+        OrderingTicketComponent
     ]
 })
 export class AppComponent {

@@ -1,12 +1,12 @@
 <section class="repertoire">
 
     <app-repertoire-menu 
-        [moviesRepertoirePayload]="moviesRepertoirePayload"
+        [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
         (buttonClicked)="handleButtonClick($event)">
     </app-repertoire-menu>  
 
     <app-repertoire-movies 
-        [moviesRepertoirePayload]="moviesRepertoirePayload"
+        [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
         [selectedIndex]="selectedButtonIndex">
     </app-repertoire-movies>
 
