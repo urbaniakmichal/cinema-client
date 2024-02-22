@@ -33,3 +33,19 @@
     justify-content: center;
     border: pink 4px solid;
 }
+
+.movies-short-details-hours a {
+    padding: 12px 10px;
+    min-width: 64px;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-right: 4px;
+    background-color: #f5821e;
+    color: #000;
+    border: 0;
+}
+
+.movies-short-details-title {
+    color: #191919;
+    font-weight: 700!important;
+}

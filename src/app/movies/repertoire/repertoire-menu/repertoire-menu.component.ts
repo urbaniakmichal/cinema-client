@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MoviesRepertoirePayload } from '../../../data-structures/MoviesRepertoirePayloadInterface';
+import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
 
 @Component({
   selector: 'app-repertoire-menu',
@@ -16,7 +15,7 @@ import { MoviesRepertoirePayload } from '../../../data-structures/MoviesRepertoi
 })
 export class RepertoireMenuComponent implements  AfterViewInit  {
 
-    @Input() moviesRepertoirePayload!: MoviesRepertoirePayload[];
+    @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
     @Output() buttonClicked = new EventEmitter<number>();
 
     isPressed: boolean[] = [];

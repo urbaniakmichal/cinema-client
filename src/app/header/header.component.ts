@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeaderMenuItemInterface } from '../data-structures/HeaderMenuItemInterface';
 import { LoginComponent } from './login/login.component';
+import { HeaderMenuItem } from '../data-structures/objects/HeaderMenuItem';
 
 @Component({
     selector: 'app-header',
@@ -19,7 +19,7 @@ export class HeaderComponent {
 
 
 
-    headerMenuItemInterface: HeaderMenuItemInterface[] = [
+    headerMenuItem: HeaderMenuItem[] = [
             {
                 name: "Repertuar"
             },

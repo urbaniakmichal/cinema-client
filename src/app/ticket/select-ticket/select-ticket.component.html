@@ -1,0 +1,32 @@
+<section class="wybierz-bilet-section">
+    <div>
+        <h1><strong>WYBIERZ BILET</strong></h1>
+        <table>
+            <thead>
+                <tr>
+                <th>RODZAJ</th>
+                <th>CENA</th>
+                <th>OPŁATA SERWISOWA</th>
+                <th>ILOŚĆ</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let ticket of ticketsTypePayload">
+                <tr>
+                    <td>{{ ticket.type }}</td>
+                    <td>{{ ticket.price }}</td>
+                    <td>2.00 ZŁ</td>
+                    <td>
+                        <select>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="select-seat-button" (click)="selectSeat()">SELECT SEAT</button>
+</section>
+  
