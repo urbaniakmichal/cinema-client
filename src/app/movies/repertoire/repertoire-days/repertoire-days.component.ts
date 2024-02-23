@@ -4,16 +4,16 @@ import { RouterModule } from '@angular/router';
 import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
 
 @Component({
-  selector: 'app-repertoire-menu',
+  selector: 'app-repertoire-days',
   standalone: true,
   imports: [
     CommonModule,
     RouterModule
   ],
-  templateUrl: './repertoire-menu.component.html',
-  styleUrl: './repertoire-menu.component.css'
+  templateUrl: './repertoire-days.component.html',
+  styleUrl: './repertoire-days.component.css'
 })
-export class RepertoireMenuComponent implements  AfterViewInit  {
+export class RepertoireDaysComponent implements  AfterViewInit  {
 
     @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
     @Output() buttonClicked = new EventEmitter<number>();
