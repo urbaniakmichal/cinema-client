@@ -3,9 +3,11 @@
         <ul>
             <li *ngFor="let day of rootMoviesRepertoirePayload; let i = index">
                 <button 
-                    [ngClass]="'day_' + i" [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'" 
+                    [ngClass]="'day_' + i" 
+                    [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'" 
                     (click)="togglePressed(i)"
-                    (click)="onClick(i)">
+                    (click)="onClick(i)"
+                    >
                     
                     {{ day.repertoireDay }}
                 </button>

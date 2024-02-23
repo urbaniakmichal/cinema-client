@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { RepertoireMenuComponent } from './repertoire-menu/repertoire-menu.component';
 import { RepertoireMoviesComponent } from './repertoire-movies/repertoire-movies.component';
 import { RootMoviesRepertoirePayload } from '../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
+import { RepertoireDaysComponent } from './repertoire-days/repertoire-days.component';
+import { MoviesRepertoirePayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
+import { MoviesRepertoireHoursPayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
+import { RepertoireService } from './repertoire.service';
 
 @Component({
   selector: 'app-repertoire',
@@ -12,7 +15,7 @@ import { RootMoviesRepertoirePayload } from '../../data-structures/payloads/movi
   imports: [
     CommonModule,
     RouterModule,
-    RepertoireMenuComponent,
+    RepertoireDaysComponent,
     RepertoireMoviesComponent
   ],
   templateUrl: './repertoire.component.html',
@@ -22,12 +25,12 @@ export class RepertoireComponent implements OnInit {
 
     moviesRepertoireUrl = "http://localhost:9092/api/v1/repertoire/movies";
     rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
-  
     selectedButtonIndex: number | null = null;
 
   
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private repertoireService: RepertoireService) {}
   
+
     ngOnInit(): void {
           this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
               (data: RootMoviesRepertoirePayload[]) => {                
@@ -40,5 +43,15 @@ export class RepertoireComponent implements OnInit {
 
     handleButtonClick(index: number) {
         this.selectedButtonIndex = index;
+    }
+
+    onMovieSelected(movie: MoviesRepertoirePayload) {
+      this.repertoireService.setSelectedMovie(movie);
+      console.log('Selected Movie:', movie);
+    }
+  
+    onHourSelected(hour: MoviesRepertoireHoursPayload) {
+      this.repertoireService.setSelectedHour(hour);
+      console.log('Selected Hour:', hour);
     }
 }

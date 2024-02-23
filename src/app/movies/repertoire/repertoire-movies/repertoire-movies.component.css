@@ -19,7 +19,7 @@
     list-style-type: none;
 }
 
-.movies-image, .movies-container{
+.movies-image, .movies-container {
     padding: 12px 12px 12px 12px;
 }
 
@@ -31,21 +31,34 @@
 .movies-container {
     display: flex;
     justify-content: center;
-    border: pink 4px solid;
+    background-color: #272422c2;
+    padding: 20px 150px 0 150px;
 }
 
 .movies-short-details-hours a {
-    padding: 12px 10px;
-    min-width: 64px;
-    text-align: center;
-    margin-bottom: 8px;
-    margin-right: 4px;
-    background-color: #f5821e;
-    color: #000;
-    border: 0;
+    background-color: #FF595A;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.movies-short-details {
+    color: #FF595A;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .movies-short-details-title {
-    color: #191919;
-    font-weight: 700!important;
+    color: #1ed136;
+    font-size: 24px; 
+    font-weight: bold;
+}
+
+.movies-image, .movies-short-details {
+    border-top: 5px solid black;
 }

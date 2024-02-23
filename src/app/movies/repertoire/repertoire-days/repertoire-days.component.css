@@ -1,0 +1,41 @@
+.repertoire {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #001233; /* Deep blue */
+    padding: 20px;
+}
+
+.repertoire-menu ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+}
+
+.repertoire-menu ul li {
+    margin-right: 10px;
+}
+
+.repertoire-menu ul li:last-child {
+    margin-right: 0;
+}
+
+.repertoire-menu ul li button {
+    background-color: #FF595A; /* light coral red */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.repertoire-menu ul li button:hover {
+    background-color: #FF7A5A; /* darker light coral red */
+}
+
+.repertoire-menu ul li button[aria-pressed="true"] {
+    background-color: #BFA181; /* gold */
+}

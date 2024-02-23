@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MovieDetailsComponent } from '../../movie-details/movie-details.component';
 import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
+import { MoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
+import { MoviesRepertoireHoursPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
 
 @Component({
     selector: 'app-repertoire-movies',
@@ -20,17 +22,38 @@ export class RepertoireMoviesComponent implements OnInit {
     @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
     @Input() selectedIndex: number | null = null;
 
+    @Output() movieSelected: EventEmitter<MoviesRepertoirePayload> = new EventEmitter<MoviesRepertoirePayload>();
+    @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
+
+
     constructor(private router: Router) {}
 
+    
     ngOnInit(): void {
+        this.setFirstDateAsSelected();
+    }
+
+
+    setFirstDateAsSelected(): void {
         if (this.selectedIndex === null) {
             this.selectedIndex = 0;
         }
     }
 
-
     navigateToMovieDetails(id: string) {
         this.router.navigate(['/movie-details', id]);
+    }
+
+    navigateToBuyTicket(id: string) {
+        this.router.navigate(['/buy-ticket', id]);
+    }
+
+    onMovieSelect(movie: MoviesRepertoirePayload) {
+        this.movieSelected.emit(movie);
+    }
+
+    onHourSelect(hour: MoviesRepertoireHoursPayload) {
+        this.hourSelected.emit(hour);
     }
 
 }
