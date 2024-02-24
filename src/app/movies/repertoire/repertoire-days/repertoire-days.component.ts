@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
+import { MoviesRepertoireDaysPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
   selector: 'app-repertoire-days',
@@ -17,16 +18,21 @@ export class RepertoireDaysComponent implements  AfterViewInit  {
 
     @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
     @Output() buttonClicked = new EventEmitter<number>();
+    @Output() daySelected: EventEmitter<MoviesRepertoireDaysPayload> = new EventEmitter<MoviesRepertoireDaysPayload>();
 
     isPressed: boolean[] = [];
     currentPressedIndex: number | null = null;
 
     constructor() { }
 
-
-        
     ngAfterViewInit(): void {
-        this.isPressed[0] = true;
+      this.setFirstDayAsMarkedbyDefault();
+    }
+
+
+    setFirstDayAsMarkedbyDefault() : void {
+      this.isPressed[0] = true;
+      this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
     }
 
     
@@ -42,4 +48,8 @@ export class RepertoireDaysComponent implements  AfterViewInit  {
     onClick(index: number) {
       this.buttonClicked.emit(index);
   }
+
+  onDaySelected(day: MoviesRepertoireDaysPayload) {
+    this.daySelected.emit(day);
+}
 }  

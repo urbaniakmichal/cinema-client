@@ -1,31 +1,49 @@
 .advertisements-section {
-    border: green 4px solid;
     display: flex;
     justify-content: center;
-    padding: 20px 20px 20px 20px; 
+    padding: 20px;
     background: #000000;
-} 
-
-.advertisements-container ul {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 50px;
 }
 
-.advertisements-container ul li {
+.advertisements-container {
+    max-width: 1200px;
+    width: 100%;
     text-align: center;
-    text-decoration: none;
-    list-style-type: none;
-    border: pink 2px solid;
-    margin: 20px 0 20px 0;
-    color: #fff;
 }
 
 .advertisements-container-name {
-    display: flex;
-    justify-content: center;
+    display: block;
     font-size: 40px;
-    font-weight: bold; 
+    font-weight: bold;
     color: #fff;
+    margin-bottom: 20px;
 }
 
+.advertisements-container ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.advertisements-container ul li {
+    border: 2px solid #FF595A;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.advertisements-container ul li img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.advertisements-container ul li .advertisements-details-title {
+    padding: 10px;
+    background-color: #FF595A;
+    color: #fff;
+    font-size: 18px;
+}

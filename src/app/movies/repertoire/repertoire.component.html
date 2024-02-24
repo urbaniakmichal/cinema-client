@@ -2,12 +2,14 @@
 
     <app-repertoire-days 
         [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
-        (buttonClicked)="handleButtonClick($event)">
+        (buttonClicked)="handleButtonClick($event)" 
+        (daySelected)="onDaySelected($event)">
     </app-repertoire-days>  
 
     <app-repertoire-movies 
         [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
         [selectedIndex]="selectedButtonIndex"
+
         (movieSelected)="onMovieSelected($event)"
         (hourSelected)="onHourSelected($event)">
     </app-repertoire-movies>

@@ -16,8 +16,14 @@
                         <span>{{ movies.type }}</span>
                     </div>
                     <ul class="movies-short-details-hours">
-                        <li *ngFor="let hour of movies.hours">
-                            <a (click)="onMovieSelect(movies)" (click)="onHourSelect(hour)" (click)="navigateToBuyTicket(movies.id)">{{ hour.hour }}</a>
+                        <!--   (click)="navigateToBuyTicket(movies.id)" zamiast (click)="navigateToTicket()"-->
+                        <li *ngFor="let hour of movies.hours"> 
+                            <a 
+                                (click)="onMovieSelect(movies)" 
+                                (click)="onHourSelect(hour)"                           
+                                (click)="navigateToTicket()"
+                                >{{ hour.hour }}
+                            </a>
                         </li>
                     </ul>
                     <div class="movies-short-details-language">

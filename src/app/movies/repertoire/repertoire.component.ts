@@ -8,6 +8,7 @@ import { RepertoireDaysComponent } from './repertoire-days/repertoire-days.compo
 import { MoviesRepertoirePayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
 import { MoviesRepertoireHoursPayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
 import { RepertoireService } from './repertoire.service';
+import { MoviesRepertoireDaysPayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
   selector: 'app-repertoire',
@@ -53,5 +54,10 @@ export class RepertoireComponent implements OnInit {
     onHourSelected(hour: MoviesRepertoireHoursPayload) {
       this.repertoireService.setSelectedHour(hour);
       console.log('Selected Hour:', hour);
+    }
+
+    onDaySelected(day: MoviesRepertoireDaysPayload) {
+      this.repertoireService.setSelectedDay(day);
+      console.log('Selected day:', day);
     }
 }

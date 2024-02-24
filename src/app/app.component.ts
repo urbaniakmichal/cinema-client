@@ -16,11 +16,13 @@ import { Observable, tap, catchError } from 'rxjs';
 import { RepertoireComponent } from "./movies/repertoire/repertoire.component";
 import { FooterComponent } from './footer/footer.component';
 import { RepertoireMoviesComponent } from './movies/repertoire/repertoire-movies/repertoire-movies.component';
-import { RepertoireMenuComponent } from './movies/repertoire/repertoire-menu/repertoire-menu.component';
 import { AnnouncementsComponent } from './movies/announcements/announcements.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { SelectSeatComponent } from './ticket/select-seat/select-seat.component';
 import { OrderingTicketComponent } from './ticket/ordering-ticket/ordering-ticket.component';
+import { RepertoireDaysComponent } from './movies/repertoire/repertoire-days/repertoire-days.component';
+import { SelectTicketComponent } from './ticket/select-ticket/select-ticket.component';
+import { OrderComponent } from './order/order.component';
 
 @Component({
     selector: 'app-root',
@@ -39,20 +41,15 @@ import { OrderingTicketComponent } from './ticket/ordering-ticket/ordering-ticke
         RepertoireComponent,
         FooterComponent,
         RepertoireMoviesComponent,
-        RepertoireMenuComponent,
+        RepertoireDaysComponent,
         AnnouncementsComponent,
         MovieDetailsComponent,
         SelectSeatComponent,
-        OrderingTicketComponent
+        OrderingTicketComponent,
+        SelectTicketComponent,
+        OrderComponent
     ]
 })
 export class AppComponent {
-
-
-
-
-
-
-    
 
 } 
