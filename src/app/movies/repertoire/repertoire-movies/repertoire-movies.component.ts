@@ -5,6 +5,7 @@ import { MovieDetailsComponent } from '../../movie-details/movie-details.compone
 import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
 import { MoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
 import { MoviesRepertoireHoursPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
+import { MoviesRepertoireDaysPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
     selector: 'app-repertoire-movies',
@@ -24,6 +25,7 @@ export class RepertoireMoviesComponent implements OnInit {
 
     @Output() movieSelected: EventEmitter<MoviesRepertoirePayload> = new EventEmitter<MoviesRepertoirePayload>();
     @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
+
 
 
     constructor(private router: Router) {}
@@ -46,6 +48,10 @@ export class RepertoireMoviesComponent implements OnInit {
 
     navigateToBuyTicket(id: string) {
         this.router.navigate(['/buy-ticket', id]);
+    }
+
+    navigateToTicket() {
+        this.router.navigate(['/select-ticket']);
     }
 
     onMovieSelect(movie: MoviesRepertoirePayload) {

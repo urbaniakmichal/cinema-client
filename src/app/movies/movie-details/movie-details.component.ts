@@ -26,7 +26,7 @@ export class MovieDetailsComponent implements OnInit {
         this.movieId = params.get('id') || '';
     });
 
-    this.http.get<MoviesRepertoirePayload>(this.movieUrl).subscribe(
+    this.http.get<MoviesRepertoirePayload>(this.movieUrl).subscribe( // dodac movieId do urla
         (data: MoviesRepertoirePayload) => {
             this.moviesRepertoirePayload = data;
         });
@@ -44,7 +44,8 @@ export class MovieDetailsComponent implements OnInit {
 
     navigateToTicket(id: string) {
         console.log(this.moviesRepertoirePayload);
-        this.router.navigate(['/buy-ticket', id]);
+        // this.router.navigate(['/buy-ticket', id]);
+        this.router.navigate(['/select-ticket']);
     }
 
 }

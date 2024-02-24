@@ -4,11 +4,11 @@
         <div class="screen"></div>
 
         <div class="seats">
-            <div class="rows" *ngFor="let row of rowsArray; let rowIndex = index">
+            <div class="rows" *ngFor="let row of createRowsArray; let rowIndex = index">
                 <div class="row">
                     <div 
                     class="seat odd"
-                    *ngFor="let seat of seatsArray; let seatIndex = index"
+                    *ngFor="let seat of createSeatsArray; let seatIndex = index"
                     (click)="selectSeat(rowIndex, seatIndex)"
                     [ngClass]="{'selected': isSeatSelected(rowIndex, seatIndex)}">{{ rowIndex + 1 }} - {{ seatIndex + 1 }}
                 </div>
@@ -17,8 +17,8 @@
         </div>
 
         <div class="navigate">
-            <button>WSTECZ</button>
-            <button>DALEJ</button>
+            <button (click)="navigateToSelectTicket()">WSTECZ</button>
+            <button (click)="navigateToOrdert()">DALEJ</button>
         </div>
 
     </div>

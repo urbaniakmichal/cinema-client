@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
 import { HeaderMenuItem } from '../data-structures/objects/HeaderMenuItem';
 
 @Component({
@@ -16,7 +15,12 @@ import { HeaderMenuItem } from '../data-structures/objects/HeaderMenuItem';
 })
 export class HeaderComponent {
 
+    dropdownOpen: boolean = false;
 
+
+    toggleDropdown() {
+        this.dropdownOpen = !this.dropdownOpen;
+    }
 
 
     headerMenuItem: HeaderMenuItem[] = [

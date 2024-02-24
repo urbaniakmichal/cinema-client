@@ -51,28 +51,28 @@
           </td>
         </tr>
         <tr *ngIf="selectedHour && selectedHour.hour && selectedHour.hour.length > 0">
-          <td>Data</td>
+          <td>Godzina</td>
           <td>{{ selectedHour.hour }}</td>
         </tr>
-        <tr>
-          <td>Rodzaj biletu</td>
-          <td>Ulgowy 2D</td>
+        <tr class="ticket-type">
+          <td>Rodzaje biletów</td>
+          <td *ngFor="let ticketType of selectedTickets">
+            <span>{{ ticketType.ticket.type }} {{ ticketType.amount }}</span>
+          </td>
         </tr>
         <tr>
           <td>Ilość</td>
-          <td>1</td>
+          <td>{{ ticketAmount }}</td>
         </tr>
         <tr>
           <td>Cena biletu</td>
-          <td>22.90 zł</td>
+          <td>{{ totalTicketsPrice }}</td>
         </tr>
-        <tr>
-          <td>Opłata serwisowa</td>
-          <td>2.00 zł</td>
-        </tr>
-        <tr>
-          <td>Miejsce</td>
-          <td>Rząd 6 Miejsce 12</td>
+        <tr class="seats">
+          <td>Miejsca</td>
+          <td  *ngFor="let seat of selectedSeats">
+            <span>Rząd {{ seat.rowNumber }} Miejsce {{ seat.seatNumber }}</span>
+          </td>
         </tr>
         <tr>
           <td>POSIADASZ VOUCHER?</td>
@@ -83,7 +83,7 @@
         </tr>
         <tr>
           <td>Suma</td>
-          <td>24.90 zł</td>
+          <td>{{ totalTicketsPrice }} PLN</td>
         </tr>
       </table>
     </div>
