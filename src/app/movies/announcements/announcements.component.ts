@@ -5,25 +5,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-announcements',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
-  templateUrl: './announcements.component.html',
-  styleUrl: './announcements.component.css'
+    selector: 'app-announcements',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule
+    ],
+    templateUrl: './announcements.component.html',
+    styleUrl: './announcements.component.css'
 })
 export class AnnouncementsComponent implements OnInit {
 
-  announcementsUrl = "http://localhost:9092/api/v1/announcements/movies";
-  movieAnnouncementsPayload!: MovieAnnouncementsPayload[];
+    announcementsUrl = "http://localhost:9092/api/v1/announcements/movies";
+    movieAnnouncementsPayload!: MovieAnnouncementsPayload[];
 
 
-  constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
   
-  ngOnInit(): void {
+    ngOnInit(): void {
         this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
             (data: MovieAnnouncementsPayload[]) => {                
                 this.movieAnnouncementsPayload = data;
