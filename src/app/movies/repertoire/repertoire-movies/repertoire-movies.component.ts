@@ -5,7 +5,6 @@ import { MovieDetailsComponent } from '../../movie-details/movie-details.compone
 import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
 import { MoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
 import { MoviesRepertoireHoursPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
-import { MoviesRepertoireDaysPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
     selector: 'app-repertoire-movies',
@@ -54,11 +53,11 @@ export class RepertoireMoviesComponent implements OnInit {
         this.router.navigate(['/select-ticket']);
     }
 
-    onMovieSelect(movie: MoviesRepertoirePayload) {
+    emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload) {
         this.movieSelected.emit(movie);
     }
 
-    onHourSelect(hour: MoviesRepertoireHoursPayload) {
+    emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload) {
         this.hourSelected.emit(hour);
     }
 

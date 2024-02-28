@@ -5,9 +5,9 @@
                 <button 
                     [ngClass]="'day_' + i" 
                     [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'" 
-                    (click)="togglePressed(i)"
-                    (click)="onClick(i)"
-                    (click)="onDaySelected(day.repertoireDay)"
+                    (click)="selectDayToShowRepertoire(i)"
+                    (click)="emitEventWhatIndexOfDayClicked(i)"
+                    (click)="emitEventWhatPayloadOfDayClicked(day.repertoireDay)"
                     >
                     
                     {{ day.repertoireDay }}

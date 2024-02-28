@@ -5,14 +5,14 @@ import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/m
 import { MoviesRepertoireDaysPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
-  selector: 'app-repertoire-days',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
-  templateUrl: './repertoire-days.component.html',
-  styleUrl: './repertoire-days.component.css'
+    selector: 'app-repertoire-days',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule
+    ],
+    templateUrl: './repertoire-days.component.html',
+    styleUrl: './repertoire-days.component.css'
 })
 export class RepertoireDaysComponent implements  AfterViewInit  {
 
@@ -26,17 +26,17 @@ export class RepertoireDaysComponent implements  AfterViewInit  {
     constructor() { }
 
     ngAfterViewInit(): void {
-      this.setFirstDayAsMarkedbyDefault();
+        this.setFirstDayAsMarkedbyDefault();
     }
 
 
     setFirstDayAsMarkedbyDefault() : void {
-      this.isPressed[0] = true;
-      this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
+        this.isPressed[0] = true;
+        this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
     }
 
     
-    togglePressed(index: number) {
+    selectDayToShowRepertoire(index: number) {
         if (this.currentPressedIndex !== null) {
             this.isPressed[this.currentPressedIndex] = false;
         }
@@ -45,11 +45,11 @@ export class RepertoireDaysComponent implements  AfterViewInit  {
         this.currentPressedIndex = index; 
     }
 
-    onClick(index: number) {
-      this.buttonClicked.emit(index);
-  }
+    emitEventWhatIndexOfDayClicked(index: number) {
+        this.buttonClicked.emit(index);
+    }
 
-  onDaySelected(day: MoviesRepertoireDaysPayload) {
-    this.daySelected.emit(day);
-}
+    emitEventWhatPayloadOfDayClicked(day: MoviesRepertoireDaysPayload) {
+        this.daySelected.emit(day);
+    }
 }  

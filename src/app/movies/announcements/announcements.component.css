@@ -30,7 +30,7 @@
 }
 
 .advertisements-container ul li {
-    border: 2px solid #FF595A;
+    border: 2px solid #888;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -43,7 +43,7 @@
 
 .advertisements-container ul li .advertisements-details-title {
     padding: 10px;
-    background-color: #FF595A;
+    background-color: #00ACC1;
     color: #fff;
     font-size: 18px;
 }

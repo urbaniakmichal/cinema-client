@@ -11,16 +11,16 @@ import { RepertoireService } from './repertoire.service';
 import { MoviesRepertoireDaysPayload } from '../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
 
 @Component({
-  selector: 'app-repertoire',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    RepertoireDaysComponent,
-    RepertoireMoviesComponent
-  ],
-  templateUrl: './repertoire.component.html',
-  styleUrl: './repertoire.component.css'
+    selector: 'app-repertoire',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        RepertoireDaysComponent,
+        RepertoireMoviesComponent
+    ],
+    templateUrl: './repertoire.component.html',
+    styleUrl: './repertoire.component.css'
 })
 export class RepertoireComponent implements OnInit {
 
@@ -33,12 +33,12 @@ export class RepertoireComponent implements OnInit {
   
 
     ngOnInit(): void {
-          this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
-              (data: RootMoviesRepertoirePayload[]) => {                
-                  this.rootMoviesRepertoirePayload = data;
-                  console.log(this.rootMoviesRepertoirePayload);
-              }
-          );
+        this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
+            (data: RootMoviesRepertoirePayload[]) => {                
+                this.rootMoviesRepertoirePayload = data;
+                console.log(this.rootMoviesRepertoirePayload);
+            }
+        );
     }
 
 
@@ -47,17 +47,14 @@ export class RepertoireComponent implements OnInit {
     }
 
     onMovieSelected(movie: MoviesRepertoirePayload) {
-      this.repertoireService.setSelectedMovie(movie);
-      console.log('Selected Movie:', movie);
+        this.repertoireService.setSelectedMovie(movie);
     }
   
     onHourSelected(hour: MoviesRepertoireHoursPayload) {
-      this.repertoireService.setSelectedHour(hour);
-      console.log('Selected Hour:', hour);
+        this.repertoireService.setSelectedHour(hour);
     }
 
     onDaySelected(day: MoviesRepertoireDaysPayload) {
-      this.repertoireService.setSelectedDay(day);
-      console.log('Selected day:', day);
+        this.repertoireService.setSelectedDay(day);
     }
 }

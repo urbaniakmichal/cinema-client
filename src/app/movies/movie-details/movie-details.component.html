@@ -2,7 +2,7 @@
     <div class="movie-detail-container">
         <div class="movie-detail-title">
             <h1>{{ moviesRepertoirePayload.title }}</h1>
-            <button (click)="navigateToTicket(moviesRepertoirePayload.id)">ZAREZERWUJ</button>
+            <button (click)="navigateToTicket()">ZAREZERWUJ</button>
         </div>
         <div class="movie-detail-trailer">
             <iframe width="560" height="315" [src]="getYoutubeUrl()" frameborder="0" allowfullscreen></iframe>

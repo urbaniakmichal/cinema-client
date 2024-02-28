@@ -19,7 +19,7 @@
 
 .lorem-ipsum a {
     display: block;
-    color: #FF595A;
+    color: #888;
     text-decoration: none;
     margin-bottom: 5px;
     transition: color 0.3s;
@@ -27,4 +27,8 @@
 
 .lorem-ipsum a:hover {
     color: #fff;
+}
+
+.Lorem ipsum as title {
+    color: #C8CCCD;
 }
