@@ -1,33 +1,33 @@
 <section class="select-ticket-section">
-    <div class="select-ticket-container">
-        <div class="title">Select ticket</div>
-        <table>
-            <thead>
-                <tr>
-                <th>Type</th>
-                <th>Price</th>
-                <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let ticket of ticketsTypePayload">
-                <tr>
-                    <td>{{ ticket.type }}</td>
-                    <td>{{ ticket.price }}</td>
-                    <td>
-                        <select (change)="onSelectTicketsAmount($event, ticket)">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+  <div class="select-ticket-container">
+    <div class="title">Select ticket</div>
+    <table>
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Amount</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let ticket of ticketsTypePayload">
+      <tr>
+        <td>{{ ticket.type }}</td>
+        <td>{{ ticket.price }}</td>
+        <td>
+          <select (change)="onSelectTicketsAmount($event, ticket)">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-        <button class="btn primary" (click)="navigateToSelectSeat()">Select seat</button>
-    </div>
+    <button class="btn primary" (click)="navigateToSelectSeat()">Select seat</button>
+  </div>
 </section>
-  
+

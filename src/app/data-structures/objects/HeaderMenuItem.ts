@@ -1,4 +1,4 @@
 export interface HeaderMenuItem {
-    
-    name: string;
+
+  name: string;
 }

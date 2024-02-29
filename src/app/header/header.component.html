@@ -1,23 +1,23 @@
 <header>
-    <div class="logo spin-animation">
-        <a routerLink="/">
-            <img src="https://cdn.worldvectorlogo.com/logos/react-1.svg">
-        </a>
+  <div class="logo spin-animation">
+    <a routerLink="/">
+      <img src="https://cdn.worldvectorlogo.com/logos/react-1.svg">
+    </a>
+  </div>
+  <nav class="header-menu">
+    <ul>
+      @for (item of headerMenuItem; track item) {
+        <li>
+          <a href="#">{{ item.name }}</a>
+        </li>
+      }
+    </ul>
+  </nav>
+  <div class="dropdown" (click)="openDropdown()">
+    <button>Account</button>
+    <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
     </div>
-    <nav class="header-menu">
-        <ul>
-            @for (item of headerMenuItem; track item) {
-                <li>
-                    <a href="#">{{ item.name }}</a>
-                </li>
-            }
-        </ul>
-    </nav>
-    <div class="dropdown" (click)="openDropdown()">
-        <button>Account</button>
-        <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
-            <a routerLink="/login">Login</a>
-            <a routerLink="/register">Register</a>
-        </div>
-    </div>
+  </div>
 </header>

@@ -1,4 +1,4 @@
 export interface HeaderDropdownMenu {
-    
-    action: string;
+
+  action: string;
 }

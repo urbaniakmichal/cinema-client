@@ -1,17 +1,17 @@
 <section class="repertoire">
 
-    <app-repertoire-days 
-        [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
-        (buttonClicked)="handleButtonClick($event)" 
-        (daySelected)="onDaySelected($event)">
-    </app-repertoire-days>  
+  <app-repertoire-days
+    [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
+    (buttonClicked)="handleButtonClick($event)"
+    (daySelected)="onDaySelected($event)">
+  </app-repertoire-days>
 
-    <app-repertoire-movies 
-        [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
-        [selectedIndex]="selectedButtonIndex"
+  <app-repertoire-movies
+    [rootMoviesRepertoirePayload]="rootMoviesRepertoirePayload"
+    [selectedIndex]="selectedButtonIndex"
 
-        (movieSelected)="onMovieSelected($event)"
-        (hourSelected)="onHourSelected($event)">
-    </app-repertoire-movies>
+    (movieSelected)="onMovieSelected($event)"
+    (hourSelected)="onHourSelected($event)">
+  </app-repertoire-movies>
 
 </section>
