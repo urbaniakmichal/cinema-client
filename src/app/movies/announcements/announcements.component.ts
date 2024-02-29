@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MovieAnnouncementsPayload } from '../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-announcements',
@@ -20,7 +20,7 @@ export class AnnouncementsComponent implements OnInit {
     movieAnnouncementsPayload!: MovieAnnouncementsPayload[];
 
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
   
   ngOnInit(): void {
@@ -29,5 +29,10 @@ export class AnnouncementsComponent implements OnInit {
         this.movieAnnouncementsPayload = data;
       });
     }
+
+
+    navigateToMovieDetails(id: string) {
+      this.router.navigate(['/movie-details', id]);
+  }
 
 }

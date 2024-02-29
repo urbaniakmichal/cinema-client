@@ -1,8 +1,8 @@
 <section class="cinema-room">
     <div class="cinema-room-container">
-        
-        <div class="screen"></div>
-
+        <div class="itle">
+            Select seats
+        </div>
         <div class="seats">
             <div class="rows" *ngFor="let row of createRowsArray; let rowIndex = index">
                 <div class="row">
@@ -15,12 +15,10 @@
             </div>
             </div>
         </div>
-
         <div class="navigate">
-            <button (click)="navigateToSelectTicket()">WSTECZ</button>
-            <button (click)="navigateToOrdert()">DALEJ</button>
+            <button class="btn primary" (click)="navigateToSelectTicket()">BACK</button>
+            <button class="btn primary" (click)="navigateToOrderDetails()">NEXT</button>
         </div>
-
     </div>
   </section>
   

@@ -6,18 +6,18 @@
     width: 100%;
   }
   
+  .cinema-room-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 40px;
+    background-color: #181818;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
   .cinema-room-inner {
     width: 100%;
     max-width: 800px;
-  }
-  
-  .screen {
-    text-align: center;
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 10px;
   }
   
   .rows {
@@ -68,8 +68,4 @@
   
   .navigate {
     display: flex;
-    justify-content: space-evenly;
-    background-color: #f5821e;
-    border: 2px black solid;
-    width: 100%;
   }

@@ -73,7 +73,7 @@ export class SelectSeatComponent implements OnInit {
         this.router.navigate(['/buy-ticket']);
     }
 
-    navigateToOrdert(): void {
+    navigateToOrderDetails(): void {
         this.router.navigate(['/order']);
     }
 

@@ -13,7 +13,7 @@
             }
         </ul>
     </nav>
-    <div class="account-dropdown" (click)="openDropdown()">
+    <div class="dropdown" (click)="openDropdown()">
         <button>Account</button>
         <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
             <a routerLink="/login">Login</a>
