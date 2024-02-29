@@ -12,7 +12,6 @@ import { RepertoireMoviesComponent } from './movies/repertoire/repertoire-movies
 import { AnnouncementsComponent } from './movies/announcements/announcements.component';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
 import { SelectSeatComponent } from './ticket/select-seat/select-seat.component';
-import { OrderingTicketComponent } from './ticket/ordering-ticket/ordering-ticket.component';
 import { RepertoireDaysComponent } from './movies/repertoire/repertoire-days/repertoire-days.component';
 import { SelectTicketComponent } from './ticket/select-ticket/select-ticket.component';
 import { OrderComponent } from './order/order.component';
@@ -38,7 +37,6 @@ import { OrderComponent } from './order/order.component';
         AnnouncementsComponent,
         MovieDetailsComponent,
         SelectSeatComponent,
-        OrderingTicketComponent,
         SelectTicketComponent,
         OrderComponent
     ]

@@ -1,6 +1,7 @@
 .movie-detail-section {
     margin-top: 50px;
     margin-bottom: 50px;
+    color: #C8CCCD;
 }
 
 .movie-detail-container {
@@ -51,6 +52,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
+    padding-top: 20px;
   }
   
   .movie-detail-more-information-details {
@@ -100,13 +102,11 @@
     grid-column: span 2;
   }
   
-  /* Dodatkowe style dla wartości */
   .movie-detail-more-information-details-description > div {
     border-bottom: 1px solid #ccc;
     padding: 5px 0;
   }
   
-  /* Dodatkowe style dla kluczy */
   .movie-detail-more-information-details-description > div > div:nth-child(1) {
     font-weight: bold;
   }
