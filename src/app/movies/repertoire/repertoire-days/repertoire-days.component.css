@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #001233; /* Deep blue */
     padding: 20px;
 }
 
@@ -21,21 +20,23 @@
 }
 
 .repertoire-menu ul li button {
-    background-color: #FF595A; /* light coral red */
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
+    background-color: #181818;
+    border: 1px solid #888;
+    color: #888;
+    text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: border .4s;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 2rem;
 }
 
 .repertoire-menu ul li button:hover {
-    background-color: #FF7A5A; /* darker light coral red */
+    border: 1px solid #00acc1;
+    color: #00acc1; 
 }
 
 .repertoire-menu ul li button[aria-pressed="true"] {
-    background-color: #BFA181; /* gold */
+    border: 1px solid #00acc1;
+    color: #00acc1;
 }

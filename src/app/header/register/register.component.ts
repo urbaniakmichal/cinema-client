@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-register',
     standalone: true,
     imports: [
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css'
@@ -29,7 +31,7 @@ export class RegisterComponent {
 
     submitRegister() {
         this.httpClient
-        .post('http://localhost:9091/api/v1/user/register', this.registerForm.value)
+        .post('http://localhost:9092/api/v1/user/register', this.registerForm.value)
         .subscribe(response => {
             console.log(response);
         });   

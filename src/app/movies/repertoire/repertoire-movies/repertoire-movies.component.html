@@ -2,34 +2,37 @@
      <div class="repertoire-movies">
         <div class="movies-list" >
             <div class="movies-container" *ngFor="let movies of rootMoviesRepertoirePayload[(selectedIndex !== null ? selectedIndex : 0)].movies">
-                <div class="movies-image">
-                    <img src="{{ movies.picture }}">
+                <div class="movie">
+                    <div class="movies-image">
+                        <img src="{{ movies.picture }}">
+                    </div>
+                    <div class="movies-short-details">
+                        <div class="movies-short-details-title">
+                            <a (click)="onMovieSelect(movies)" (click)="navigateToMovieDetails(movies.id)">{{ movies.title }} + " - day index: " + {{selectedIndex}}</a>
+                        </div>
+                        <div class="movies-short-details-genre">
+                            <span>{{ movies.genre }}</span>
+                        </div>
+                        <div class="movies-short-details-type">
+                            <span>{{ movies.type }}</span>
+                        </div>
+                        <ul class="movies-short-details-hours">
+                            <li *ngFor="let hour of movies.hours"> 
+                                <a 
+                                    (click)="onMovieSelect(movies)" 
+                                    (click)="onHourSelect(hour)"                           
+                                    (click)="navigateToTicket()"
+                                    >{{ hour.hour }}
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="movies-short-details-language">
+                            <span>{{ movies.language }}</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="movies-short-details">
-                    <div class="movies-short-details-title">
-                        <a (click)="onMovieSelect(movies)" (click)="navigateToMovieDetails(movies.id)">{{ movies.title }} + " - day index: " + {{selectedIndex}}</a>
-                    </div>
-                    <div class="movies-short-details-genre">
-                        <span>{{ movies.genre }}</span>
-                    </div>
-                    <div class="movies-short-details-type">
-                        <span>{{ movies.type }}</span>
-                    </div>
-                    <ul class="movies-short-details-hours">
-                        <!--   (click)="navigateToBuyTicket(movies.id)" zamiast (click)="navigateToTicket()"-->
-                        <li *ngFor="let hour of movies.hours"> 
-                            <a 
-                                (click)="onMovieSelect(movies)" 
-                                (click)="onHourSelect(hour)"                           
-                                (click)="navigateToTicket()"
-                                >{{ hour.hour }}
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="movies-short-details-language">
-                        <span>{{ movies.language }}</span>
-                    </div>
-                </div>
+                
+                
             </div>
         </div>
     </div>

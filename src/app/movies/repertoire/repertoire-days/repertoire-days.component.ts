@@ -17,13 +17,16 @@ import { MoviesRepertoireDaysPayload } from '../../../data-structures/payloads/m
 export class RepertoireDaysComponent implements  AfterViewInit  {
 
     @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+
     @Output() buttonClicked = new EventEmitter<number>();
     @Output() daySelected: EventEmitter<MoviesRepertoireDaysPayload> = new EventEmitter<MoviesRepertoireDaysPayload>();
 
     isPressed: boolean[] = [];
-    currentPressedIndex: number | null = null;
+    currentPressedIndex!: number;
+
 
     constructor() { }
+
 
     ngAfterViewInit(): void {
       this.setFirstDayAsMarkedbyDefault();
@@ -37,19 +40,21 @@ export class RepertoireDaysComponent implements  AfterViewInit  {
 
     
     togglePressed(index: number) {
-        if (this.currentPressedIndex !== null) {
-            this.isPressed[this.currentPressedIndex] = false;
-        }
-        this.isPressed[0] = false;
-        this.isPressed[index] = true; 
-        this.currentPressedIndex = index; 
+      if (this.currentPressedIndex !== null) {
+          this.isPressed[this.currentPressedIndex] = false;
+      }
+      this.isPressed[0] = false;
+      this.isPressed[index] = true; 
+      this.currentPressedIndex = index; 
     }
 
     onClick(index: number) {
       this.buttonClicked.emit(index);
-  }
+    }
 
-  onDaySelected(day: MoviesRepertoireDaysPayload) {
-    this.daySelected.emit(day);
-}
+    onDaySelected(day: MoviesRepertoireDaysPayload) {
+      this.daySelected.emit(day);
+    }
+
+
 }  

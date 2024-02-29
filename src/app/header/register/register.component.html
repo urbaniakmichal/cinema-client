@@ -1,5 +1,4 @@
 <section class="register-container">
-
     <form class="register-form" [formGroup]="registerForm" (submit)="submitRegister()">
         <label for="name">Name</label>
         <input id="name" type="text" formControlName="name" placeholder="Enter your name">
@@ -12,13 +11,9 @@
 
         <label for="password">Password</label>
         <input id="password" type="password" formControlName="password" placeholder="Enter your password">
-
-        <label for="legal_age">
-            <input id="legal_age" type="checkbox" formControlName="legalAge">
-            I confirm that I am of legal age
-        </label>
-
+        
         <button type="submit" class="primary">Register now</button>
-    </form>
 
+        <p>Already have account? <a class="text" routerLink="/login">Sign in</a></p>
+    </form>
 </section>

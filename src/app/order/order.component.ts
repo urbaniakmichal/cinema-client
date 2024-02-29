@@ -53,10 +53,9 @@ export class OrderComponent implements OnInit {
 
   calculateTotalTicetsPrice(): number {
     let priceSum = 0;
+    
     for (const selectedTicket of this.selectedTickets) {
-      const price = parseFloat(selectedTicket.ticket.price);
-      const amount = selectedTicket.amount;
-      priceSum += price * amount;
+      priceSum += parseFloat(selectedTicket.ticket.price) * selectedTicket.amount;
     }
 
     return priceSum;

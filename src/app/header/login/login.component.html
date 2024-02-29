@@ -1,13 +1,22 @@
-<section class="login-container">
+<section class="login-container"> 
+    <div>
+        <form class="login-form" [formGroup]="loginForm" (submit)="submitLogin()">
+            <div class="hello_xd">
+                Welcome back!
+            </div> 
 
-    <form class="login-form" [formGroup]="loginForm" (submit)="submitLogin()">
-       <label for="email">Email</label>
-       <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+     
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+     
+            <button type="submit" class="primary">Login</button>
 
-       <label for="password">Password</label>
-       <input id="password" type="password" formControlName="password" placeholder="Enter your password">
-
-       <button type="submit" class="primary">Login</button>
-   </form>
-
+            <div class="navigation-container">
+                <a class="text"  routerLink="/restore">Forgot your password</a>
+                <a class="text" routerLink="/register">Sign up for a new account</a>
+            </div>
+        </form>    
+    </div>
 </section>

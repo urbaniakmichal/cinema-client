@@ -24,12 +24,10 @@ export class AnnouncementsComponent implements OnInit {
 
   
   ngOnInit(): void {
-        this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
-            (data: MovieAnnouncementsPayload[]) => {                
-                this.movieAnnouncementsPayload = data;
-                console.log(this.movieAnnouncementsPayload);
-            }
-        );
-  }
+    this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
+      (data: MovieAnnouncementsPayload[]) => {
+        this.movieAnnouncementsPayload = data;
+      });
+    }
 
 }

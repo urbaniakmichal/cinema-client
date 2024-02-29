@@ -1,19 +1,9 @@
-/* Global styles for the whole application */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #CAC0B3; /* beige */
-    color: #001233; /* Deep blue */
-}
-
 header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 20px;
-    background: #001233; /* Deep blue */
-    border-bottom: 2px solid #FF595A; /* light coral red */
+    border-bottom: 1px solid #00acc1; 
     position: relative;
 }
 
@@ -39,18 +29,22 @@ header {
 }
 
 .header-menu ul li a {
-    color: #FF595A; /* light coral red */
+    border: 1px solid #888;
+    color: #888;
     text-decoration: none;
-    font-size: 18px;
-    font-weight: 500;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: color 0.3s, background-color 0.3s;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: border .4s;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 2rem;
 }
 
 .header-menu ul li a:hover {
-    color: #fff;
-    background-color: #FF595A; /* light coral red */
+    border: 2px solid #00acc1;
+    background: #1399ad;
+    color: #0f0f0f;
 }
 
 .account-dropdown {
@@ -58,19 +52,19 @@ header {
 }
 
 .account-dropdown button {
-    background-color: #FF595A; /* light coral red */
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 20px;
+    border: 2px solid #cdcdcd;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 2rem;
     cursor: pointer;
-    transition: background-color 0.3s;
+    color: #cdcdcd;
+    background-color: #181818;
 }
 
 .account-dropdown button:hover {
-    background-color: #FF7A5A; /* darker light coral red */
+    border: 2px solid #00acc1;
+    background: #1399ad;
+    color: #0f0f0f;
 }
 
 .dropdown-content {
@@ -78,15 +72,13 @@ header {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #CAC0B3; /* beige */
-    border: 1px solid #FF595A; /* light coral red */
-    border-radius: 5px;
+    background-color: #1c1c1c;
     z-index: 1;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-content a {
-    color: #001233; /* Deep blue */
+    color: #cdcdcd;
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
@@ -96,8 +88,7 @@ header {
 }
 
 .dropdown-content a:hover {
-    color: #fff;
-    background-color: #FF595A; /* light coral red */
+    color: #00acc1;
 }
 
 .show {
