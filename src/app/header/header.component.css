@@ -1,9 +1,18 @@
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
 header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 20px;
-    background: #001233; 
+    border-bottom: 1px solid #00acc1; 
     position: relative;
 }
 
@@ -29,25 +38,22 @@ header {
 }
 
 .header-menu ul li a {
+    border: 1px solid #888;
+    color: #888;
     text-decoration: none;
-    color: #C8CCCD;
-    padding: 0.4rem 1.5rem;
-    font-size: 1.2rem;
-    height: 3rem;
-}
-
-.header-menu ul li a:hover {
-    color: #fff;
-    background-color: #00ACC1; 
-
-  
-    border: 2px solid #cdcdcd;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: border .4s;
     padding: 0.4rem 1.5rem;
     font-size: 1.2rem;
     border-radius: 2rem;
-    cursor: pointer;
+}
 
-    height: 3rem;
+.header-menu ul li a:hover {
+    border: 2px solid #00acc1;
+    background: #1399ad;
+    color: #0f0f0f;
 }
 
 .account-dropdown {
@@ -55,20 +61,19 @@ header {
 }
 
 .account-dropdown button {
-    background-color: #391428; 
-    color: #C8CCCD;
     border: 2px solid #cdcdcd;
     padding: 0.4rem 1.5rem;
     font-size: 1.2rem;
     border-radius: 2rem;
     cursor: pointer;
-    display: inline-block;
-    height: 3rem;
-
+    color: #cdcdcd;
+    background-color: #181818;
 }
 
 .account-dropdown button:hover {
-    background-color: #00ACC1; 
+    border: 2px solid #00acc1;
+    background: #1399ad;
+    color: #0f0f0f;
 }
 
 .dropdown-content {
@@ -76,15 +81,13 @@ header {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #CAC0B3; 
-    border: 1px solid #FF595A; 
-    border-radius: 5px;
+    background-color: #1c1c1c;
     z-index: 1;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .dropdown-content a {
-    color: #001233; 
+    color: #cdcdcd;
     text-decoration: none;
     font-size: 16px;
     font-weight: 500;
@@ -94,10 +97,13 @@ header {
 }
 
 .dropdown-content a:hover {
-    color: #fff;
-    background-color: #FF595A; 
+    color: #00acc1;
 }
 
 .show {
     display: block;
 }
+
+.spin-animation {
+    animation: spin 2s linear infinite;
+  }

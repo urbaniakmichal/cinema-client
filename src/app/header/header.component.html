@@ -1,7 +1,7 @@
 <header>
-    <div class="logo">
+    <div class="logo spin-animation">
         <a routerLink="/">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/800px-Angular_full_color_logo.svg.png">
+            <img src="https://cdn.worldvectorlogo.com/logos/react-1.svg">
         </a>
     </div>
     <nav class="header-menu">
@@ -13,7 +13,7 @@
             }
         </ul>
     </nav>
-    <div class="account-dropdown" (click)="toggleDropdown()">
+    <div class="account-dropdown" (click)="openDropdown()">
         <button>Account</button>
         <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
             <a routerLink="/login">Login</a>

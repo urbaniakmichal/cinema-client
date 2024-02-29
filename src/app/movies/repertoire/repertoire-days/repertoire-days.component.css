@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #001233;
     padding: 20px;
 }
 
@@ -21,25 +20,23 @@
 }
 
 .repertoire-menu ul li button {
-    border: 1px solid #00acc1;
-    color: #888;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
     background-color: #181818;
+    border: 1px solid #888;
+    color: #888;
+    text-decoration: none;
     cursor: pointer;
     transition: border .4s;
-    cursor: pointer;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
+    padding: 0.4rem 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 2rem;
 }
 
 .repertoire-menu ul li button:hover {
     border: 1px solid #00acc1;
-    color: #00acc1;
+    color: #00acc1; 
 }
 
 .repertoire-menu ul li button[aria-pressed="true"] {
-    border: 1px solid #C8CCCD;
-    color: #C8CCCD;
+    border: 1px solid #00acc1;
+    color: #00acc1;
 }

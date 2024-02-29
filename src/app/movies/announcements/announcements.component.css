@@ -1,7 +1,7 @@
 .advertisements-section {
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 100px;
     background: #000000;
 }
 
@@ -30,8 +30,8 @@
 }
 
 .advertisements-container ul li {
-    border: 2px solid #888;
-    border-radius: 5px;
+    border: 1px solid #888;
+    border-radius: 0.5rem;
     overflow: hidden;
 }
 
@@ -43,7 +43,10 @@
 
 .advertisements-container ul li .advertisements-details-title {
     padding: 10px;
-    background-color: #00ACC1;
-    color: #fff;
+    background-color: #181818;
+    border: 1px solid #888;
+    color: #888;
     font-size: 18px;
 }
+
+

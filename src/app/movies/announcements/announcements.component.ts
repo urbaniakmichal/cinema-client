@@ -23,13 +23,11 @@ export class AnnouncementsComponent implements OnInit {
     constructor(private http: HttpClient) {}
 
   
-    ngOnInit(): void {
-        this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
-            (data: MovieAnnouncementsPayload[]) => {                
-                this.movieAnnouncementsPayload = data;
-                console.log(this.movieAnnouncementsPayload);
-            }
-        );
-  }
+  ngOnInit(): void {
+    this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
+      (data: MovieAnnouncementsPayload[]) => {
+        this.movieAnnouncementsPayload = data;
+      });
+    }
 
 }

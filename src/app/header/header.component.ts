@@ -18,7 +18,7 @@ export class HeaderComponent {
     dropdownOpen: boolean = false;
 
 
-    toggleDropdown() {
+    openDropdown() {
         this.dropdownOpen = !this.dropdownOpen;
     }
 
