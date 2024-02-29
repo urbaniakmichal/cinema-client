@@ -1,7 +1,7 @@
 <section class="login-container"> 
     <div>
-        <form class="login-form" [formGroup]="loginForm" (submit)="submitLogin()">
-            <div class="hello_xd">
+        <form class="form" [formGroup]="loginForm" (submit)="submitLogin()">
+            <div class="title">
                 Welcome back!
             </div> 
 
@@ -11,7 +11,7 @@
             <label for="password">Password</label>
             <input id="password" type="password" formControlName="password" placeholder="Enter your password">
      
-            <button type="submit" class="primary">Login</button>
+            <button type="submit" class="btn primary">Login</button>
 
             <div class="navigation-container">
                 <span>Forgot password? <a class="text" routerLink="/restore">Click in</a></span>

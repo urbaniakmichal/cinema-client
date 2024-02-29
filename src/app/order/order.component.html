@@ -1,96 +1,71 @@
 <section class="order-section">
-    <form class="order-form">
-      <div class="form-group">
-        <label for="firstName">*IMIĘ</label>
-        <input type="text" id="firstName" name="firstName" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="lastName">*NAZWISKO</label>
-        <input type="text" id="lastName" name="lastName" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="email">*E-MAIL</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="repeatEmail">*POWTÓRZ EMAIL</label>
-        <input type="email" id="repeatEmail" name="repeatEmail" required>
-      </div>
-  
-      <div class="form-group">
-        <label for="phoneNumber">NUMER TELEFONU</label>
-        <input type="tel" id="phoneNumber" name="phoneNumber">
-        <span class="required-field">* = Pola wymagane</span>
-      </div>
-  
-      <div class="button-group">
-        <button type="button" class="back-button">WSTECZ</button>
-        <button type="button" class="next-button">DALEJ</button>
-      </div>
-    </form>
-  
-    <div class="order-details">
-      <table>
-        <tr>
-          <td>Movie title</td>
-          <td>{{ selectedMovie?.title }}</td>
-        </tr>
-        <tr>
-          <td>Data</td>
-          <td>{{ selectedDay }}</td>
-        </tr>
-        <tr *ngIf="!selectedHour || !selectedHour.hour || selectedHour.hour.length === 0">
-          <td>Godzina</td>
-          <td>
-            <select (change)="selectedHour">
-              <option *ngFor="let hour of selectedMovie?.hours" [ngValue]="hour">{{ hour.hour }}</option>
-            </select>
-          </td>
-        </tr>
-        <tr *ngIf="selectedHour && selectedHour.hour && selectedHour.hour.length > 0">
-          <td>Godzina</td>
-          <td>{{ selectedHour.hour }}</td>
-        </tr>
-        <tr class="ticket-type">
-          <td>Rodzaje biletów</td>
-          <td *ngFor="let ticketType of selectedTickets">
-            <span>{{ ticketType.ticket.type }} {{ ticketType.amount }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>Ilość</td>
-          <td>{{ ticketAmount }}</td>
-        </tr>
-        <tr>
-          <td>Cena biletu</td>
-          <td>{{ totalTicketsPrice }}</td>
-        </tr>
-        <tr class="seats">
-          <td>Miejsca</td>
-          <td  *ngFor="let seat of selectedSeats">
-            <span>Rząd {{ seat.rowNumber }} Miejsce {{ seat.seatNumber }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>POSIADASZ VOUCHER?</td>
-          <td>
-            <input type="text" id="voucher" name="voucher">
-            <button type="button" id="addVoucher">DODAJ KOD</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Suma</td>
-          <td>{{ totalTicketsPrice }} PLN</td>
-        </tr>
-      </table>
+    <div class="order-form-container">
+        <div class="title">
+            Summary
+        </div> 
+
+        <table>
+            <tr>
+                <td>Movie title</td>
+                <td>{{ selectedMovie?.title }}</td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td>{{ selectedDay }}</td>
+            </tr>
+            <tr *ngIf="!selectedHour || !selectedHour.hour || selectedHour.hour.length === 0">
+                <td>Hour</td>
+                <td>
+                    <select (change)="selectedHour">
+                        <option *ngFor="let hour of selectedMovie?.hours" [ngValue]="hour">{{ hour.hour }}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr *ngIf="selectedHour && selectedHour.hour && selectedHour.hour.length > 0">
+                <td>Hour</td>
+                <td>{{ selectedHour.hour }}</td>
+            </tr>
+            <tr class="ticket-type">
+                <td>Ticket type</td>
+                <td *ngFor="let ticketType of selectedTickets">
+                <span>{{ ticketType.ticket.type }} {{ ticketType.amount }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Amount</td>
+                <td>{{ ticketAmount }}</td>
+            </tr>
+            <tr>
+                <td>Ticket price</td>
+                <td>{{ totalTicketsPrice }}</td>
+            </tr>
+            <tr class="seats">
+                <td>Seats</td>
+                <td  *ngFor="let seat of selectedSeats">
+                <span>Rows {{ seat.rowNumber }} Seat {{ seat.seatNumber }}</span>
+                </td>
+            </tr>
+            <tr class="voucher">
+                <td>Do you have a voucher?</td>
+                <td>
+                <input type="text" id="voucher" name="voucher">
+                <button class="btn primary" type="button" id="addVoucher">Add code</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Total price</td>
+                <td>{{ totalTicketsPrice }} PLN</td>
+            </tr>
+        </table>
+
+        <div class="checkbox-bottom-container">
+            <input type="checkbox" id="agreement" name="agreement" required>
+            <label for="agreement">I have read and accept <a href="#" class="orange-link">Rules and regulations for online ticket purchasing</a> and I have taken note of <a href="#" class="orange-link">Privacy Policy</a>.</label>
+        </div>
     </div>
-  </section>
-  
-  <div class="checkbox-group">
-    <input type="checkbox" id="agreement" name="agreement" required>
-    <label for="agreement">Przeczytałam(em) i akceptuję <a href="#" class="orange-link">Regulamin zakupu biletów on-line</a> oraz zapoznałam(em) się z <a href="#" class="orange-link">Polityką prywatności</a>.</label>
-  </div>
-  
+
+    <div class="button-group">
+        <button type="button" class="btn primary" (click)="navigateToSelectSeat()">BACK</button>
+        <button type="button" class="btn primary" (click)="navigateToThirdPartPayment()">NEXT</button>
+    </div>
+</section>

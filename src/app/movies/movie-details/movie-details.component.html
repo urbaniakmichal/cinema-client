@@ -2,7 +2,7 @@
     <div class="movie-detail-container">
         <div class="movie-detail-title">
             <h1>{{ moviesRepertoirePayload.title }}</h1>
-            <button (click)="navigateToTicket()">ZAREZERWUJ</button>
+            <button (click)="navigateToTicket()">RESERVE</button>
         </div>
         <div class="movie-detail-trailer">
             <iframe width="560" height="315" [src]="getYoutubeUrl()" frameborder="0" allowfullscreen></iframe>
@@ -24,31 +24,31 @@
                 </div>
                 <div>
                     <div>
-                        <div>TYTUŁ ORYGINALNY:</div>
+                        <div>ORIGINAL TITLE:</div>
                         <div>{{ moviesRepertoirePayload.title }}</div>
                     </div>
                     <div>
-                        <div>GATUNEK FILMU:</div>
+                        <div>FILM GENRE:</div>
                         <div>{{ moviesRepertoirePayload.genre }}</div>
                     </div>
                     <div>
-                        <div>OBSADA:</div>
+                        <div>STARRING:</div>
                         <div>{{ moviesRepertoirePayload.cast }}</div>
                     </div>
                     <div>
-                        <div>REŻYSER:</div>
+                        <div>DIRECTOR:</div>
                         <div>{{ moviesRepertoirePayload.director }}</div>
                     </div>
                     <div>
-                        <div>PRODUKCJA:</div>
+                        <div>PRODUCTION:</div>
                         <div>{{ moviesRepertoirePayload.production }}</div>
                     </div>
                     <div>
-                        <div>JĘZYK ORYGINALNY:</div>
+                        <div>ORIGINAL LANGUAGE:</div>
                         <div>{{ moviesRepertoirePayload.language }}</div>
                     </div>
                     <div>
-                        <div>TEN FILM GRAMY W:</div>
+                        <div>THIS FILM PLAYS IN:</div>
                         <div>{{ moviesRepertoirePayload.type }}</div>
                     </div>
                 </div>

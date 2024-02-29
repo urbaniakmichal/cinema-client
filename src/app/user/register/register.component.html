@@ -1,6 +1,6 @@
 <section class="register-container">
-    <form class="register-form" [formGroup]="registerForm" (submit)="submitRegister()">
-        <div class="register-title">
+    <form class="form" [formGroup]="registerForm" (submit)="submitRegister()">
+        <div class="title">
             Register new account
         </div> 
 
@@ -16,7 +16,7 @@
         <label for="password">Password</label>
         <input id="password" type="password" formControlName="password" placeholder="Enter your password">
         
-        <button type="submit" class="primary">Register now</button>
+        <button type="submit" class="btn primary">Register now</button>
 
         <div class="navigation-container">
             <span>Already have account? <a class="text" routerLink="/login">Sign in</a></span>

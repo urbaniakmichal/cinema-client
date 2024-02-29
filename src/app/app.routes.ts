@@ -6,8 +6,9 @@ import { MovieDetailsComponent } from './movies/movie-details/movie-details.comp
 import { TicketComponent } from './ticket/ticket.component';
 import { SelectSeatComponent } from './ticket/select-seat/select-seat.component';
 import { SelectTicketComponent } from './ticket/select-ticket/select-ticket.component';
-import { OrderComponent } from './order/order.component';
 import { RestorePasswordComponent } from './user/restore-password/restore-password.component';
+import { OrderComponent } from './order/order.component';
+import { PaymentComponent } from './payment/payment/payment.component';
 
 export const routes: Routes = [
     { 
@@ -42,10 +43,6 @@ export const routes: Routes = [
     {
         path:'select-seat',
         component: SelectSeatComponent
-    }, 
-    {
-        path:'order',
-        component: OrderComponent
     },
     {
         path: 'buy-ticket',
@@ -54,7 +51,14 @@ export const routes: Routes = [
     {
         path: 'select-ticket',
         component: SelectTicketComponent
+    },
+    {
+        path:'order',
+        component: OrderComponent
+    },
+    {
+        path:'payment',
+        component: PaymentComponent
     }
-    
 
 ];
