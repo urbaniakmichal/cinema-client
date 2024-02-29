@@ -1,14 +1,13 @@
-.restore-container {
+.login-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 100px 0 100px 0;
     background-color: #000000;
     color: #888;
     font-size: 15px;
 }
 
-.restore-form {
+.login-form {
     max-width: 400px;
     width: 100%;
     padding: 40px;
@@ -17,13 +16,13 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.restore-form label {
+.login-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
 }
 
-.restore-form input {
+.login-form input {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -33,7 +32,7 @@
     border: 0 solid #cecece;
 }
 
-.restore-form button {
+.login-form button {
     color: #0f0f0f;
     font-weight: 500;
     padding: 0.75rem 1.5rem;
@@ -46,10 +45,17 @@
     margin-top: 25px;
 }
 
-.restore-form button:hover {
+.login-form button:hover {
     color: #0f0f0f !important;
     background: #18c1db;
     border-color: #00d9f4;
+}
+
+.hello_xd {
+    font-size: 2.3rem;
+    color: #ececec;
+    font-weight: 400;
+    margin-bottom: 25px;
 }
 
 .text {
@@ -63,15 +69,4 @@
     display: flex;
     flex-direction: column;
     margin-top: 25px;
-}
-
-.forgot_password {
-    font-size: 2.3rem;
-    color: #ececec;
-    font-weight: 400;
-    margin-bottom: 25px;
-}
-
-.forgot_password_description {
-    margin-bottom: 25px;
 }

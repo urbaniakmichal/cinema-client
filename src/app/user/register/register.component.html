@@ -1,5 +1,9 @@
 <section class="register-container">
     <form class="register-form" [formGroup]="registerForm" (submit)="submitRegister()">
+        <div class="register-title">
+            Register new account
+        </div> 
+
         <label for="name">Name</label>
         <input id="name" type="text" formControlName="name" placeholder="Enter your name">
 
@@ -14,6 +18,8 @@
         
         <button type="submit" class="primary">Register now</button>
 
-        <p>Already have account? <a class="text" routerLink="/login">Sign in</a></p>
+        <div class="navigation-container">
+            <span>Already have account? <a class="text" routerLink="/login">Sign in</a></span>
+        </div>
     </form>
 </section>
