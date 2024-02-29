@@ -1,64 +1,68 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { MovieDetailsComponent } from '../../movie-details/movie-details.component';
-import { RootMoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload';
-import { MoviesRepertoirePayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
-import { MoviesRepertoireHoursPayload } from '../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
+import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Router, RouterModule } from "@angular/router";
+import { MovieDetailsComponent } from "../../movie-details/movie-details.component";
+import {
+  RootMoviesRepertoirePayload
+} from "../../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload";
+import { MoviesRepertoirePayload } from "../../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload";
+import {
+  MoviesRepertoireHoursPayload
+} from "../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
 
 @Component({
-    selector: 'app-repertoire-movies',
-    standalone: true,
-    templateUrl: './repertoire-movies.component.html',
-    styleUrl: './repertoire-movies.component.css',
-    imports: [
-        CommonModule,
-        RouterModule,
-        MovieDetailsComponent
-    ]
+  selector: "app-repertoire-movies",
+  standalone: true,
+  templateUrl: "./repertoire-movies.component.html",
+  styleUrl: "./repertoire-movies.component.scss",
+  imports: [
+    CommonModule,
+    RouterModule,
+    MovieDetailsComponent
+  ]
 })
 export class RepertoireMoviesComponent implements OnInit {
 
-    @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
-    @Input() selectedIndex: number | null = null;
+  @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+  @Input() selectedIndex: number | null = null;
 
-    @Output() movieSelected: EventEmitter<MoviesRepertoirePayload> = new EventEmitter<MoviesRepertoirePayload>();
-    @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
+  @Output() movieSelected: EventEmitter<MoviesRepertoirePayload> = new EventEmitter<MoviesRepertoirePayload>();
+  @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
 
 
+  constructor(private router: Router) {
+  }
 
-    constructor(private router: Router) {}
 
-    
-    ngOnInit(): void {
-        this.setFirstDateAsSelected();
+  ngOnInit(): void {
+    this.setFirstDateAsSelected();
+  }
+
+
+  setFirstDateAsSelected(): void {
+    if (this.selectedIndex === null) {
+      this.selectedIndex = 0;
     }
+  }
 
+  navigateToMovieDetails(id: string) {
+    this.router.navigate(["/movie-details", id]);
+  }
 
-    setFirstDateAsSelected(): void {
-        if (this.selectedIndex === null) {
-            this.selectedIndex = 0;
-        }
-    }
+  navigateToBuyTicket(id: string) {
+    this.router.navigate(["/buy-ticket", id]);
+  }
 
-    navigateToMovieDetails(id: string) {
-        this.router.navigate(['/movie-details', id]);
-    }
+  navigateToTicket() {
+    this.router.navigate(["/select-ticket"]);
+  }
 
-    navigateToBuyTicket(id: string) {
-        this.router.navigate(['/buy-ticket', id]);
-    }
+  emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload) {
+    this.movieSelected.emit(movie);
+  }
 
-    navigateToTicket() {
-        this.router.navigate(['/select-ticket']);
-    }
-
-    emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload) {
-        this.movieSelected.emit(movie);
-    }
-
-    emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload) {
-        this.hourSelected.emit(hour);
-    }
+  emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload) {
+    this.hourSelected.emit(hour);
+  }
 
 }

@@ -1,5 +1,5 @@
 export interface AuditoriumPayload {
 
-    rows: number,
-    seats: number;
+  rows: number,
+  seats: number;
 }

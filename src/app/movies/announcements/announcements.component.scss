@@ -1,0 +1,53 @@
+.advertisements-section {
+  display: flex;
+  justify-content: center;
+  padding: 100px;
+  background: #000000;
+}
+
+.advertisements-container {
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+}
+
+.advertisements-container-name {
+  display: block;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.advertisements-container ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.advertisements-container ul li {
+  border: 1px solid #888;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.advertisements-container ul li img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.advertisements-container ul li .advertisements-details-title {
+  padding: 10px;
+  background-color: #181818;
+  border: 1px solid #888;
+  color: #888;
+  font-size: 18px;
+}
+
+

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { MoviesRepertoireDaysPayload } from '../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload';
-import { MoviesRepertoireHoursPayload } from '../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload';
-import { MoviesRepertoirePayload } from '../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload';
-import { RepertoireService } from '../movies/repertoire/repertoire.service';
-import { SelectSeatService } from '../ticket/select-seat/select-seat.service';
-import { SelectTicketService } from '../ticket/select-ticket/select-ticket.service';
-import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TicketsTypePayload } from '../data-structures/payloads/tickets/TicketsTypePayload';
-import { Router, RouterModule } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { MoviesRepertoireDaysPayload } from "../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
+import {
+  MoviesRepertoireHoursPayload
+} from "../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
+import { MoviesRepertoirePayload } from "../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload";
+import { RepertoireService } from "../movies/repertoire/repertoire.service";
+import { SelectSeatService } from "../ticket/select-seat/select-seat.service";
+import { SelectTicketService } from "../ticket/select-ticket/select-ticket.service";
+import { CommonModule } from "@angular/common";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TicketsTypePayload } from "../data-structures/payloads/tickets/TicketsTypePayload";
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
-  selector: 'app-order',
+  selector: "app-order",
   standalone: true,
   imports: [
     CommonModule,
@@ -19,8 +21,8 @@ import { Router, RouterModule } from '@angular/router';
     ReactiveFormsModule,
     RouterModule
   ],
-  templateUrl: './order.component.html',
-  styleUrl: './order.component.css'
+  templateUrl: "./order.component.html",
+  styleUrl: "./order.component.scss"
 })
 export class OrderComponent implements OnInit {
 
@@ -32,7 +34,8 @@ export class OrderComponent implements OnInit {
   ticketAmount!: number;
   totalTicketsPrice!: number;
 
-  constructor(private router: Router, private repertoireService: RepertoireService, private selectSeatService: SelectSeatService, private selectTicketService: SelectTicketService) { }
+  constructor(private router: Router, private repertoireService: RepertoireService, private selectSeatService: SelectSeatService, private selectTicketService: SelectTicketService) {
+  }
 
 
   ngOnInit(): void {
@@ -54,7 +57,6 @@ export class OrderComponent implements OnInit {
   }
 
 
-
   calculateTotalTicetsPrice(): number {
     let priceSum = 0;
     for (const selectedTicket of this.selectedTickets) {
@@ -67,12 +69,12 @@ export class OrderComponent implements OnInit {
   }
 
   navigateToThirdPartPayment(): void {
-    window.location.href = 'https://www.paymentwall.com/uploaded/files/PW20_methods.png';
+    window.location.href = "https://www.paymentwall.com/uploaded/files/PW20_methods.png";
     // this.router.navigate(['/payment']);
-}
+  }
 
-  navigateToSelectSeat(): void  {
-    this.router.navigate(['/select-seat']);
+  navigateToSelectSeat(): void {
+    this.router.navigate(["/select-seat"]);
   }
 
 }

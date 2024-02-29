@@ -1,5 +1,5 @@
 export interface MoviesRepertoireHoursPayload {
-    
-    id: string;
-    hour: string;
+
+  id: string;
+  hour: string;
 }

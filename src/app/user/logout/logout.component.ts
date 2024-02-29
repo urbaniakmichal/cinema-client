@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.css'
+  styleUrl: './logout.component.scss'
 })
 export class LogoutComponent {
 

@@ -1,25 +1,25 @@
 <section class="register-container">
-    <form class="form" [formGroup]="registerForm" (submit)="submitRegister()">
-        <div class="title">
-            Register new account
-        </div> 
+  <form class="form" [formGroup]="registerForm" (submit)="submitRegister()">
+    <div class="title">
+      Register new account
+    </div>
 
-        <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name" placeholder="Enter your name">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name" placeholder="Enter your name">
 
-        <label for="surname">Surname</label>
-        <input id="surname" type="text" formControlName="surname" placeholder="Enter your surname">
+    <label for="surname">Surname</label>
+    <input id="surname" type="text" formControlName="surname" placeholder="Enter your surname">
 
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" placeholder="Enter your email">
 
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Enter your password">
-        
-        <button type="submit" class="btn primary">Register now</button>
+    <label for="password">Password</label>
+    <input id="password" type="password" formControlName="password" placeholder="Enter your password">
 
-        <div class="navigation-container">
-            <span>Already have account? <a class="text" routerLink="/login">Sign in</a></span>
-        </div>
-    </form>
+    <button type="submit" class="btn primary">Register now</button>
+
+    <div class="navigation-container">
+      <span>Already have account? <a class="text" routerLink="/login">Sign in</a></span>
+    </div>
+  </form>
 </section>

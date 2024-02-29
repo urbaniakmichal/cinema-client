@@ -1,22 +1,22 @@
-<section class="login-container"> 
-    <div>
-        <form class="form" [formGroup]="loginForm" (submit)="submitLogin()">
-            <div class="title">
-                Welcome back!
-            </div> 
+<section class="login-container">
+  <div>
+    <form class="form" [formGroup]="loginForm" (submit)="submitLogin()">
+      <div class="title">
+        Welcome back!
+      </div>
 
-            <label for="email">Email</label>
-            <input id="email" type="email" formControlName="email" placeholder="Enter your email">
-     
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password" placeholder="Enter your password">
-     
-            <button type="submit" class="btn primary">Login</button>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="Enter your email">
 
-            <div class="navigation-container">
-                <span>Forgot password? <a class="text" routerLink="/restore">Click in</a></span>
-                <span>New account? <a class="text" routerLink="/register">Sign up</a></span>
-            </div>
-        </form>    
-    </div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+
+      <button type="submit" class="btn primary">Login</button>
+
+      <div class="navigation-container">
+        <span>Forgot password? <a class="text" routerLink="/restore">Click in</a></span>
+        <span>New account? <a class="text" routerLink="/register">Sign up</a></span>
+      </div>
+    </form>
+  </div>
 </section>

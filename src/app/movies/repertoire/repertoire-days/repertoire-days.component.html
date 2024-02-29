@@ -1,18 +1,18 @@
 <section class="repertoire">
-    <nav class="repertoire-menu">
-        <ul>
-            <li *ngFor="let day of rootMoviesRepertoirePayload; let i = index">
-                <button 
-                    [ngClass]="'day_' + i" 
-                    [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'" 
-                    (click)="selectDayToShowRepertoire(i)"
-                    (click)="emitEventWhatIndexOfDayClicked(i)"
-                    (click)="emitEventWhatPayloadOfDayClicked(day.repertoireDay)"
-                    >
-                    
-                    {{ day.repertoireDay }}
-                </button>
-              </li>
-        </ul>
-    </nav>
+  <nav class="repertoire-menu">
+    <ul>
+      <li *ngFor="let day of rootMoviesRepertoirePayload; let i = index">
+        <button
+          [ngClass]="'day_' + i"
+          [attr.aria-pressed]="isPressed[i] ? 'true' : 'false'"
+          (click)="selectDayToShowRepertoire(i)"
+          (click)="emitEventWhatIndexOfDayClicked(i)"
+          (click)="emitEventWhatPayloadOfDayClicked(day.repertoireDay)"
+        >
+
+          {{ day.repertoireDay }}
+        </button>
+      </li>
+    </ul>
+  </nav>
 </section>
