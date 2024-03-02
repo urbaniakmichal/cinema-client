@@ -1,7 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import '../node_modules/primeng/resources/primeng.min.css';
-@import '../node_modules/primeng/resources/themes/nova-light/theme.css';
-@import '../node_modules/primeicons/primeicons.css';

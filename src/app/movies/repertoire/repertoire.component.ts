@@ -1,44 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { MoviesRepertoirePayload } from '../../data-structures/MoviesRepertoirePayloadInterface';
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { RepertoireMenuComponent } from './repertoire-menu/repertoire-menu.component';
-import { RepertoireMoviesComponent } from './repertoire-movies/repertoire-movies.component';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { RepertoireMoviesComponent } from "./repertoire-movies/repertoire-movies.component";
+import {
+  RootMoviesRepertoirePayload
+} from "../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload";
+import { RepertoireDaysComponent } from "./repertoire-days/repertoire-days.component";
+import { MoviesRepertoirePayload } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload";
+import {
+  MoviesRepertoireHoursPayload
+} from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
+import { RepertoireService } from "./repertoire.service";
+import {
+  MoviesRepertoireDaysPayload
+} from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
-  selector: 'app-repertoire',
+  selector: "app-repertoire",
   standalone: true,
   imports: [
     CommonModule,
     RouterModule,
-    RepertoireMenuComponent,
+    RepertoireDaysComponent,
     RepertoireMoviesComponent
   ],
-  templateUrl: './repertoire.component.html',
-  styleUrl: './repertoire.component.css'
+  templateUrl: "./repertoire.component.html"
 })
 export class RepertoireComponent implements OnInit {
 
-    moviesRepertoireUrl = "http://localhost:9091/api/v1/repertoire/movies";
-    moviesRepertoirePayload!: MoviesRepertoirePayload[];
-  
-    selectedButtonIndex: number | null = null;
-
-  
-    constructor(private http: HttpClient) {}
-  
-    ngOnInit(): void {
-          this.http.get<MoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
-              (data: MoviesRepertoirePayload[]) => {                
-                  this.moviesRepertoirePayload = data;
-                  console.log(this.moviesRepertoirePayload);
-              }
-          );
-    }
+  rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+  repertoireDay!: MoviesRepertoireDaysPayload;
+  selectedButtonIndex: number | null = null;
 
 
-    handleButtonClick(index: number) {
-        this.selectedButtonIndex = index;
-    }
+  constructor(private http: HttpClient, private repertoireService: RepertoireService) {
+  }
+
+
+  ngOnInit(): void {
+    this.http
+      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
+      .subscribe({
+        next: responseData => this.rootMoviesRepertoirePayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.error("Observable completed")
+      });
+  }
+
+
+  handleButtonClick(index: number) {
+    this.selectedButtonIndex = index;
+  }
+
+  onMovieSelected(movie: MoviesRepertoirePayload) {
+    this.repertoireService.setSelectedMovie(movie);
+  }
+
+  onHourSelected(hour: MoviesRepertoireHoursPayload) {
+    this.repertoireService.setSelectedHour(hour);
+  }
+
+  onDaySelected(day: MoviesRepertoireDaysPayload) {
+    this.repertoireService.setSelectedDay(day);
+  }
 }

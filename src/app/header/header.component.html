@@ -1,23 +1,23 @@
 <header>
-    <div class="logo">
-        <a routerLink="/">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/800px-Angular_full_color_logo.svg.png">
-        </a>
+  <div class="logo spin-animation">
+    <a routerLink="/">
+      <img src="https://cdn.worldvectorlogo.com/logos/react-1.svg">
+    </a>
+  </div>
+  <nav class="header-menu">
+    <ul>
+      @for (item of headerMenuItem; track item) {
+        <li>
+          <a href="#">{{ item.name }}</a>
+        </li>
+      }
+    </ul>
+  </nav>
+  <div class="dropdown" (click)="openDropdown()">
+    <button>Account</button>
+    <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
     </div>
-    <nav class="header-menu">
-        <ul>
-            @for (item of headerMenuItemInterface; track item) {
-                <li>
-                    <a href="#">{{ item.name }}</a>
-                </li>
-            }
-        </ul>
-    </nav>
-    <div class="account-dropdown">
-        <button>Account</button>
-        <div class="dropdown-content">
-            <a routerLink="/login">Login</a>
-            <a routerLink="/register">Register</a>
-        </div>
-    </div>
+  </div>
 </header>

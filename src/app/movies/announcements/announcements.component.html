@@ -1,0 +1,19 @@
+<section class="advertisements-section">
+  <div class="advertisements-container">
+    <span class="title">Advertisements</span>
+    <ul>
+      <li *ngFor="let movie of movieAnnouncementsPayload">
+        <div class="advertisements-details-container">
+          <div class="advertisements-details-picture">
+            <a (click)="navigateToMovieDetails(movie.id)">
+              <img src="{{ movie.picture }}">
+            </a>
+          </div>
+          <div class="advertisements-details-title">
+            <span>{{ movie.title }} </span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
