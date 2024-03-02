@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-restore-password",
@@ -17,7 +19,7 @@ import { RouterModule } from "@angular/router";
 })
 export class RestorePasswordComponent {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
 
@@ -27,10 +29,12 @@ export class RestorePasswordComponent {
 
 
   submitRestore() {
-    this.httpClient
-      .post("http://localhost:9092/api/v1/user/restore", this.restoreForm.value)
-      .subscribe(response => {
-        console.log(response);
+    this.http
+      .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/restore`, this.restoreForm.value)
+      .subscribe({
+        next: responseData => console.log(responseData),
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.log("Observable completed")
       });
   }
 

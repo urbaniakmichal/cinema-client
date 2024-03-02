@@ -15,6 +15,7 @@ import { RepertoireService } from "./repertoire.service";
 import {
   MoviesRepertoireDaysPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-repertoire",
@@ -29,7 +30,6 @@ import {
 })
 export class RepertoireComponent implements OnInit {
 
-  moviesRepertoireUrl = "http://localhost:9092/api/v1/repertoire/movies";
   rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
   repertoireDay!: MoviesRepertoireDaysPayload;
   selectedButtonIndex: number | null = null;
@@ -40,11 +40,13 @@ export class RepertoireComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
-      (data: RootMoviesRepertoirePayload[]) => {
-        this.rootMoviesRepertoirePayload = data;
-      }
-    );
+    this.http
+      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
+      .subscribe({
+        next: responseData => this.rootMoviesRepertoirePayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.error("Observable completed")
+      });
   }
 
 

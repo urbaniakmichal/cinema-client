@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { SelectTicketService } from "./select-ticket.service";
+import { AuditoriumPayload } from "../../data-structures/payloads/auditorium/AuditoriumPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-select-ticket",
@@ -19,7 +21,6 @@ import { SelectTicketService } from "./select-ticket.service";
 })
 export class SelectTicketComponent implements OnInit {
 
-  ticketsUrl = "http://localhost:9092/api/v1/tickets";
   ticketsTypePayload!: TicketsTypePayload[];
 
 
@@ -28,20 +29,25 @@ export class SelectTicketComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.http.get<TicketsTypePayload[]>(this.ticketsUrl).subscribe(
-      (data: TicketsTypePayload[]) => {
-        this.ticketsTypePayload = data;
+    this.http
+      .get<TicketsTypePayload[]>(`${environment.apiLocalhostUrl}/tickets`)
+      .subscribe({
+        next: responseData => this.ticketsTypePayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => this.cleatSelectedTicketsArray()
       });
-
-    this.selectTicketService.selectedTickets = [];
   }
 
 
-  navigateToSelectSeat() {
+  navigateToSelectSeat(): void {
     this.router.navigate(["/select-seat"]);
   }
 
-  onSelectTicketsAmount(event: any, ticket: TicketsTypePayload) {
+  onSelectTicketsAmount(event: any, ticket: TicketsTypePayload): void {
     this.selectTicketService.setSelectedTicketsAmount(event.target.value, ticket);
+  }
+
+  private cleatSelectedTicketsArray(): void {
+    this.selectTicketService.selectedTickets = [];
   }
 }

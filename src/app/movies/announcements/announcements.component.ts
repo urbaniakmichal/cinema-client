@@ -3,6 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
 import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
+import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-announcements",
@@ -16,7 +18,6 @@ import { Router, RouterModule } from "@angular/router";
 })
 export class AnnouncementsComponent implements OnInit {
 
-  announcementsUrl = "http://localhost:9092/api/v1/announcements/movies";
   movieAnnouncementsPayload!: MovieAnnouncementsPayload[];
 
 
@@ -25,9 +26,12 @@ export class AnnouncementsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.http.get<MovieAnnouncementsPayload[]>(this.announcementsUrl).subscribe(
-      (data: MovieAnnouncementsPayload[]) => {
-        this.movieAnnouncementsPayload = data;
+    this.http
+      .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}/announcements/movies`)
+      .subscribe({
+        next: responseData => this.movieAnnouncementsPayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.error("Observable completed")
       });
   }
 

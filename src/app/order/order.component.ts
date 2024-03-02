@@ -16,6 +16,8 @@ import { UserLoginPayload } from "../data-structures/payloads/user/UserLoginPayl
 import { HttpClient } from "@angular/common/http";
 import { SubmitOrderPayload } from "../data-structures/payloads/order/SubmitOrderPayload";
 import { OrderIdResponsePayload } from "../data-structures/payloads/order/OrderIdResponsePayload";
+import { RootMoviesRepertoirePayload } from "../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "app-order",
@@ -97,12 +99,11 @@ export class OrderComponent implements OnInit {
     console.log(this.submitOrderPayload);
 
     this.http
-      .post<OrderIdResponsePayload>("http://localhost:9092/api/v1/order/submit", this.submitOrderPayload)
-      .subscribe(data => {
-        this.orderIdResponsePayload = data;
-
-        console.log(this.userLoginPayload);
-        console.log(this.orderIdResponsePayload);
+      .get<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order/submit`)
+      .subscribe({
+        next: responseData => this.orderIdResponsePayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.error(this.orderIdResponsePayload)
       });
   }
 

@@ -5,6 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { SelectSeatService } from "./select-seat.service";
 import { SelectTicketService } from "../select-ticket/select-ticket.service";
+import { OrderIdResponsePayload } from "../../data-structures/payloads/order/OrderIdResponsePayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-select-seat",
@@ -18,7 +20,6 @@ import { SelectTicketService } from "../select-ticket/select-ticket.service";
 })
 export class SelectSeatComponent implements OnInit {
 
-  auditoriumUrl = "http://localhost:9092/api/v1/auditorium";
   auditoriumPayload!: AuditoriumPayload;
 
   createRowsArray: number[] = [];
@@ -32,12 +33,13 @@ export class SelectSeatComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.http.get<AuditoriumPayload>(this.auditoriumUrl).subscribe(
-      (data: AuditoriumPayload) => {
-        this.auditoriumPayload = data;
-        this.createSeats(this.auditoriumPayload);
-      }
-    );
+    this.http
+      .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}/auditorium`)
+      .subscribe({
+        next: responseData => this.auditoriumPayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => this.createSeats(this.auditoriumPayload)
+      });
   }
 
 

@@ -3,6 +3,8 @@ import { Component, inject } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
+import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-register",
@@ -17,7 +19,7 @@ import { RouterModule } from "@angular/router";
 })
 export class RegisterComponent {
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private http: HttpClient) {
   }
 
 
@@ -31,10 +33,12 @@ export class RegisterComponent {
 
 
   submitRegister() {
-    this.httpClient
-      .post("http://localhost:9092/api/v1/user/register", this.registerForm.value)
-      .subscribe(response => {
-        console.log(response);
+    this.http
+      .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/register`, this.registerForm.value)
+      .subscribe({
+        next: responseData => console.log(responseData),
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.log("Observable completed")
       });
   }
 
