@@ -6,6 +6,7 @@ import { RouterModule } from "@angular/router";
 import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
 import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
 import { LoginService } from "./login.service";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,8 @@ import { LoginService } from "./login.service";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule
   ],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.scss"
@@ -30,9 +32,8 @@ export class LoginComponent {
   });
 
 
-  submitLogin() {
+  submitLogin(): void {
     this.loginService.submitLogin(this.loginForm);
   }
-
 
 }

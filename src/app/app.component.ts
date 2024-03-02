@@ -15,12 +15,10 @@ import { SelectSeatComponent } from "./ticket/select-seat/select-seat.component"
 import { RepertoireDaysComponent } from "./movies/repertoire/repertoire-days/repertoire-days.component";
 import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.component";
 import { OrderComponent } from "./order/order.component";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
-  selector: "app-root",
-  standalone: true,
-  templateUrl: "./app.component.html",
-  styleUrl: "./app.component.css",
   imports: [
     CommonModule,
     RouterModule,
@@ -38,8 +36,14 @@ import { OrderComponent } from "./order/order.component";
     MovieDetailsComponent,
     SelectSeatComponent,
     SelectTicketComponent,
-    OrderComponent
-  ]
+    OrderComponent,
+    MatButtonModule,
+    MatInputModule
+  ],
+  selector: "app-root",
+  standalone: true,
+  styleUrl: "./app.component.css",
+  templateUrl: "./app.component.html"
 })
 export class AppComponent {
 
