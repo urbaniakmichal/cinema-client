@@ -3,6 +3,9 @@ import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
+import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
+import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
+import { LoginService } from "./login.service";
 
 @Component({
   selector: "app-login",
@@ -17,7 +20,10 @@ import { RouterModule } from "@angular/router";
 })
 export class LoginComponent {
 
-  constructor(private httpClient: HttpClient) {
+  userLoginPayload!: UserLoginPayload;
+
+
+  constructor(private loginService: LoginService) {
   }
 
 
@@ -28,11 +34,7 @@ export class LoginComponent {
 
 
   submitLogin() {
-    this.httpClient
-      .post("http://localhost:9092/api/v1/user/login", this.loginForm.value)
-      .subscribe(response => {
-        console.log(response);
-      });
+    this.loginService.submitLogin(this.loginForm);
   }
 
 

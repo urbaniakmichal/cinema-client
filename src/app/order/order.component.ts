@@ -11,6 +11,11 @@ import { CommonModule } from "@angular/common";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TicketsTypePayload } from "../data-structures/payloads/tickets/TicketsTypePayload";
 import { Router, RouterModule } from "@angular/router";
+import { LoginService } from "../user/login/login.service";
+import { UserLoginPayload } from "../data-structures/payloads/user/UserLoginPayload";
+import { HttpClient } from "@angular/common/http";
+import { SubmitOrderPayload } from "../data-structures/payloads/order/SubmitOrderPayload";
+import { OrderIdResponsePayload } from "../data-structures/payloads/order/OrderIdResponsePayload";
 
 @Component({
   selector: "app-order",
@@ -29,12 +34,24 @@ export class OrderComponent implements OnInit {
   selectedMovie: MoviesRepertoirePayload | null = null;
   selectedHour: MoviesRepertoireHoursPayload | null = null;
   selectedDay: MoviesRepertoireDaysPayload | null = null;
+  userLoginPayload!: UserLoginPayload;
   selectedSeats: { rowNumber: number, seatNumber: number }[] = [];
   selectedTickets: { ticket: TicketsTypePayload, amount: number }[] = [];
   ticketAmount!: number;
   totalTicketsPrice!: number;
 
-  constructor(private router: Router, private repertoireService: RepertoireService, private selectSeatService: SelectSeatService, private selectTicketService: SelectTicketService) {
+  submitOrderPayload!: SubmitOrderPayload;
+  orderIdResponsePayload!: OrderIdResponsePayload;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private repertoireService: RepertoireService,
+    private selectSeatService: SelectSeatService,
+    private selectTicketService: SelectTicketService,
+    private loginService: LoginService
+  ) {
+
   }
 
 
@@ -46,6 +63,7 @@ export class OrderComponent implements OnInit {
     this.selectedTickets = this.selectTicketService.getSelectedTickets();
     this.ticketAmount = this.selectTicketService.getSelectedTicketstAmount();
     this.totalTicketsPrice = this.calculateTotalTicetsPrice();
+    this.userLoginPayload = this.loginService.getLoggedUser();
 
     console.log("OrderingTicketComponent selectedMovie: ", this.selectedMovie?.title);
     console.log("OrderingTicketComponent selectedHour: ", this.selectedHour?.hour);
@@ -54,6 +72,7 @@ export class OrderComponent implements OnInit {
     console.log("OrderingTicketComponent selectedTicketsAmount: ", this.selectedTickets);
     console.log("OrderingTicketComponent ticketAmount: ", this.ticketAmount);
     console.log("OrderingTicketComponent totalTicketsPrice: ", this.totalTicketsPrice);
+    console.log("OrderingTicketComponent loginService: ", this.userLoginPayload);
   }
 
 
@@ -73,8 +92,35 @@ export class OrderComponent implements OnInit {
     // this.router.navigate(['/payment']);
   }
 
+  submitOrder(): void {
+    this.createOrderPayload();
+    console.log(this.submitOrderPayload);
+
+    this.http
+      .post<OrderIdResponsePayload>("http://localhost:9092/api/v1/order/submit", this.submitOrderPayload)
+      .subscribe(data => {
+        this.orderIdResponsePayload = data;
+
+        console.log(this.userLoginPayload);
+        console.log(this.orderIdResponsePayload);
+      });
+  }
+
   navigateToSelectSeat(): void {
     this.router.navigate(["/select-seat"]);
   }
 
+  private createOrderPayload(): void {
+    this.submitOrderPayload = {
+      orderId: "123456",
+      userId: this.userLoginPayload.id,
+      selectedMovieId: this.selectedMovie?.id ?? "",
+      selectedMovieHourId: this.selectedHour?.id ?? "",
+      selectedDay: this.selectedDay ? this.selectedDay.dayDate : "",
+      selectedSeats: this.selectedSeats,
+      selectedTickets: this.selectedTickets,
+      ticketAmount: this.ticketAmount,
+      totalTicketsPrice: this.totalTicketsPrice
+    };
+  }
 }
