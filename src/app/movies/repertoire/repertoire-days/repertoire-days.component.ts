@@ -34,11 +34,11 @@ export class RepertoireDaysComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.setFirstDayAsMarkedbyDefault();
+    this.setFirstDayAsMarkedByDefault();
   }
 
 
-  setFirstDayAsMarkedbyDefault(): void {
+  setFirstDayAsMarkedByDefault(): void {
     this.isPressed[0] = true;
     this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
   }

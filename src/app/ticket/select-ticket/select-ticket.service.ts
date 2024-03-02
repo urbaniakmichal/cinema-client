@@ -16,7 +16,7 @@ export class SelectTicketService {
   setSelectedTicketsAmount(ticketsAmount: string, ticket: TicketsTypePayload) {
     const amount = parseInt(ticketsAmount, 10);
 
-    if (!this.isUpdateAmountOfPreviusSelectedTicket(ticket)) {
+    if (!this.isUpdateAmountOfPreviousSelectedTicket(ticket)) {
       this.selectedTickets.push({ ticket, amount });
     } else {
       this.replaceExistingTicketWithNewAmount(ticket, amount);
@@ -38,7 +38,7 @@ export class SelectTicketService {
   }
 
 
-  private isUpdateAmountOfPreviusSelectedTicket(ticket: TicketsTypePayload): boolean {
+  private isUpdateAmountOfPreviousSelectedTicket(ticket: TicketsTypePayload): boolean {
     return this.selectedTickets.some(selectedTicket => selectedTicket.ticket.id === ticket.id);
   }
 
