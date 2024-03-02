@@ -116,7 +116,7 @@ export class OrderComponent implements OnInit {
       userId: this.userLoginPayload.id,
       selectedMovieId: this.selectedMovie?.id ?? "",
       selectedMovieHourId: this.selectedHour?.id ?? "",
-      selectedDay: this.selectedDay ? this.selectedDay.dayDate : "",
+      selectedDayId: this.selectedDay?.id ?? "",
       selectedSeats: this.selectedSeats,
       selectedTickets: this.selectedTickets,
       ticketAmount: this.ticketAmount,
