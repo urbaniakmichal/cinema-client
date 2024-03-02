@@ -3,6 +3,7 @@ import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginP
 import { HttpClient } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -16,7 +17,7 @@ export class LoginService {
 
   submitLogin(loginForm: FormGroup) {
     this.http
-      .post<UserLoginPayload>("http://localhost:9092/api/v1/user/login", loginForm.value)
+      .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/login`, loginForm.value)
       .subscribe({
       next: responseData => this.userLoginPayload = responseData,
       error: err => console.error("Observable emitted an error: " + err),

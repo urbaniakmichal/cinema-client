@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { MoviesRepertoirePayload } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoirePayload";
 import { HttpClient } from "@angular/common/http";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-movie-details",
@@ -13,7 +15,6 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 })
 export class MovieDetailsComponent implements OnInit {
 
-  movieUrl = "http://localhost:9092/api/v1/details/movie/12345"; // dodac movieId do urla
   moviesRepertoirePayload!: MoviesRepertoirePayload;
   movieId: string | undefined;
 
@@ -27,9 +28,12 @@ export class MovieDetailsComponent implements OnInit {
       this.movieId = params.get("id") || "";
     });
 
-    this.http.get<MoviesRepertoirePayload>(this.movieUrl).subscribe( // dodac movieId do urla
-      (data: MoviesRepertoirePayload) => {
-        this.moviesRepertoirePayload = data;
+    this.http
+      .get<MoviesRepertoirePayload>(`${environment.apiLocalhostUrl}/details/movie/12345`) // dodac movieId do urla
+      .subscribe({
+        next: responseData => this.moviesRepertoirePayload = responseData,
+        error: err => console.error("Observable emitted an error: " + err),
+        complete: () => console.error("Observable completed")
       });
   }
 
