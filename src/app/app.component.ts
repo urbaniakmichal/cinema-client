@@ -17,7 +17,6 @@ import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.comp
 import { OrderComponent } from "./order/order.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
-import { ToastrModule } from "ngx-toastr";
 
 @Component({
   imports: [
