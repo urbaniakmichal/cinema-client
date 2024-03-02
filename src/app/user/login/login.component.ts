@@ -20,9 +20,6 @@ import { LoginService } from "./login.service";
 })
 export class LoginComponent {
 
-  userLoginPayload!: UserLoginPayload;
-
-
   constructor(private loginService: LoginService) {
   }
 

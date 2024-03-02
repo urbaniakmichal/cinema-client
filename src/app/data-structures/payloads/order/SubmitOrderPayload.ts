@@ -6,7 +6,7 @@ export interface SubmitOrderPayload {
   userId: string;
   selectedMovieId: string;
   selectedMovieHourId: string,
-  selectedDay: string;
+  selectedDayId: string;
   selectedSeats: { rowNumber: number, seatNumber: number }[];
   selectedTickets: { ticket: TicketsTypePayload, amount: number }[];
   ticketAmount: number;

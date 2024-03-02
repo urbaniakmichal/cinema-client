@@ -15,7 +15,6 @@ import { RepertoireService } from "./repertoire.service";
 import {
   MoviesRepertoireDaysPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
-import { map } from "rxjs";
 
 @Component({
   selector: "app-repertoire",
@@ -44,11 +43,6 @@ export class RepertoireComponent implements OnInit {
     this.http.get<RootMoviesRepertoirePayload[]>(this.moviesRepertoireUrl).subscribe(
       (data: RootMoviesRepertoirePayload[]) => {
         this.rootMoviesRepertoirePayload = data;
-        console.log(this.rootMoviesRepertoirePayload);
-        console.log(this.rootMoviesRepertoirePayload[0]);
-        console.log(this.rootMoviesRepertoirePayload[0].repertoireDay);
-        console.log(this.rootMoviesRepertoirePayload[0].repertoireDay.dayDate); // tu leci undefined, dlaczego?
-        console.log(this.rootMoviesRepertoirePayload[0].repertoireDay.id); // tu leci undefined, dlaczego?
       }
     );
   }
