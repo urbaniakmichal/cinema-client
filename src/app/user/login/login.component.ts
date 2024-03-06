@@ -7,6 +7,7 @@ import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginP
 import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
 import { LoginService } from "./login.service";
 import { MatDialogModule } from "@angular/material/dialog";
+import { ToastModule } from "primeng/toast";
 
 @Component({
   selector: "app-login",
@@ -15,7 +16,8 @@ import { MatDialogModule } from "@angular/material/dialog";
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    MatDialogModule
+    MatDialogModule,
+    ToastModule
   ],
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.scss"
@@ -30,7 +32,6 @@ export class LoginComponent {
     email: new FormControl(""),
     password: new FormControl("")
   });
-
 
   submitLogin(): void {
     this.loginService.submitLogin(this.loginForm);

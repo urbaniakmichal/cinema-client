@@ -1,10 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
 import { environment } from "../../../environments/environment";
+import { ToastService } from "../../features/toast.service";
 
 @Component({
   selector: "app-register",
@@ -19,7 +20,10 @@ import { environment } from "../../../environments/environment";
 })
 export class RegisterComponent {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -31,14 +35,13 @@ export class RegisterComponent {
     legalAge: new FormControl(true)
   });
 
-
-  submitRegister() {
+  submitRegister(): void {
     this.http
       .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/register`, this.registerForm.value)
       .subscribe({
         next: responseData => console.log(responseData),
-        error: err => console.error("Observable emitted an error: " + err),
-        complete: () => console.log("Observable completed")
+        error: error => this.toastService.toastError(error),
+        complete: () => console.log(this.registerForm.value)
       });
   }
 

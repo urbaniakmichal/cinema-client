@@ -8,12 +8,11 @@ export class SelectTicketService {
 
   selectedTickets: { ticket: TicketsTypePayload, amount: number }[] = [];
 
-
   constructor() {
   }
 
 
-  setSelectedTicketsAmount(ticketsAmount: string, ticket: TicketsTypePayload) {
+  setSelectedTicketsAmount(ticketsAmount: string, ticket: TicketsTypePayload): void {
     const amount = parseInt(ticketsAmount, 10);
 
     if (!this.isUpdateAmountOfPreviousSelectedTicket(ticket)) {
@@ -27,7 +26,7 @@ export class SelectTicketService {
     return this.selectedTickets;
   }
 
-  getSelectedTicketstAmount(): number {
+  getSelectedTicketsAmount(): number {
     let totalAmount: number = 0;
 
     for (let item of this.selectedTickets) {

@@ -1,7 +1,5 @@
 import { Component } from "@angular/core";
 import { StatusModalComponent } from "../angular/material/status-modal/status-modal.component";
-import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 
 @Component({
@@ -13,7 +11,9 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class PaymentComponent {
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog
+  ) {
   }
 
   openModal(isSuccess: boolean): void {
@@ -23,7 +23,7 @@ export class PaymentComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
+      console.log(result.data);
     });
   }
 }

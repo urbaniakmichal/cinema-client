@@ -11,7 +11,7 @@
       </tr>
       <tr>
         <td>Date</td>
-        <td>{{ selectedDay }}</td>
+        <td>{{ selectedDay?.day }}</td>
       </tr>
       <tr *ngIf="!selectedHour || !selectedHour.hour || selectedHour.hour.length === 0">
         <td>Hour</td>

@@ -5,8 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { SelectSeatService } from "./select-seat.service";
 import { SelectTicketService } from "../select-ticket/select-ticket.service";
-import { OrderIdResponsePayload } from "../../data-structures/payloads/order/OrderIdResponsePayload";
 import { environment } from "../../../environments/environment";
+import { ToastService } from "../../features/toast.service";
 
 @Component({
   selector: "app-select-seat",
@@ -27,8 +27,13 @@ export class SelectSeatComponent implements OnInit {
 
   selectedSeats: { rowNumber: number, seatNumber: number }[] = [];
 
-
-  constructor(private http: HttpClient, private router: Router, private selectTicketService: SelectTicketService, private selectSeatService: SelectSeatService) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private selectTicketService: SelectTicketService,
+    private selectSeatService: SelectSeatService,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -37,11 +42,10 @@ export class SelectSeatComponent implements OnInit {
       .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}/auditorium`)
       .subscribe({
         next: responseData => this.auditoriumPayload = responseData,
-        error: err => console.error("Observable emitted an error: " + err),
+        error: error => this.toastService.toastError(error),
         complete: () => this.createSeats(this.auditoriumPayload)
       });
   }
-
 
   createSeats(auditoriumPayload: AuditoriumPayload): void {
     for (let i = 0; i < auditoriumPayload.rows; i++) {
@@ -59,7 +63,7 @@ export class SelectSeatComponent implements OnInit {
     if (this.isSeatSelected(rowIndex, seatIndex)) {
       this.selectSeatService.removeSelectedSeat(rowIndex, seatIndex);
     } else {
-      if (this.selectedSeats.length < this.selectTicketService.getSelectedTicketstAmount()) {
+      if (this.selectedSeats.length < this.selectTicketService.getSelectedTicketsAmount()) {
         this.selectedSeats.push({ rowNumber: rowIndex, seatNumber: seatNumber });
         this.selectSeatService.setSelectedSeats(rowIndex, seatNumber);
       }
@@ -72,11 +76,19 @@ export class SelectSeatComponent implements OnInit {
   }
 
   navigateToSelectTicket(): void {
-    this.router.navigate(["/buy-ticket"]);
+    this.router
+      .navigate(["/buy-ticket"])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
   navigateToOrderDetails(): void {
-    this.router.navigate(["/order"]);
+    this.router
+      .navigate(["/order"])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
 }

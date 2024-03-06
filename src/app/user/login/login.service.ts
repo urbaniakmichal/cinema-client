@@ -4,8 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { environment } from "../../../environments/environment";
-import { MatDialog } from '@angular/material/dialog';
-import { ResultModalComponent } from "../../angular/material/result-modal/result-modal.component";
+import { ToastService } from "../../features/toast.service";
 
 @Injectable({
   providedIn: "root"
@@ -14,22 +13,30 @@ export class LoginService {
 
   userLoginPayload!: UserLoginPayload;
 
-  constructor(private http: HttpClient, private router: Router, public dialog: MatDialog) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastService: ToastService
+  ) {
   }
 
-  submitLogin(loginForm: FormGroup) {
+
+  submitLogin(loginForm: FormGroup): void {
     this.http
       .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/login`, loginForm.value)
       .subscribe({
-        next: responseData => {
-          this.userLoginPayload = responseData;
-          this.openDialog("Success", "Login successful", true);
-        },
-        error: err => {
-          console.error("Observable emitted an error: " + err);
-          this.openDialog("Fail", "Login failed", false);
-        },
-        complete: () => this.router.navigate(["/repertoire"])
+        next: responseData => this.userLoginPayload = responseData,
+        error: error => this.toastService.toastError(error),
+        complete: (): void => {
+          this.toastService.toastSuccess("Login success!");
+          console.log(this.userLoginPayload);
+
+          this.router
+            .navigate(["/repertoire"])
+            .then(nav => this.toastService.toastEInfo("Redirect"),
+              error => this.toastService.toastError(error)
+            );
+        }
       });
   }
 
@@ -37,14 +44,4 @@ export class LoginService {
     return this.userLoginPayload;
   }
 
-  private openDialog(title: string, message: string, isSuccess: boolean): void {
-    const dialogRef = this.dialog.open(ResultModalComponent, {
-      width: '250px',
-      data: { title, message, isSuccess: isSuccess }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 }
