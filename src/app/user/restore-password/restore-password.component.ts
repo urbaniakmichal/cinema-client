@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
 import { environment } from "../../../environments/environment";
+import { ToastService } from "../../features/toast.service";
 
 @Component({
   selector: "app-restore-password",
@@ -19,7 +20,10 @@ import { environment } from "../../../environments/environment";
 })
 export class RestorePasswordComponent {
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -27,14 +31,13 @@ export class RestorePasswordComponent {
     email: new FormControl("")
   });
 
-
-  submitRestore() {
+  submitRestore(): void {
     this.http
       .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/restore`, this.restoreForm.value)
       .subscribe({
         next: responseData => console.log(responseData),
-        error: err => console.error("Observable emitted an error: " + err),
-        complete: () => console.log("Observable completed")
+        error: error => this.toastService.toastError(error),
+        complete: () => console.log(this.restoreForm.value)
       });
   }
 

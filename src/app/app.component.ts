@@ -15,8 +15,10 @@ import { SelectSeatComponent } from "./ticket/select-seat/select-seat.component"
 import { RepertoireDaysComponent } from "./movies/repertoire/repertoire-days/repertoire-days.component";
 import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.component";
 import { OrderComponent } from "./order/order.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatInputModule } from "@angular/material/input";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastModule } from "primeng/toast";
+import { ButtonModule } from "primeng/button";
+import { MessageService } from "primeng/api";
 
 @Component({
   imports: [
@@ -37,8 +39,8 @@ import { MatInputModule } from "@angular/material/input";
     SelectSeatComponent,
     SelectTicketComponent,
     OrderComponent,
-    MatButtonModule,
-    MatInputModule
+    ButtonModule,
+    ToastModule
   ],
   selector: "app-root",
   standalone: true,

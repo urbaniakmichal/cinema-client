@@ -16,6 +16,7 @@ import {
   MoviesRepertoireDaysPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
 import { environment } from "../../../environments/environment";
+import { ToastService } from "../../features/toast.service";
 
 @Component({
   selector: "app-repertoire",
@@ -34,8 +35,11 @@ export class RepertoireComponent implements OnInit {
   repertoireDay!: MoviesRepertoireDaysPayload;
   selectedButtonIndex: number | null = null;
 
-
-  constructor(private http: HttpClient, private repertoireService: RepertoireService) {
+  constructor(
+    private http: HttpClient,
+    private repertoireService: RepertoireService,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -44,25 +48,25 @@ export class RepertoireComponent implements OnInit {
       .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
       .subscribe({
         next: responseData => this.rootMoviesRepertoirePayload = responseData,
-        error: err => console.error("Observable emitted an error: " + err),
-        complete: () => console.error("Observable completed")
+        error: error => this.toastService.toastError(error),
+        complete: () => console.error(this.rootMoviesRepertoirePayload)
       });
   }
 
 
-  handleButtonClick(index: number) {
+  handleButtonClick(index: number): void {
     this.selectedButtonIndex = index;
   }
 
-  onMovieSelected(movie: MoviesRepertoirePayload) {
+  onMovieSelected(movie: MoviesRepertoirePayload): void {
     this.repertoireService.setSelectedMovie(movie);
   }
 
-  onHourSelected(hour: MoviesRepertoireHoursPayload) {
+  onHourSelected(hour: MoviesRepertoireHoursPayload): void {
     this.repertoireService.setSelectedHour(hour);
   }
 
-  onDaySelected(day: MoviesRepertoireDaysPayload) {
+  onDaySelected(day: MoviesRepertoireDaysPayload): void {
     this.repertoireService.setSelectedDay(day);
   }
 }

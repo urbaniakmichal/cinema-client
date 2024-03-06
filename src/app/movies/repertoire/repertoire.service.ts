@@ -12,34 +12,34 @@ import {
 })
 export class RepertoireService {
 
-  selectedMovie: MoviesRepertoirePayload | null = null;
-  selectedHour: MoviesRepertoireHoursPayload | null = null;
-  selectedDay: MoviesRepertoireDaysPayload | null = null;
+  selectedMovie!: MoviesRepertoirePayload;
+  selectedHour!: MoviesRepertoireHoursPayload;
+  selectedDay!: MoviesRepertoireDaysPayload;
 
   constructor() {
   }
 
-  setSelectedMovie(movie: MoviesRepertoirePayload) {
+  setSelectedMovie(movie: MoviesRepertoirePayload): void {
     this.selectedMovie = movie;
   }
 
-  getSelectedMovie() {
+  getSelectedMovie(): MoviesRepertoirePayload {
     return this.selectedMovie;
   }
 
-  setSelectedHour(hour: MoviesRepertoireHoursPayload) {
+  setSelectedHour(hour: MoviesRepertoireHoursPayload): void {
     this.selectedHour = hour;
   }
 
-  getSelectedHour() {
+  getSelectedHour(): MoviesRepertoireHoursPayload {
     return this.selectedHour;
   }
 
-  setSelectedDay(day: MoviesRepertoireDaysPayload) {
+  setSelectedDay(day: MoviesRepertoireDaysPayload): void {
     this.selectedDay = day;
   }
 
-  getSelectedDay() {
+  getSelectedDay(): MoviesRepertoireDaysPayload {
     return this.selectedDay;
   }
 }

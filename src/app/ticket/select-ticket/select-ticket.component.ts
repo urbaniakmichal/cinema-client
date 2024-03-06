@@ -5,8 +5,8 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { SelectTicketService } from "./select-ticket.service";
-import { AuditoriumPayload } from "../../data-structures/payloads/auditorium/AuditoriumPayload";
 import { environment } from "../../../environments/environment";
+import { ToastService } from "../../features/toast.service";
 
 @Component({
   selector: "app-select-ticket",
@@ -23,8 +23,12 @@ export class SelectTicketComponent implements OnInit {
 
   ticketsTypePayload!: TicketsTypePayload[];
 
-
-  constructor(private http: HttpClient, private router: Router, private selectTicketService: SelectTicketService) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private selectTicketService: SelectTicketService,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -33,14 +37,17 @@ export class SelectTicketComponent implements OnInit {
       .get<TicketsTypePayload[]>(`${environment.apiLocalhostUrl}/tickets`)
       .subscribe({
         next: responseData => this.ticketsTypePayload = responseData,
-        error: err => console.error("Observable emitted an error: " + err),
+        error: error => this.toastService.toastError(error),
         complete: () => this.cleatSelectedTicketsArray()
       });
   }
 
-
   navigateToSelectSeat(): void {
-    this.router.navigate(["/select-seat"]);
+    this.router
+      .navigate(["/select-seat"])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
   onSelectTicketsAmount(event: any, ticket: TicketsTypePayload): void {

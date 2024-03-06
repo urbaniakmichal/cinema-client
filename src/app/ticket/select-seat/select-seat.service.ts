@@ -8,12 +8,11 @@ export class SelectSeatService {
 
   selectedSeats: { rowNumber: number, seatNumber: number }[] = [];
 
-
   constructor() {
   }
 
 
-  setSelectedSeats(rowNumber: number, seatNumber: number) {
+  setSelectedSeats(rowNumber: number, seatNumber: number): void {
     this.selectedSeats.push({ rowNumber, seatNumber });
   }
 
@@ -25,7 +24,7 @@ export class SelectSeatService {
     return rowIndex * auditoriumPayload.seats + seatIndex + 1;
   }
 
-  removeSelectedSeat(rowIndex: number, seatNumber: number) {
+  removeSelectedSeat(rowIndex: number, seatNumber: number): void {
     this.selectedSeats = this.selectedSeats.filter(seat => seat.rowNumber !== rowIndex || seat.seatNumber !== seatNumber);
   }
 

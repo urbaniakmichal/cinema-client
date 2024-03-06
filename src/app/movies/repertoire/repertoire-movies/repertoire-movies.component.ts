@@ -9,6 +9,7 @@ import { MoviesRepertoirePayload } from "../../../data-structures/payloads/movie
 import {
   MoviesRepertoireHoursPayload
 } from "../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
+import { ToastService } from "../../../features/toast.service";
 
 @Component({
   selector: "app-repertoire-movies",
@@ -30,7 +31,10 @@ export class RepertoireMoviesComponent implements OnInit {
   @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
 
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private toastService: ToastService
+  ) {
   }
 
 
@@ -45,23 +49,35 @@ export class RepertoireMoviesComponent implements OnInit {
     }
   }
 
-  navigateToMovieDetails(id: string) {
-    this.router.navigate(["/movie-details", id]);
+  navigateToMovieDetails(id: string): void {
+    this.router
+      .navigate(["/movie-details", id])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
-  navigateToBuyTicket(id: string) {
-    this.router.navigate(["/buy-ticket", id]);
+  navigateToBuyTicket(id: string): void {
+    this.router
+      .navigate(["/buy-ticket", id])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
-  navigateToTicket() {
-    this.router.navigate(["/select-ticket"]);
+  navigateToTicket(): void {
+    this.router
+      .navigate(["/select-ticket"])
+      .then(nav => this.toastService.toastEInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
-  emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload) {
+  emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload): void {
     this.movieSelected.emit(movie);
   }
 
-  emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload) {
+  emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload): void {
     this.hourSelected.emit(hour);
   }
 
