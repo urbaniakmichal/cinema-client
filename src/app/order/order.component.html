@@ -25,10 +25,12 @@
         <td>Hour</td>
         <td>{{ selectedHour.hour }}</td>
       </tr>
-      <tr class="ticket-type">
-        <td>Ticket type</td>
-        <td *ngFor="let ticketType of selectedTickets">
-          <span>{{ ticketType.ticket.type }} {{ ticketType.amount }}</span>
+      <tr>
+        <td>Ticket details</td>
+        <td>
+          <div *ngFor="let ticketType of selectedTickets">
+            <span>{{ ticketType.amount }}x {{ ticketType.ticket.type }}</span>
+          </div>
         </td>
       </tr>
       <tr>
@@ -41,8 +43,10 @@
       </tr>
       <tr class="seats">
         <td>Seats</td>
-        <td *ngFor="let seat of selectedSeats">
-          <span>Rows {{ seat.rowNumber }} Seat {{ seat.seatNumber }}</span>
+        <td>
+          <div *ngFor="let seat of selectedSeats">
+            <span>Row {{ seat.rowNumber }}, Seat {{ seat.seatNumber }}</span>
+          </div>
         </td>
       </tr>
       <tr class="voucher">
