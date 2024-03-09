@@ -39,7 +39,7 @@ export class ToastService {
     });
   }
 
-  toastEInfo(detail: string): void {
+  toastInfo(detail: string): void {
     this.messageService.add({
       severity: "info",
       summary: "Info",

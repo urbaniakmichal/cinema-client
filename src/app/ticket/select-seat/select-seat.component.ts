@@ -78,7 +78,7 @@ export class SelectSeatComponent implements OnInit {
   navigateToSelectTicket(): void {
     this.router
       .navigate(["/buy-ticket"])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
@@ -86,7 +86,7 @@ export class SelectSeatComponent implements OnInit {
   navigateToOrderDetails(): void {
     this.router
       .navigate(["/order"])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }

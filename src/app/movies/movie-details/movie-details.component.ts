@@ -53,7 +53,7 @@ export class MovieDetailsComponent implements OnInit {
   navigateToTicket(): void {
     this.router
       .navigate(["/select-ticket"])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
