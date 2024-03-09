@@ -1,10 +1,7 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
-import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
 import { LoginService } from "./login.service";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ToastModule } from "primeng/toast";

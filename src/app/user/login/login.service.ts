@@ -33,7 +33,7 @@ export class LoginService {
 
           this.router
             .navigate(["/repertoire"])
-            .then(nav => this.toastService.toastEInfo("Redirect"),
+            .then(nav => this.toastService.toastInfo("Redirect"),
               error => this.toastService.toastError(error)
             );
         }

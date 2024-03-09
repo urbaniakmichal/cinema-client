@@ -45,7 +45,7 @@ export class SelectTicketComponent implements OnInit {
   navigateToSelectSeat(): void {
     this.router
       .navigate(["/select-seat"])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }

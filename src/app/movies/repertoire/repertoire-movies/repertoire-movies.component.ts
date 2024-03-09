@@ -52,7 +52,7 @@ export class RepertoireMoviesComponent implements OnInit {
   navigateToMovieDetails(id: string): void {
     this.router
       .navigate(["/movie-details", id])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
@@ -60,7 +60,7 @@ export class RepertoireMoviesComponent implements OnInit {
   navigateToBuyTicket(id: string): void {
     this.router
       .navigate(["/buy-ticket", id])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
@@ -68,7 +68,7 @@ export class RepertoireMoviesComponent implements OnInit {
   navigateToTicket(): void {
     this.router
       .navigate(["/select-ticket"])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }

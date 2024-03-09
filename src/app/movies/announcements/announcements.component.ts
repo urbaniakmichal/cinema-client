@@ -45,7 +45,7 @@ export class AnnouncementsComponent implements OnInit {
   navigateToMovieDetails(id: string): void {
     this.router
       .navigate(["/movie-details", id])
-      .then(nav => this.toastService.toastEInfo("Redirect"),
+      .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }

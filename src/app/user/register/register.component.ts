@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
@@ -22,6 +22,7 @@ export class RegisterComponent {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     private toastService: ToastService
   ) {
   }
@@ -31,8 +32,7 @@ export class RegisterComponent {
     name: new FormControl(""),
     surname: new FormControl(""),
     email: new FormControl(""),
-    password: new FormControl(""),
-    legalAge: new FormControl(true)
+    password: new FormControl("")
   });
 
   submitRegister(): void {
@@ -41,7 +41,15 @@ export class RegisterComponent {
       .subscribe({
         next: responseData => console.log(responseData),
         error: error => this.toastService.toastError(error),
-        complete: () => console.log(this.registerForm.value)
+        complete: (): void => {
+          this.toastService.toastSuccess("Register success!");
+
+          this.router
+            .navigate(["/login"])
+            .then(nav => this.toastService.toastInfo("Redirect"),
+              error => this.toastService.toastError(error)
+            );
+        }
       });
   }
 
