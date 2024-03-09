@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { UserLoginPayload } from "../../data-structures/payloads/user/UserLoginPayload";
+import { UserLoginPayloadResponse } from "../../data-structures/payloads/user/UserLoginPayloadResponse";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
 
@@ -33,7 +33,7 @@ export class RestorePasswordComponent {
 
   submitRestore(): void {
     this.http
-      .post<UserLoginPayload>(`${environment.apiLocalhostUrl}/user/restore`, this.restoreForm.value)
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/restore`, this.restoreForm.value)
       .subscribe({
         next: responseData => console.log(responseData),
         error: error => this.toastService.toastError(error),

@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
-import { LoginService } from "./login.service";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ToastModule } from "primeng/toast";
+import { AuthService } from "../../config/auth/auth.service";
 
 @Component({
   selector: "app-login",
@@ -21,17 +21,19 @@ import { ToastModule } from "primeng/toast";
 })
 export class LoginComponent {
 
-  constructor(private loginService: LoginService) {
+  constructor(
+    private authService: AuthService
+  ) {
   }
 
 
-  loginForm = new FormGroup({
+  protected readonly loginForm = new FormGroup({
     email: new FormControl(""),
     password: new FormControl("")
   });
 
   submitLogin(): void {
-    this.loginService.submitLogin(this.loginForm);
+    this.authService.login(this.loginForm);
   }
 
 }
