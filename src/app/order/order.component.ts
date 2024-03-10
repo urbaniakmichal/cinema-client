@@ -11,13 +11,13 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TicketsTypePayload } from "../data-structures/payloads/tickets/TicketsTypePayload";
 import { Router, RouterModule } from "@angular/router";
-import { LoginService } from "../user/login/login.service";
-import { UserLoginPayload } from "../data-structures/payloads/user/UserLoginPayload";
+import { UserLoginPayloadResponse } from "../data-structures/payloads/user/UserLoginPayloadResponse";
 import { HttpClient } from "@angular/common/http";
 import { SubmitOrderPayload } from "../data-structures/payloads/order/SubmitOrderPayload";
 import { OrderIdResponsePayload } from "../data-structures/payloads/order/OrderIdResponsePayload";
 import { environment } from "../../environments/environment";
 import { ToastService } from "../features/toast.service";
+import { AuthService } from "../config/auth/auth.service";
 
 @Component({
   selector: "app-order",
@@ -36,7 +36,7 @@ export class OrderComponent implements OnInit {
   selectedMovie: MoviesRepertoirePayload | null = null;
   selectedHour: MoviesRepertoireHoursPayload | null = null;
   selectedDay: MoviesRepertoireDaysPayload | null = null;
-  userLoginPayload!: UserLoginPayload;
+  userLoginPayload!: UserLoginPayloadResponse;
   selectedSeats: { rowNumber: number, seatNumber: number }[] = [];
   selectedTickets: { ticket: TicketsTypePayload, amount: number }[] = [];
   ticketAmount!: number;
@@ -51,7 +51,7 @@ export class OrderComponent implements OnInit {
     private repertoireService: RepertoireService,
     private selectSeatService: SelectSeatService,
     private selectTicketService: SelectTicketService,
-    private loginService: LoginService,
+    private authService: AuthService,
     private toastService: ToastService
   ) {
   }
@@ -65,7 +65,7 @@ export class OrderComponent implements OnInit {
     this.selectedTickets = this.selectTicketService.getSelectedTickets();
     this.ticketAmount = this.selectTicketService.getSelectedTicketsAmount();
     this.totalTicketsPrice = this.calculateTotalTicketsPrice();
-    this.userLoginPayload = this.loginService.getLoggedUser();
+    this.userLoginPayload = this.authService.getLoggedUser();
 
     console.log("OrderingTicketComponent selectedMovie: ", this.selectedMovie?.title);
     console.log("OrderingTicketComponent selectedHour: ", this.selectedHour?.hour);

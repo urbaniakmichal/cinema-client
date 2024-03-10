@@ -1,6 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { AuthService } from "../config/auth/auth.service";
+import { headerMenuItem } from "../config/mocks/Mocks";
 import { HeaderMenuItem } from "../data-structures/objects/HeaderMenuItem";
 
 @Component({
@@ -15,28 +17,16 @@ import { HeaderMenuItem } from "../data-structures/objects/HeaderMenuItem";
 })
 export class HeaderComponent {
 
-  dropdownOpen: boolean = false;
+  protected readonly headerMenuItem: HeaderMenuItem[] = headerMenuItem;
+  protected dropdownOpen: boolean = false;
 
-
-  openDropdown(): void {
-    this.dropdownOpen = !this.dropdownOpen;
+  constructor(
+    protected authService: AuthService
+  ) {
   }
 
 
-  headerMenuItem: HeaderMenuItem[] = [
-    {
-      name: "Repertuar"
-    },
-    {
-      name: "Cennik"
-    },
-    {
-      name: "Wydarzenia"
-    },
-    {
-      name: "Promocje"
-    }
-  ];
-
-
+  protected openDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
 }

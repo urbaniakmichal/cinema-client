@@ -2,10 +2,11 @@ import { ApplicationConfig, importProvidersFrom } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { routes } from "./app.routes";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { ToastModule } from "primeng/toast";
 import { MessageService } from "primeng/api";
+import { JwtInterceptorService } from "./config/auth/jwt-interceptor.service";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideAnimationsAsync(),
     ToastModule,
-    MessageService
+    MessageService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }
   ]
 };
