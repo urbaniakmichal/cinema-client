@@ -8,6 +8,7 @@ import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.comp
 import { RestorePasswordComponent } from "./user/restore-password/restore-password.component";
 import { OrderComponent } from "./order/order.component";
 import { PaymentComponent } from "./payment/payment.component";
+import { AuthGuard } from "./config/auth/auth.guard";
 
 export const routes: Routes = [
   {
@@ -37,23 +38,28 @@ export const routes: Routes = [
   },
   {
     path: "select-seat",
-    component: SelectSeatComponent
+    component: SelectSeatComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "buy-ticket",
-    component: SelectTicketComponent
+    component: SelectTicketComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "select-ticket",
-    component: SelectTicketComponent
+    component: SelectTicketComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "order",
-    component: OrderComponent
+    component: OrderComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "payment",
-    component: PaymentComponent
+    component: PaymentComponent,
+    canActivate: [AuthGuard]
   }
 
 ];
