@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
   RootMoviesRepertoirePayload
@@ -7,6 +7,8 @@ import {
 import {
   MoviesRepertoireDaysPayload
 } from "../../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
+import { RepertoireService } from "../repertoire.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-repertoire-days",
@@ -18,31 +20,45 @@ import {
   templateUrl: "./repertoire-days.component.html",
   styleUrl: "./repertoire-days.component.scss"
 })
-export class RepertoireDaysComponent implements AfterViewInit {
+export class RepertoireDaysComponent implements OnInit, OnDestroy {
 
-  @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+  private subscription: Subscription = new Subscription();
 
-  @Output() buttonClicked = new EventEmitter<number>();
+  rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+
+  @Output() indexOfDaySelected = new EventEmitter<number>();
   @Output() daySelected: EventEmitter<MoviesRepertoireDaysPayload> = new EventEmitter<MoviesRepertoireDaysPayload>();
 
   isPressed: boolean[] = [];
   currentPressedIndex!: number;
 
-  constructor() {
+  constructor(
+    private repertoireService: RepertoireService
+  ) {
   }
 
 
-  ngAfterViewInit(): void {
-    this.setFirstDayAsMarkedByDefault();
+  ngOnInit(): void {
+    this.subscription.add(
+      this.repertoireService.rootMoviesRepertoirePayload$.subscribe(data => {
+        if (data.length > 0) {
+          this.setFirstDayAsMarkedByDefault(data);
+        }
+      })
+    );
   }
 
-  protected setFirstDayAsMarkedByDefault(): void {
-    if (this.rootMoviesRepertoirePayload && this.rootMoviesRepertoirePayload.length > 0) {
-      this.isPressed[0] = true;
-      this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
-    } else {
-      console.error("rootMoviesRepertoirePayload is empty")
-    }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+
+  protected setFirstDayAsMarkedByDefault(data: RootMoviesRepertoirePayload[]): void {
+    this.rootMoviesRepertoirePayload = data;
+    this.isPressed[0] = true;
+    this.daySelected.emit(data[0].repertoireDay);
+
+    this.repertoireService.setIndexOfDaySelected(0);
   }
 
   protected selectDayToShowRepertoire(index: number): void {
@@ -55,7 +71,7 @@ export class RepertoireDaysComponent implements AfterViewInit {
   }
 
   protected emitEventWhatIndexOfDayClicked(index: number): void {
-    this.buttonClicked.emit(index);
+    this.indexOfDaySelected.emit(index);
   }
 
   protected emitEventWhatPayloadOfDayClicked(day: MoviesRepertoireDaysPayload): void {

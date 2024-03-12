@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import {
   MoviesRepertoireHoursPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
@@ -6,17 +6,37 @@ import { MoviesRepertoirePayload } from "../../data-structures/payloads/movies/r
 import {
   MoviesRepertoireDaysPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
+import {
+  RootMoviesRepertoirePayload
+} from "../../data-structures/payloads/movies/repertorie/RootMoviesRepertoirePayload";
+import { HttpClient } from "@angular/common/http";
+import { ToastService } from "../../features/toast.service";
+import { environment } from "../../../environments/environment";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
-export class RepertoireService {
+export class RepertoireService  {
+
+  private rootMoviesRepertoirePayload = new BehaviorSubject<RootMoviesRepertoirePayload[]>([]);
+
+  indexOfDaySelected!: number;
 
   selectedMovie!: MoviesRepertoirePayload;
   selectedHour!: MoviesRepertoireHoursPayload;
   selectedDay!: MoviesRepertoireDaysPayload;
 
-  constructor() {
+  constructor(
+    private http: HttpClient,
+    private toastService: ToastService
+  ) {
+    this.loadMoviesRepertoire();
+  }
+
+
+  get rootMoviesRepertoirePayload$() {
+    return this.rootMoviesRepertoirePayload.asObservable();
   }
 
   setSelectedMovie(movie: MoviesRepertoirePayload): void {
@@ -41,5 +61,22 @@ export class RepertoireService {
 
   getSelectedDay(): MoviesRepertoireDaysPayload {
     return this.selectedDay;
+  }
+
+  setIndexOfDaySelected(index: number): void {
+    this.indexOfDaySelected = index;
+  }
+
+  getIndexOfDaySelected(): number {
+    return this.indexOfDaySelected;
+  }
+
+  private loadMoviesRepertoire(): void {
+    this.http
+      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
+      .subscribe({
+        next: responseData => this.rootMoviesRepertoirePayload.next(responseData),
+        error: error => this.toastService.toastError(error)
+      });
   }
 }

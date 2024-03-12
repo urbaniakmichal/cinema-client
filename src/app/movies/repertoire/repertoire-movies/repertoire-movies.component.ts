@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { MovieDetailsComponent } from "../../movie-details/movie-details.component";
 import {
@@ -10,6 +10,8 @@ import {
   MoviesRepertoireHoursPayload
 } from "../../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
 import { ToastService } from "../../../features/toast.service";
+import { Subscription } from "rxjs";
+import { RepertoireService } from "../repertoire.service";
 
 @Component({
   selector: "app-repertoire-movies",
@@ -24,8 +26,11 @@ import { ToastService } from "../../../features/toast.service";
 })
 export class RepertoireMoviesComponent implements OnInit {
 
-  @Input() rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
-  @Input() selectedIndex: number | null = null;
+  private subscription: Subscription = new Subscription();
+
+  rootMoviesRepertoirePayload!: RootMoviesRepertoirePayload[];
+
+  @Input() indexOfDaySelected: number | null = null;
 
   @Output() movieSelected: EventEmitter<MoviesRepertoirePayload> = new EventEmitter<MoviesRepertoirePayload>();
   @Output() hourSelected: EventEmitter<MoviesRepertoireHoursPayload> = new EventEmitter<MoviesRepertoireHoursPayload>();
@@ -33,24 +38,33 @@ export class RepertoireMoviesComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private repertoireService: RepertoireService
   ) {
   }
 
 
   ngOnInit(): void {
+    this.subscription.add(
+      this.repertoireService.rootMoviesRepertoirePayload$.subscribe(data => {
+        if (data.length > 0) {
+          this.rootMoviesRepertoirePayload = data;
+        }
+      })
+    );
+
     this.setFirstDateAsSelected();
   }
 
 
   protected getMoviesList(): any[] {
     return this.rootMoviesRepertoirePayload ?
-      this.rootMoviesRepertoirePayload[(this.selectedIndex !== null ? this.selectedIndex : 0)].movies : [];
+      this.rootMoviesRepertoirePayload[(this.indexOfDaySelected !== null ? this.indexOfDaySelected : 0)].movies : [];
   }
 
   protected setFirstDateAsSelected(): void {
-    if (this.selectedIndex === null) {
-      this.selectedIndex = 0;
+    if (this.indexOfDaySelected === null) {
+      this.indexOfDaySelected = 0;
     }
   }
 
