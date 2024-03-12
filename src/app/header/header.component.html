@@ -14,7 +14,7 @@
     </ul>
   </nav>
   <div class="dropdown" (click)="openDropdown()">
-    <button>{{ authService.isLoggedIn() ? 'Hello, ' + authService.getLoggedUser().email : 'Account' }}</button>
+    <button>{{ greetUser() }}</button>
     <div class="dropdown-content" [ngStyle]="{ 'display': dropdownOpen ? 'block' : 'none' }">
       <a *ngIf="authService.isLoggedIn()" (click)="authService.logout()">Logout</a>
       <a *ngIf="authService.isLoggedIn()" routerLink="/account">Your Account</a>

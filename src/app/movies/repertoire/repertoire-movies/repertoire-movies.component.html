@@ -4,8 +4,7 @@
       Repertoire
     </div>
     <div class="movies-list">
-      <div class="movies-container"
-           *ngFor="let movies of rootMoviesRepertoirePayload[(selectedIndex !== null ? selectedIndex : 0)].movies">
+      <div class="movies-container" *ngFor="let movies of getMoviesList()">
         <div class="movie">
           <div class="movies-image">
             <img src="{{ movies.picture }}">
@@ -13,8 +12,8 @@
           <div class="movies-short-details">
             <div class="movies-short-details-title">
               <a (click)="emitEventWhatPayloadOfMovieClicked(movies)"
-                 (click)="navigateToMovieDetails(movies.id)">{{ movies.title }} + " - day index: "
-                + {{ selectedIndex }}</a>
+                 (click)="navigateToMovieDetails(movies.id)">{{ movies.title }} + " - day index: " + {{ selectedIndex }}
+              </a>
             </div>
             <div class="movies-short-details-genre">
               <span>{{ movies.genre }}</span>

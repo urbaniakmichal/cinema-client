@@ -36,12 +36,16 @@ export class RepertoireDaysComponent implements AfterViewInit {
     this.setFirstDayAsMarkedByDefault();
   }
 
-  setFirstDayAsMarkedByDefault(): void {
-    this.isPressed[0] = true;
-    this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
+  protected setFirstDayAsMarkedByDefault(): void {
+    if (this.rootMoviesRepertoirePayload && this.rootMoviesRepertoirePayload.length > 0) {
+      this.isPressed[0] = true;
+      this.daySelected.emit(this.rootMoviesRepertoirePayload[0].repertoireDay);
+    } else {
+      console.error("rootMoviesRepertoirePayload is empty")
+    }
   }
 
-  selectDayToShowRepertoire(index: number): void {
+  protected selectDayToShowRepertoire(index: number): void {
     if (this.currentPressedIndex !== null) {
       this.isPressed[this.currentPressedIndex] = false;
     }
@@ -50,11 +54,11 @@ export class RepertoireDaysComponent implements AfterViewInit {
     this.currentPressedIndex = index;
   }
 
-  emitEventWhatIndexOfDayClicked(index: number): void {
+  protected emitEventWhatIndexOfDayClicked(index: number): void {
     this.buttonClicked.emit(index);
   }
 
-  emitEventWhatPayloadOfDayClicked(day: MoviesRepertoireDaysPayload): void {
+  protected emitEventWhatPayloadOfDayClicked(day: MoviesRepertoireDaysPayload): void {
     this.daySelected.emit(day);
   }
 

@@ -49,24 +49,24 @@ export class RepertoireComponent implements OnInit {
       .subscribe({
         next: responseData => this.rootMoviesRepertoirePayload = responseData,
         error: error => this.toastService.toastError(error),
-        complete: () => console.error(this.rootMoviesRepertoirePayload)
+        complete: () => console.info(this.rootMoviesRepertoirePayload)
       });
   }
 
 
-  handleButtonClick(index: number): void {
+  protected handleButtonClick(index: number): void {
     this.selectedButtonIndex = index;
   }
 
-  onMovieSelected(movie: MoviesRepertoirePayload): void {
+  protected onMovieSelected(movie: MoviesRepertoirePayload): void {
     this.repertoireService.setSelectedMovie(movie);
   }
 
-  onHourSelected(hour: MoviesRepertoireHoursPayload): void {
+  protected onHourSelected(hour: MoviesRepertoireHoursPayload): void {
     this.repertoireService.setSelectedHour(hour);
   }
 
-  onDaySelected(day: MoviesRepertoireDaysPayload): void {
+  protected onDaySelected(day: MoviesRepertoireDaysPayload): void {
     this.repertoireService.setSelectedDay(day);
   }
 }

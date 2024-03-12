@@ -43,13 +43,18 @@ export class RepertoireMoviesComponent implements OnInit {
   }
 
 
-  setFirstDateAsSelected(): void {
+  protected getMoviesList(): any[] {
+    return this.rootMoviesRepertoirePayload ?
+      this.rootMoviesRepertoirePayload[(this.selectedIndex !== null ? this.selectedIndex : 0)].movies : [];
+  }
+
+  protected setFirstDateAsSelected(): void {
     if (this.selectedIndex === null) {
       this.selectedIndex = 0;
     }
   }
 
-  navigateToMovieDetails(id: string): void {
+  protected navigateToMovieDetails(id: string): void {
     this.router
       .navigate(["/movie-details", id])
       .then(nav => this.toastService.toastInfo("Redirect"),
@@ -57,7 +62,7 @@ export class RepertoireMoviesComponent implements OnInit {
       );
   }
 
-  navigateToBuyTicket(id: string): void {
+  protected navigateToBuyTicket(id: string): void {
     this.router
       .navigate(["/buy-ticket", id])
       .then(nav => this.toastService.toastInfo("Redirect"),
@@ -65,7 +70,7 @@ export class RepertoireMoviesComponent implements OnInit {
       );
   }
 
-  navigateToTicket(): void {
+  protected navigateToTicket(): void {
     this.router
       .navigate(["/select-ticket"])
       .then(nav => this.toastService.toastInfo("Redirect"),
@@ -73,11 +78,11 @@ export class RepertoireMoviesComponent implements OnInit {
       );
   }
 
-  emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload): void {
+  protected emitEventWhatPayloadOfMovieClicked(movie: MoviesRepertoirePayload): void {
     this.movieSelected.emit(movie);
   }
 
-  emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload): void {
+  protected emitEventWhatPayloadOfHourClicked(hour: MoviesRepertoireHoursPayload): void {
     this.hourSelected.emit(hour);
   }
 
