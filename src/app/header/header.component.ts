@@ -29,4 +29,12 @@ export class HeaderComponent {
   protected openDropdown(): void {
     this.dropdownOpen = !this.dropdownOpen;
   }
+
+  protected greetUser(): string {
+    if (this.authService.isLoggedIn()) {
+      return this.authService.getLoggedUser()?.email || '';
+    } else {
+      return "Account";
+    }
+  }
 }
