@@ -58,14 +58,14 @@ export class OrderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.selectedMovie = this.repertoireService.getSelectedMovie();
-    this.selectedHour = this.repertoireService.getSelectedHour();
-    this.selectedDay = this.repertoireService.getSelectedDay();
-    this.selectedSeats = this.selectSeatService.getSelectedSeats();
-    this.selectedTickets = this.selectTicketService.getSelectedTickets();
+    this.selectedMovie = this.repertoireService.selectedMovie;
+    this.selectedHour = this.repertoireService.selectedHour;
+    this.selectedDay = this.repertoireService.selectedDay;
+    this.selectedSeats = this.selectSeatService.selectedSeats;
+    this.selectedTickets = this.selectTicketService.selectedTickets;
     this.ticketAmount = this.selectTicketService.getSelectedTicketsAmount();
     this.totalTicketsPrice = this.calculateTotalTicketsPrice();
-    this.userLoginPayload = this.authService.getLoggedUser();
+    this.userLoginPayload = this.authService.userLoginPayload;
 
     console.log("OrderingTicketComponent selectedMovie: ", this.selectedMovie?.title);
     console.log("OrderingTicketComponent selectedHour: ", this.selectedHour?.hour);
@@ -116,7 +116,7 @@ export class OrderComponent implements OnInit {
 
   private createOrderPayload(): void {
     this.submitOrderPayload = {
-      orderId: "123456",
+      orderId: "123456", // for wiremock
       userId: this.userLoginPayload.id,
       selectedMovieId: this.selectedMovie?.id ?? "",
       selectedMovieHourId: this.selectedHour?.id ?? "",

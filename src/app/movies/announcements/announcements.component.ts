@@ -38,7 +38,9 @@ export class AnnouncementsComponent implements OnInit {
       .subscribe({
         next: responseData => this.movieAnnouncementsPayload = responseData,
         error: error => this.toastService.toastError(error),
-        complete: () => console.log(this.movieAnnouncementsPayload)
+        complete: () => {
+          // console.log(this.movieAnnouncementsPayload)
+        }
       });
   }
 

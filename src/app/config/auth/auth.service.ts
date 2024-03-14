@@ -13,7 +13,8 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class AuthService {
 
-  private userLoginPayload!: UserLoginPayloadResponse;
+  userLoginPayload!: UserLoginPayloadResponse;
+
   private userLogoutPayloadResponse!: UserLogoutPayloadResponse;
   private jwtTokenKey = "jwtToken";
 
@@ -72,9 +73,5 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.cookieService.get(this.jwtTokenKey);
-  }
-
-  getLoggedUser(): UserLoginPayloadResponse {
-    return this.userLoginPayload;
   }
 }
