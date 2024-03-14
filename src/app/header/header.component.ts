@@ -32,7 +32,7 @@ export class HeaderComponent {
 
   protected greetUser(): string {
     if (this.authService.isLoggedIn()) {
-      return this.authService.getLoggedUser()?.email || '';
+      return this.authService.userLoginPayload?.email || '';
     } else {
       return "Account";
     }

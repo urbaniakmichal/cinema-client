@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   MoviesRepertoireHoursPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
@@ -12,71 +12,97 @@ import {
 import { HttpClient } from "@angular/common/http";
 import { ToastService } from "../../features/toast.service";
 import { environment } from "../../../environments/environment";
-import { BehaviorSubject } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
 })
-export class RepertoireService  {
+export class RepertoireService {
 
-  private rootMoviesRepertoirePayload = new BehaviorSubject<RootMoviesRepertoirePayload[]>([]);
+  rootMoviesRepertoirePayload: RootMoviesRepertoirePayload[] | null = null;
+  isPressed: boolean[] = [];
 
-  indexOfDaySelected!: number;
+  indexOfDaySelected: number = 0;
 
   selectedMovie!: MoviesRepertoirePayload;
-  selectedHour!: MoviesRepertoireHoursPayload;
+  selectedHour: MoviesRepertoireHoursPayload | null = null
   selectedDay!: MoviesRepertoireDaysPayload;
 
   constructor(
+    private router: Router,
     private http: HttpClient,
     private toastService: ToastService
   ) {
-    this.loadMoviesRepertoire();
+    this.requestForMoviesRepertoire();
+    this.setFirstDateAsSelected();
   }
 
 
-  get rootMoviesRepertoirePayload$() {
-    return this.rootMoviesRepertoirePayload.asObservable();
+  getMoviesList(): MoviesRepertoirePayload[] {
+    if (this.rootMoviesRepertoirePayload && this.rootMoviesRepertoirePayload.length > 0) {
+      return this.rootMoviesRepertoirePayload[this.indexOfDaySelected]?.movies;
+    } else {
+      return [];
+    }
   }
 
-  setSelectedMovie(movie: MoviesRepertoirePayload): void {
-    this.selectedMovie = movie;
+  navigateToMovieDetails(id: string): void {
+    this.router
+      .navigate(["/movie-details", id])
+      .then(nav => this.toastService.toastInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
-  getSelectedMovie(): MoviesRepertoirePayload {
-    return this.selectedMovie;
+  navigateToTicket(): void {
+    this.router
+      .navigate(["/select-ticket"])
+      .then(nav => this.toastService.toastInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 
-  setSelectedHour(hour: MoviesRepertoireHoursPayload): void {
-    this.selectedHour = hour;
+  setSelectedMovieByHour(movie: MoviesRepertoirePayload, hour: MoviesRepertoireHoursPayload): void {
+    if (this.rootMoviesRepertoirePayload) {
+      this.selectedMovie = movie;
+      this.selectedHour = hour;
+      this.selectedDay = this.rootMoviesRepertoirePayload[this.indexOfDaySelected].repertoireDay;
+    }
   }
 
-  getSelectedHour(): MoviesRepertoireHoursPayload {
-    return this.selectedHour;
+  setSelectedMovieByTitle(movie: MoviesRepertoirePayload): void {
+    if (this.rootMoviesRepertoirePayload) {
+      this.selectedMovie = movie;
+      this.selectedHour = null;
+      this.selectedDay = this.rootMoviesRepertoirePayload[this.indexOfDaySelected].repertoireDay;
+    }
   }
 
-  setSelectedDay(day: MoviesRepertoireDaysPayload): void {
-    this.selectedDay = day;
-  }
-
-  getSelectedDay(): MoviesRepertoireDaysPayload {
-    return this.selectedDay;
-  }
-
-  setIndexOfDaySelected(index: number): void {
+  setIndexOfRepertoireDaySelected(index: number): void {
     this.indexOfDaySelected = index;
+    this.updatePressedFlags();
   }
 
-  getIndexOfDaySelected(): number {
+  getIndexOfRepertoireDaySelected(): number {
     return this.indexOfDaySelected;
   }
 
-  private loadMoviesRepertoire(): void {
+
+  private requestForMoviesRepertoire(): void {
     this.http
       .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
       .subscribe({
-        next: responseData => this.rootMoviesRepertoirePayload.next(responseData),
+        next: responseData => this.rootMoviesRepertoirePayload = responseData,
         error: error => this.toastService.toastError(error)
       });
+  }
+
+  private updatePressedFlags(): void {
+    this.isPressed.fill(false);
+    this.isPressed[this.indexOfDaySelected] = true;
+  }
+
+  private setFirstDateAsSelected(): void {
+    this.isPressed[0] = true;
   }
 }
