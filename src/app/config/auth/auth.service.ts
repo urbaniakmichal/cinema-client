@@ -90,6 +90,16 @@ export class AuthService {
       });
   }
 
+  restore(restoreForm: FormGroup): void {
+    this.http
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/restore`, restoreForm.value)
+      .subscribe({
+        next: responseData => console.log(responseData),
+        error: error => this.toastService.toastError(error),
+        complete: () => console.log(restoreForm.value)
+      });
+  }
+
   isLoggedIn(): boolean {
     return !!this.cookieService.get(this.jwtTokenKey);
   }

@@ -6,9 +6,9 @@
       </div>
 
       <div>
-        <small class="p-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched && !loginForm.get('email')?.hasError('email')">Email is required</small>
-        <small class="p-error" *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">Email is invalid</small>
-        <label for="email" [class.p-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Email (mock&#64;user.com)</label>
+        <small class="p-error" *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.touched">Email is required</small>
+        <small class="p-error" *ngIf="loginForm.get('email')?.errors?.['invalidEmail'] && loginForm.get('email')?.touched && !loginForm.get('email')?.errors?.['required']">Email is invalid</small>
+        <label for="email" [class.p-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Email</label>
         <input id="email" type="email" formControlName="email" placeholder="Enter your email">
       </div>
 
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn primary">Login</button>
+      <button type="submit" class="btn primary" [disabled]="!isLoginDataValid()">Login</button>
 
       <div class="navigation-container">
         <span>Forgot password? <a class="text" routerLink="/restore">Click in</a></span>

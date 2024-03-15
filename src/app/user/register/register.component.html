@@ -17,8 +17,8 @@
     </div>
 
     <div>
-      <small class="p-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched && !registerForm.get('email')?.hasError('email')">Email is required</small>
-      <small class="p-error" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">Email is invalid</small>
+      <small class="p-error" *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.touched">Email is required</small>
+      <small class="p-error" *ngIf="registerForm.get('email')?.errors?.['invalidEmail'] && registerForm.get('email')?.touched && !registerForm.get('email')?.errors?.['required']">Email is invalid</small>
       <label for="email" [class.p-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">Email</label>
       <input id="email" type="email" formControlName="email" placeholder="Enter your email">
     </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn primary">Register now</button>
+    <button type="submit" class="btn primary" [disabled]="!isRegisterDataValid()">Register now</button>
 
     <div class="navigation-container">
       <span>Already have account? <a class="text" routerLink="/login">Sign in</a></span>

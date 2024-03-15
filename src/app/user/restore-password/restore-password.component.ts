@@ -1,11 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { UserLoginPayloadResponse } from "../../data-structures/payloads/user/UserLoginPayloadResponse";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
+import { ValidatorService } from "../../features/validator.service";
+import { AuthService } from "../../config/auth/auth.service";
 
 @Component({
   selector: "app-restore-password",
@@ -20,26 +22,31 @@ import { ToastService } from "../../features/toast.service";
 })
 export class RestorePasswordComponent {
 
+  protected restoreForm: FormGroup;
+
   constructor(
-    private http: HttpClient,
-    private toastService: ToastService
+    private authService: AuthService,
+    private toastService: ToastService,
+    private formBuilder: FormBuilder,
+    private validatorService: ValidatorService
   ) {
+    this.restoreForm = this.formBuilder.group({
+      email: ["", [Validators.required, this.validatorService.emailValidator, this.validatorService.whiteSpaceValidator]]
+    });
   }
 
 
-  restoreForm = new FormGroup({
-    email: new FormControl("")
-  });
-
-  submitRestore(): void {
-    this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/restore`, this.restoreForm.value)
-      .subscribe({
-        next: responseData => console.log(responseData),
-        error: error => this.toastService.toastError(error),
-        complete: () => console.log(this.restoreForm.value)
-      });
+  protected isRestoreDataValid(): boolean {
+    return this.restoreForm.valid;
   }
 
+  protected validateAndSubmit(): void {
+    this.restoreForm.markAllAsTouched();
 
+    if (this.restoreForm.valid) {
+      this.authService.register(this.restoreForm);
+    } else {
+      this.toastService.toastError("Invalid data");
+    }
+  }
 }

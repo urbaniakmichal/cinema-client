@@ -39,11 +39,15 @@ export class LoginComponent {
   }
 
 
-  togglePasswordVisibility(): void {
+  protected isLoginDataValid(): boolean {
+    return this.loginForm.valid;
+  }
+
+  protected togglePasswordVisibility(): void {
     this.passwordHidden = !this.passwordHidden;
   }
 
-  validateAndSubmit(): void {
+  protected validateAndSubmit(): void {
     this.loginForm.markAllAsTouched();
 
     if (this.loginForm.valid) {

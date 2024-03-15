@@ -27,7 +27,9 @@
       </tbody>
     </table>
 
-    <button class="btn primary" (click)="navigateToSelectSeat()">Select seat</button>
+    <small class="p-error" *ngIf="!isAnyTicketSelected()">At least one ticket must be selected</small>
+
+    <button class="btn primary" (click)="navigateToSelectSeat()" [disabled]="!isAnyTicketSelected()">Select seat</button>
   </div>
 </section>
 

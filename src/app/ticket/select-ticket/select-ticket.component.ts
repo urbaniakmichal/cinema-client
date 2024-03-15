@@ -38,23 +38,28 @@ export class SelectTicketComponent implements OnInit {
       .subscribe({
         next: responseData => this.ticketsTypePayload = responseData,
         error: error => this.toastService.toastError(error),
-        complete: () => this.cleatSelectedTicketsArray()
+        complete: () => this.clearSelectedTicketsArray()
       });
   }
 
   navigateToSelectSeat(): void {
     this.router
       .navigate(["/select-seat"])
-      .then(nav => this.toastService.toastInfo("Redirect"),
+      .then(
+        () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
 
-  onSelectTicketsAmount(event: any, ticket: TicketsTypePayload): void {
+  protected onSelectTicketsAmount(event: any, ticket: TicketsTypePayload): void {
     this.selectTicketService.setSelectedTicketsAmount(event.target.value, ticket);
   }
 
-  private cleatSelectedTicketsArray(): void {
+  protected isAnyTicketSelected(): boolean {
+    return this.selectTicketService.getSelectedTicketsAmount() > 0;
+  }
+
+  private clearSelectedTicketsArray(): void {
     this.selectTicketService.selectedTickets = [];
   }
 }
