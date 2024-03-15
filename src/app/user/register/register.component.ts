@@ -1,11 +1,10 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
-import { Router, RouterModule } from "@angular/router";
-import { UserLoginPayloadResponse } from "../../data-structures/payloads/user/UserLoginPayloadResponse";
-import { environment } from "../../../environments/environment";
+import { RouterModule } from "@angular/router";
 import { ToastService } from "../../features/toast.service";
+import { ValidatorService } from "../../features/validator.service";
+import { AuthService } from "../../config/auth/auth.service";
 
 @Component({
   selector: "app-register",
@@ -21,42 +20,34 @@ import { ToastService } from "../../features/toast.service";
 export class RegisterComponent {
 
   protected registerForm: FormGroup;
+  protected passwordHidden: boolean = true;
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
+    private authService: AuthService,
     private toastService: ToastService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private validatorService: ValidatorService
   ) {
     this.registerForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      surname: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required]
+      name: ["", [Validators.required, this.validatorService.whiteSpaceValidator]],
+      surname: ["", [Validators.required, this.validatorService.whiteSpaceValidator]],
+      email: ["", [Validators.required, this.validatorService.emailValidator, this.validatorService.whiteSpaceValidator]],
+      password: ["", [Validators.required, this.validatorService.whiteSpaceValidator]]
     });
   }
 
+
+  togglePasswordVisibility(): void {
+    this.passwordHidden = !this.passwordHidden;
+  }
 
   validateAndSubmit(): void {
     this.registerForm.markAllAsTouched();
 
     if (this.registerForm.valid) {
-      this.http
-        .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, this.registerForm.value)
-        .subscribe({
-          next: responseData => console.log(responseData),
-          error: error => this.toastService.toastError(error),
-          complete: (): void => {
-            this.toastService.toastSuccess("Register success!");
-
-            this.router
-              .navigate(["/login"])
-              .then(nav => this.toastService.toastInfo("Redirect"),
-                error => this.toastService.toastError(error)
-              );
-          }
-        });
+      this.authService.register(this.registerForm);
+    } else {
+      this.toastService.toastError("Invalid data");
     }
   }
-
 }

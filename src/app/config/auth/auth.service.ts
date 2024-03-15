@@ -34,17 +34,17 @@ export class AuthService {
         next: responseData => {
           this.cookieService.set(this.jwtTokenKey, responseData.jwtToken);
           this.userLoginPayload = responseData;
+          this.router
+            .navigate(["/repertoire"])
+            .then(
+              () => this.toastService.toastInfo("Redirect"),
+              error => this.toastService.toastError(error)
+            );
         },
         error: error => this.toastService.toastError(error),
         complete: (): void => {
           this.toastService.toastSuccess("Login success!");
           console.log(this.userLoginPayload);
-
-          this.router
-            .navigate(["/repertoire"])
-            .then(nav => this.toastService.toastInfo("Redirect"),
-              error => this.toastService.toastError(error)
-            );
         }
       });
   }
@@ -57,16 +57,35 @@ export class AuthService {
       .subscribe({
         next: responseData => {
           this.userLogoutPayloadResponse = responseData;
+          this.router
+            .navigate(["/repertoire"])
+            .then(
+              () => console.log("Logout user: " + this.userLogoutPayloadResponse),
+              error => this.toastService.toastError(error)
+            );
         },
         error: error => this.toastService.toastError(error),
         complete: (): void => {
           this.toastService.toastSuccess(this.userLogoutPayloadResponse.message);
+        }
+      });
+  }
 
+  register(registerForm: FormGroup): void {
+    this.http
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, registerForm.value)
+      .subscribe({
+        next: responseData => {
+          console.log(responseData);
           this.router
-            .navigate(["/repertoire"])
+            .navigate(["/login"])
             .then(nav => this.toastService.toastInfo("Redirect"),
               error => this.toastService.toastError(error)
             );
+        },
+        error: error => this.toastService.toastError(error),
+        complete: (): void => {
+          this.toastService.toastSuccess("Register success!");
         }
       });
   }

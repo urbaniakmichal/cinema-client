@@ -23,10 +23,15 @@
       <input id="email" type="email" formControlName="email" placeholder="Enter your email">
     </div>
 
-    <div>
+    <div class="password-input-container">
       <small class="p-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">Password is required</small>
       <label for="password" [class.p-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">Password</label>
-      <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+      <div class="password-input">
+        <input id="password" type="{{ passwordHidden ? 'password' : 'text' }}" formControlName="password" placeholder="Enter your password">
+        <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
+        <i class="fa" [ngClass]="{'fa-eye': passwordHidden, 'fa-eye-slash': !passwordHidden}"></i>
+      </span>
+      </div>
     </div>
 
     <button type="submit" class="btn primary">Register now</button>

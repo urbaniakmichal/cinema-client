@@ -12,10 +12,15 @@
         <input id="email" type="email" formControlName="email" placeholder="Enter your email">
       </div>
 
-      <div>
+      <div class="password-input-container">
         <small class="p-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required</small>
         <label for="password" [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password (mockpassword)</label>
-        <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+        <div class="password-input">
+          <input id="password" type="{{ passwordHidden ? 'password' : 'text' }}" formControlName="password" placeholder="Enter your password">
+          <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
+        <i class="fa" [ngClass]="{'fa-eye': passwordHidden, 'fa-eye-slash': !passwordHidden}"></i>
+      </span>
+        </div>
       </div>
 
       <button type="submit" class="btn primary">Login</button>
