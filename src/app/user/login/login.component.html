@@ -1,15 +1,22 @@
 <section class="login-container">
   <div>
-    <form class="form" [formGroup]="loginForm" (submit)="submitLogin()">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="validateAndSubmit()">
       <div class="title">
         Welcome back!
       </div>
 
-      <label for="email">Email (mock&#64;user.com)</label>
-      <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+      <div>
+        <small class="p-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched && !loginForm.get('email')?.hasError('email')">Email is required</small>
+        <small class="p-error" *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched">Email is invalid</small>
+        <label for="email" [class.p-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">Email (mock&#64;user.com)</label>
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+      </div>
 
-      <label for="password">Password (mockpassword)</label>
-      <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+      <div>
+        <small class="p-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required</small>
+        <label for="password" [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password (mockpassword)</label>
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+      </div>
 
       <button type="submit" class="btn primary">Login</button>
 
