@@ -37,11 +37,15 @@ export class RegisterComponent {
   }
 
 
-  togglePasswordVisibility(): void {
+  protected isRegisterDataValid(): boolean {
+    return this.registerForm.valid;
+  }
+
+  protected togglePasswordVisibility(): void {
     this.passwordHidden = !this.passwordHidden;
   }
 
-  validateAndSubmit(): void {
+  protected validateAndSubmit(): void {
     this.registerForm.markAllAsTouched();
 
     if (this.registerForm.valid) {
