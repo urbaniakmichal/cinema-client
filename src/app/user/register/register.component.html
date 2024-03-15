@@ -1,20 +1,33 @@
 <section class="register-container">
-  <form class="form" [formGroup]="registerForm" (submit)="submitRegister()">
+  <form class="form" [formGroup]="registerForm" (submit)="validateAndSubmit()">
     <div class="title">
       Register new account
     </div>
 
-    <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name" placeholder="Enter your name">
+    <div>
+      <small class="p-error" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">Name is required</small>
+      <label for="name" [class.p-invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="Enter your name">
+    </div>
 
-    <label for="surname">Surname</label>
-    <input id="surname" type="text" formControlName="surname" placeholder="Enter your surname">
+    <div>
+      <small class="p-error" *ngIf="registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched">Surname is required</small>
+      <label for="surname" [class.p-invalid]="registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched">Surname</label>
+      <input id="surname" type="text" formControlName="surname" placeholder="Enter your surname">
+    </div>
 
-    <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+    <div>
+      <small class="p-error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched && !registerForm.get('email')?.hasError('email')">Email is required</small>
+      <small class="p-error" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">Email is invalid</small>
+      <label for="email" [class.p-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="Enter your email">
+    </div>
 
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+    <div>
+      <small class="p-error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">Password is required</small>
+      <label for="password" [class.p-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Enter your password">
+    </div>
 
     <button type="submit" class="btn primary">Register now</button>
 

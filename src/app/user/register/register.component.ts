@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Router, RouterModule } from "@angular/router";
 import { UserLoginPayloadResponse } from "../../data-structures/payloads/user/UserLoginPayloadResponse";
@@ -20,37 +20,43 @@ import { ToastService } from "../../features/toast.service";
 })
 export class RegisterComponent {
 
+  protected registerForm: FormGroup;
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private formBuilder: FormBuilder
   ) {
+    this.registerForm = this.formBuilder.group({
+      name: ["", Validators.required],
+      surname: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required]
+    });
   }
 
 
-  registerForm = new FormGroup({
-    name: new FormControl(""),
-    surname: new FormControl(""),
-    email: new FormControl(""),
-    password: new FormControl("")
-  });
+  validateAndSubmit(): void {
+    this.registerForm.markAllAsTouched();
 
-  submitRegister(): void {
-    this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, this.registerForm.value)
-      .subscribe({
-        next: responseData => console.log(responseData),
-        error: error => this.toastService.toastError(error),
-        complete: (): void => {
-          this.toastService.toastSuccess("Register success!");
+    if (this.registerForm.valid) {
+      this.http
+        .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, this.registerForm.value)
+        .subscribe({
+          next: responseData => console.log(responseData),
+          error: error => this.toastService.toastError(error),
+          complete: (): void => {
+            this.toastService.toastSuccess("Register success!");
 
-          this.router
-            .navigate(["/login"])
-            .then(nav => this.toastService.toastInfo("Redirect"),
-              error => this.toastService.toastError(error)
-            );
-        }
-      });
+            this.router
+              .navigate(["/login"])
+              .then(nav => this.toastService.toastInfo("Redirect"),
+                error => this.toastService.toastError(error)
+              );
+          }
+        });
+    }
   }
 
 }

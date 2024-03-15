@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ToastModule } from "primeng/toast";
 import { AuthService } from "../../config/auth/auth.service";
+import { FormBuilder, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-login",
@@ -21,19 +22,25 @@ import { AuthService } from "../../config/auth/auth.service";
 })
 export class LoginComponent {
 
+  protected loginForm: FormGroup;
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private formBuilder: FormBuilder
   ) {
+    this.loginForm = this.formBuilder.group({
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", Validators.required]
+    });
   }
 
 
-  protected readonly loginForm = new FormGroup({
-    email: new FormControl(""),
-    password: new FormControl("")
-  });
+  validateAndSubmit(): void {
+    this.loginForm.markAllAsTouched();
 
-  submitLogin(): void {
-    this.authService.login(this.loginForm);
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm);
+    }
   }
 
 }
