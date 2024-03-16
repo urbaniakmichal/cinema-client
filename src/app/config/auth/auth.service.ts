@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
@@ -7,11 +7,14 @@ import { UserLogoutPayloadResponse } from "../../data-structures/payloads/user/U
 import { ToastService } from "../../features/toast.service";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
+import { Subject, takeUntil } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   userLoginPayload!: UserLoginPayloadResponse;
 
@@ -26,10 +29,16 @@ export class AuthService {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
 
   login(loginForm: FormGroup): void {
     this.http
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/login`, loginForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           this.cookieService.set(this.jwtTokenKey, responseData.jwtToken);
@@ -54,6 +63,7 @@ export class AuthService {
 
     this.http
       .post<UserLogoutPayloadResponse>(`${environment.apiLocalhostUrl}/user/logout`, {})
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           this.userLogoutPayloadResponse = responseData;
@@ -74,12 +84,14 @@ export class AuthService {
   register(registerForm: FormGroup): void {
     this.http
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, registerForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           console.log(responseData);
           this.router
             .navigate(["/login"])
-            .then(nav => this.toastService.toastInfo("Redirect"),
+            .then(
+              () => this.toastService.toastInfo("Redirect"),
               error => this.toastService.toastError(error)
             );
         },
@@ -93,6 +105,7 @@ export class AuthService {
   restore(restoreForm: FormGroup): void {
     this.http
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/restore`, restoreForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => console.log(responseData),
         error: error => this.toastService.toastError(error),

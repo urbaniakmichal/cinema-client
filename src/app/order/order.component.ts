@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MoviesRepertoireDaysPayload } from "../data-structures/payloads/movies/repertorie/MoviesRepertoireDaysPayload";
 import {
   MoviesRepertoireHoursPayload
@@ -18,6 +18,7 @@ import { OrderIdResponsePayload } from "../data-structures/payloads/order/OrderI
 import { environment } from "../../environments/environment";
 import { ToastService } from "../features/toast.service";
 import { AuthService } from "../config/auth/auth.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-order",
@@ -31,7 +32,9 @@ import { AuthService } from "../config/auth/auth.service";
   templateUrl: "./order.component.html",
   styleUrl: "./order.component.scss"
 })
-export class OrderComponent implements OnInit {
+export class OrderComponent implements OnInit, OnDestroy {
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   selectedMovie: MoviesRepertoirePayload | null = null;
   selectedHour: MoviesRepertoireHoursPayload | null = null;
@@ -56,6 +59,10 @@ export class OrderComponent implements OnInit {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   ngOnInit(): void {
     this.selectedMovie = this.repertoireService.selectedMovie;
@@ -99,6 +106,7 @@ export class OrderComponent implements OnInit {
 
     this.http
       .get<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order/submit`)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.orderIdResponsePayload = responseData,
         error: error => this.toastService.toastError(error),

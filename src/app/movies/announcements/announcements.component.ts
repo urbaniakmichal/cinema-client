@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MovieAnnouncementsPayload } from "../../data-structures/payloads/movies/announcment/MovieAnnouncementsPayload";
 import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
@@ -7,6 +7,7 @@ import { environment } from "../../../environments/environment";
 import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { ToastService } from "../../features/toast.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-announcements",
@@ -20,7 +21,9 @@ import { ToastService } from "../../features/toast.service";
   styleUrl: "./announcements.component.scss",
   providers: [MessageService]
 })
-export class AnnouncementsComponent implements OnInit {
+export class AnnouncementsComponent implements OnInit, OnDestroy {
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   movieAnnouncementsPayload!: MovieAnnouncementsPayload[];
 
@@ -31,10 +34,15 @@ export class AnnouncementsComponent implements OnInit {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   ngOnInit(): void {
     this.http
       .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}/announcements/movies`)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.movieAnnouncementsPayload = responseData,
         error: error => this.toastService.toastError(error),
