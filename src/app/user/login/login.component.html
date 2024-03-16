@@ -14,7 +14,7 @@
 
       <div class="password-input-container">
         <small class="p-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password is required</small>
-        <label for="password" [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password (mockpassword)</label>
+        <label for="password" [class.p-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">Password</label>
         <div class="password-input">
           <input id="password" type="{{ passwordHidden ? 'password' : 'text' }}" formControlName="password" placeholder="Enter your password">
           <span class="password-toggle-icon" (click)="togglePasswordVisibility()">
