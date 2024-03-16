@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TicketsTypePayload } from "../../data-structures/payloads/tickets/TicketsTypePayload";
 import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { SelectTicketService } from "./select-ticket.service";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "app-select-ticket",
@@ -19,7 +20,9 @@ import { ToastService } from "../../features/toast.service";
   templateUrl: "./select-ticket.component.html",
   styleUrl: "./select-ticket.component.scss"
 })
-export class SelectTicketComponent implements OnInit {
+export class SelectTicketComponent implements OnInit, OnDestroy {
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   ticketsTypePayload!: TicketsTypePayload[];
 
@@ -31,10 +34,15 @@ export class SelectTicketComponent implements OnInit {
   ) {
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
   ngOnInit(): void {
     this.http
       .get<TicketsTypePayload[]>(`${environment.apiLocalhostUrl}/tickets`)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.ticketsTypePayload = responseData,
         error: error => this.toastService.toastError(error),

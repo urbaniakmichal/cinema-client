@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnDestroy } from "@angular/core";
 import {
   MoviesRepertoireHoursPayload
 } from "../../data-structures/payloads/movies/repertorie/MoviesRepertoireHoursPayload";
@@ -13,11 +13,14 @@ import { HttpClient } from "@angular/common/http";
 import { ToastService } from "../../features/toast.service";
 import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
+import { Subject, takeUntil } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
-export class RepertoireService {
+export class RepertoireService implements OnDestroy {
+
+  private unsubscribe$: Subject<void> = new Subject<void>();
 
   rootMoviesRepertoirePayload: RootMoviesRepertoirePayload[] | null = null;
   isPressed: boolean[] = [];
@@ -25,7 +28,7 @@ export class RepertoireService {
   indexOfDaySelected: number = 0;
 
   selectedMovie!: MoviesRepertoirePayload;
-  selectedHour: MoviesRepertoireHoursPayload | null = null
+  selectedHour: MoviesRepertoireHoursPayload | null = null;
   selectedDay!: MoviesRepertoireDaysPayload;
 
   constructor(
@@ -35,6 +38,11 @@ export class RepertoireService {
   ) {
     this.requestForMoviesRepertoire();
     this.setFirstDateAsSelected();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
 
@@ -91,6 +99,7 @@ export class RepertoireService {
   private requestForMoviesRepertoire(): void {
     this.http
       .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.rootMoviesRepertoirePayload = responseData,
         error: error => this.toastService.toastError(error)
