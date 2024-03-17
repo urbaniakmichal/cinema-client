@@ -1,0 +1,21 @@
+<section>
+  <div class="container">
+    <div class="grid-container">
+      <div class="grid">
+        <div *ngFor="let type of thirdPartPaymentTypesPayloads; let index = index"
+             class="grid-item"
+             [ngClass]="{ 'selected': isPaymentTypeSelected(index) }"
+             (click)="selectPaymentType(index)">
+          <div class="content">
+            <img [src]="type.imageUrl">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" class="btn primary" (click)="paymentSuccessful()">Success</button>
+      <button type="button" class="btn primary" (click)="paymentFail()">Fail</button>
+    </div>
+  </div>
+</section>

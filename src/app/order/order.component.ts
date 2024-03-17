@@ -19,6 +19,9 @@ import { environment } from "../../environments/environment";
 import { ToastService } from "../features/toast.service";
 import { AuthService } from "../config/auth/auth.service";
 import { Subject, takeUntil } from "rxjs";
+import { faker } from '@faker-js/faker';
+import { DialogService } from "primeng/dynamicdialog";
+import { ThirdPartPaymentComponent } from "../config/mocks/third-part/third-part-payment/third-part-payment.component";
 
 @Component({
   selector: "app-order",
@@ -55,7 +58,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     private selectSeatService: SelectSeatService,
     private selectTicketService: SelectTicketService,
     private authService: AuthService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private dialogService: DialogService
   ) {
   }
 
@@ -84,6 +88,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     console.log("OrderingTicketComponent loginService: ", this.userLoginPayload);
   }
 
+
   calculateTotalTicketsPrice(): number {
     let priceSum = 0;
     for (const selectedTicket of this.selectedTickets) {
@@ -95,22 +100,20 @@ export class OrderComponent implements OnInit, OnDestroy {
     return priceSum;
   }
 
-  navigateToThirdPartPayment(): void {
-    window.location.href = "https://www.paymentwall.com/uploaded/files/PW20_methods.png";
-    // this.router.navigate(['/payment']);
-  }
-
   submitOrder(): void {
     this.createOrderPayload();
     console.log(this.submitOrderPayload);
 
     this.http
-      .get<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order/submit`)
+      .post<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order/submit`, this.submitOrderPayload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.orderIdResponsePayload = responseData,
         error: error => this.toastService.toastError(error),
-        complete: () => console.log(this.orderIdResponsePayload)
+        complete: () => {
+          this.navigateToThirdPartPayment();
+          console.log(this.orderIdResponsePayload)
+        }
       });
   }
 
@@ -124,7 +127,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   private createOrderPayload(): void {
     this.submitOrderPayload = {
-      orderId: "123456", // for wiremock
+      orderId: faker.string.uuid(),
       userId: this.userLoginPayload.id,
       selectedMovieId: this.selectedMovie?.id ?? "",
       selectedMovieHourId: this.selectedHour?.id ?? "",
@@ -134,5 +137,16 @@ export class OrderComponent implements OnInit, OnDestroy {
       ticketAmount: this.ticketAmount,
       totalTicketsPrice: this.totalTicketsPrice
     };
+  }
+
+  private navigateToThirdPartPayment(): void {
+    const ref = this.dialogService.open(ThirdPartPaymentComponent, {
+      header: 'Modal Header',
+      width: '70%'
+    });
+
+    ref.onClose.subscribe((data: any) => {
+      console.log('Dane zamykającego modalu:', data);
+    });
   }
 }

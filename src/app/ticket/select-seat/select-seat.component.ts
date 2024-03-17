@@ -21,6 +21,8 @@ import { Subject, takeUntil } from "rxjs";
 })
 export class SelectSeatComponent implements OnInit, OnDestroy {
 
+  // ToDo dodac mozliwosc odkliknięcia wybranego miejsca
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   auditoriumPayload!: AuditoriumPayload;

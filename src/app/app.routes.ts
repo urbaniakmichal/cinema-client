@@ -7,8 +7,8 @@ import { SelectSeatComponent } from "./ticket/select-seat/select-seat.component"
 import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.component";
 import { RestorePasswordComponent } from "./user/restore-password/restore-password.component";
 import { OrderComponent } from "./order/order.component";
-import { PaymentComponent } from "./payment/payment.component";
 import { AuthGuard } from "./config/auth/auth.guard";
+import { ThirdPartPaymentComponent } from "./config/mocks/third-part/third-part-payment/third-part-payment.component";
 
 export const routes: Routes = [
   {
@@ -58,8 +58,7 @@ export const routes: Routes = [
   },
   {
     path: "payment",
-    component: PaymentComponent,
+    component: ThirdPartPaymentComponent,
     canActivate: [AuthGuard]
   }
-
 ];
