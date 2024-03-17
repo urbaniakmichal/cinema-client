@@ -15,6 +15,7 @@ import { SelectTicketComponent } from "./ticket/select-ticket/select-ticket.comp
 import { OrderComponent } from "./order/order.component";
 import { ToastModule } from "primeng/toast";
 import { ButtonModule } from "primeng/button";
+import { DialogModule } from "primeng/dialog";
 
 @Component({
   imports: [
@@ -34,6 +35,7 @@ import { ButtonModule } from "primeng/button";
     SelectTicketComponent,
     OrderComponent,
     ButtonModule,
+    DialogModule,
     ToastModule
   ],
   selector: "app-root",

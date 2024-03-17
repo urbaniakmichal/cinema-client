@@ -102,3 +102,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .btn[disabled] {
   cursor: not-allowed;
 }
+
+.button-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: space-between;
+}
