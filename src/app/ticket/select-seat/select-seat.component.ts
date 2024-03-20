@@ -8,13 +8,18 @@ import { SelectTicketService } from "../select-ticket/select-ticket.service";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
 import { Subject, takeUntil } from "rxjs";
+import { ConfirmationService, PrimeNGConfig } from "primeng/api";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToastModule } from "primeng/toast";
 
 @Component({
   selector: "app-select-seat",
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   templateUrl: "./select-seat.component.html",
   styleUrl: "./select-seat.component.scss"
@@ -37,7 +42,9 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
     private router: Router,
     private selectTicketService: SelectTicketService,
     private selectSeatService: SelectSeatService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private confirmationService: ConfirmationService,
+    private primengConfig: PrimeNGConfig
   ) {
   }
 
@@ -88,17 +95,31 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
   navigateToSelectTicket(): void {
     this.router
       .navigate(["/buy-ticket"])
-      .then(nav => this.toastService.toastInfo("Redirect"),
+      .then(
+        () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
 
   navigateToOrderDetails(): void {
-    this.router
-      .navigate(["/order"])
-      .then(nav => this.toastService.toastInfo("Redirect"),
-        error => this.toastService.toastError(error)
-      );
+    if (this.selectedSeats.length < this.selectTicketService.getSelectedTicketsAmount()) {
+      this.confirmationService.confirm({
+        message: `Are you sure that you want to proceed? You selected ${this.selectTicketService.getSelectedTicketsAmount()} tickets but only ${this.selectedSeats.length} seats.`,
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        key: "confirm",
+        accept: () => {
+          this.router
+            .navigate(["/order"])
+            .then(
+              () => this.toastService.toastInfo("Redirect"),
+              error => this.toastService.toastError(error)
+            );
+        },
+        reject: () => {
+          this.navigateToSelectTicket();
+        }
+      });
+    }
   }
-
 }
