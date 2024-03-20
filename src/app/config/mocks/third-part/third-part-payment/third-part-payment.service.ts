@@ -11,7 +11,8 @@ export class ThirdPartPaymentService {
 
   constructor(
     private dialogService: DialogService
-  ) {}
+  ) {
+  }
 
   openDialog(): void {
     this.ref = this.dialogService.open(ThirdPartPaymentComponent, {
@@ -22,8 +23,6 @@ export class ThirdPartPaymentService {
   }
 
   closeDialog(): void {
-
-      this.ref.close();
-
+    this.ref.close();
   }
 }
