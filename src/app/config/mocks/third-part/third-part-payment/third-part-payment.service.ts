@@ -14,7 +14,7 @@ export class ThirdPartPaymentService {
   ) {
   }
 
-  openDialog(): void {
+  openDialog(): void { // ToDo move dialogService to separate component/service?
     this.ref = this.dialogService.open(ThirdPartPaymentComponent, {
       header: "Please choose payment type",
       width: "70%",
