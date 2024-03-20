@@ -36,6 +36,8 @@ import { ThirdPartPaymentService } from "../config/mocks/third-part/third-part-p
 })
 export class OrderComponent implements OnInit, OnDestroy {
 
+  // ToDo add service and move some logic from component
+
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   selectedMovie: MoviesRepertoirePayload | null = null;
