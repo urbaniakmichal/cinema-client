@@ -16,6 +16,7 @@ import { OrderComponent } from "./order/order.component";
 import { ToastModule } from "primeng/toast";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @Component({
   imports: [
@@ -36,7 +37,8 @@ import { DialogModule } from "primeng/dialog";
     OrderComponent,
     ButtonModule,
     DialogModule,
-    ToastModule
+    ToastModule,
+    ConfirmDialogModule
   ],
   selector: "app-root",
   standalone: true,
