@@ -109,17 +109,24 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
         icon: "pi pi-exclamation-triangle",
         key: "confirm",
         accept: () => {
-          this.router
-            .navigate(["/order"])
-            .then(
-              () => this.toastService.toastInfo("Redirect"),
-              error => this.toastService.toastError(error)
-            );
+          this.navigateToOrder();
         },
         reject: () => {
           this.navigateToSelectTicket();
         }
       });
+    } else {
+      this.navigateToOrder();
     }
+  }
+
+
+  private navigateToOrder(): void {
+    this.router
+      .navigate(["/order"])
+      .then(
+        () => this.toastService.toastInfo("Redirect"),
+        error => this.toastService.toastError(error)
+      );
   }
 }
