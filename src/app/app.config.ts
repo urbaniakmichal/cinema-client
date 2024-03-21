@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { ToastModule } from "primeng/toast";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { JwtInterceptorService } from "./config/auth/jwt-interceptor.service";
-import { DialogService } from "primeng/dynamicdialog";
+import { DialogService, DynamicDialogModule } from "primeng/dynamicdialog";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },
     DialogService,
-    ConfirmationService
+    ConfirmationService,
+    DynamicDialogModule
   ]
 };

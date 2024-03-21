@@ -9,6 +9,7 @@ import { RestorePasswordComponent } from "./user/restore-password/restore-passwo
 import { OrderComponent } from "./order/order.component";
 import { AuthGuard } from "./config/auth/auth.guard";
 import { ThirdPartPaymentComponent } from "./config/mocks/third-part/third-part-payment/third-part-payment.component";
+import { PaymentSummaryComponent } from "./payment-summary/payment-summary/payment-summary.component";
 
 export const routes: Routes = [
   {
@@ -59,6 +60,11 @@ export const routes: Routes = [
   {
     path: "payment",
     component: ThirdPartPaymentComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "payment-summary",
+    component: PaymentSummaryComponent,
     canActivate: [AuthGuard]
   }
 ];

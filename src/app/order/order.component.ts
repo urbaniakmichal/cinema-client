@@ -19,9 +19,8 @@ import { environment } from "../../environments/environment";
 import { ToastService } from "../features/toast.service";
 import { AuthService } from "../config/auth/auth.service";
 import { Subject, takeUntil } from "rxjs";
-import { faker } from '@faker-js/faker';
-import { DialogService } from "primeng/dynamicdialog";
-import { ThirdPartPaymentComponent } from "../config/mocks/third-part/third-part-payment/third-part-payment.component";
+import { faker } from "@faker-js/faker";
+import { ThirdPartPaymentService } from "../config/mocks/third-part/third-part-payment/third-part-payment.service";
 
 @Component({
   selector: "app-order",
@@ -36,6 +35,8 @@ import { ThirdPartPaymentComponent } from "../config/mocks/third-part/third-part
   styleUrl: "./order.component.scss"
 })
 export class OrderComponent implements OnInit, OnDestroy {
+
+  // ToDo add service and move some logic from component
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 
@@ -59,7 +60,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     private selectTicketService: SelectTicketService,
     private authService: AuthService,
     private toastService: ToastService,
-    private dialogService: DialogService
+    private thirdPartPaymentService: ThirdPartPaymentService
   ) {
   }
 
@@ -112,7 +113,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         error: error => this.toastService.toastError(error),
         complete: () => {
           this.navigateToThirdPartPayment();
-          console.log(this.orderIdResponsePayload)
+          console.log(this.orderIdResponsePayload);
         }
       });
   }
@@ -140,13 +141,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   private navigateToThirdPartPayment(): void {
-    const ref = this.dialogService.open(ThirdPartPaymentComponent, {
-      header: 'Modal Header',
-      width: '70%'
-    });
-
-    ref.onClose.subscribe((data: any) => {
-      console.log('Dane zamykającego modalu:', data);
-    });
+    this.thirdPartPaymentService.openDialog();
   }
 }
