@@ -8,6 +8,10 @@ import { ToastService } from "../../features/toast.service";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Subject, takeUntil } from "rxjs";
+import { UserChangeDataPayloadRequest } from "../../data-structures/payloads/user/change/UserChangeDataPayloadRequest";
+import {
+  UserChangeDataPayloadResponse
+} from "../../data-structures/payloads/user/change/UserChangeDataPayloadResponse";
 
 @Injectable({
   providedIn: "root"
@@ -19,7 +23,7 @@ export class AuthService implements OnDestroy {
   userLoginPayload!: UserLoginPayloadResponse;
 
   private userLogoutPayloadResponse!: UserLogoutPayloadResponse;
-  private jwtTokenKey = "jwtToken";
+  private jwtTokenKey: string = "jwtToken";
 
   constructor(
     private http: HttpClient,
@@ -82,7 +86,7 @@ export class AuthService implements OnDestroy {
   }
 
   register(registerForm: FormGroup): void {
-    this.http
+    this.http // ToDo pozmieniacn w psotach getach na response zamiast na request i dostosowac co chce ottrzymywac
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, registerForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
@@ -113,7 +117,29 @@ export class AuthService implements OnDestroy {
       });
   }
 
+  changePersonalData(changePersonalDataForm: FormGroup): void {
+    this.http
+      .post<UserChangeDataPayloadResponse>(`${environment.apiLocalhostUrl}/user/change-data`, this.createUserChangeDataPayloadRequest(changePersonalDataForm))
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: responseData => console.log(responseData), // ToDo pomyslec co dodac tutaj i do podobnych miejsc
+        error: error => this.toastService.toastError(error), // ToDo pomyslec co dodac tutaj i do podobnych miejsc
+        complete: () => this.toastService.toastSuccess("You changed you personal data") // ToDo pomyslec co dodac tutaj i do podobnych miejsc
+      });
+  }
+
   isLoggedIn(): boolean {
     return !!this.cookieService.get(this.jwtTokenKey);
+  }
+
+
+  private createUserChangeDataPayloadRequest(formGroup: FormGroup): UserChangeDataPayloadRequest {
+    return {
+      id: this.userLoginPayload.id,
+      name: formGroup.get("name")?.value,
+      surname: formGroup.get("surname")?.value,
+      email: formGroup.get("email")?.value,
+      password: formGroup.get("password")?.value
+    };
   }
 }

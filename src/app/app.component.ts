@@ -17,6 +17,7 @@ import { ToastModule } from "primeng/toast";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { TabMenuModule } from "primeng/tabmenu";
 
 @Component({
   imports: [
@@ -38,7 +39,8 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
     ButtonModule,
     DialogModule,
     ToastModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TabMenuModule
   ],
   selector: "app-root",
   standalone: true,

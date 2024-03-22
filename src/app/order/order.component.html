@@ -52,8 +52,11 @@
       <tr class="voucher">
         <td>Do you have a voucher?</td>
         <td>
-          <input type="text" id="voucher" name="voucher">
-          <button class="btn primary" type="button" id="addVoucher">Add code</button>
+          <input type="text" id="voucher" name="voucher" [(ngModel)]="promoCodeAsParam">
+          <button class="btn primary" type="button" id="addVoucher"
+                  [disabled]="!isPromoCodeAdded()"
+                  (click)="submitPromoCode()"
+          >Add promo code</button>
         </td>
       </tr>
       <tr>

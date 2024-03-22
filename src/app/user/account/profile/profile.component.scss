@@ -1,0 +1,30 @@
+.change-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  color: #888;
+  font-size: 15px;
+}
+
+.navigation-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+#password {
+  display: flex;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
