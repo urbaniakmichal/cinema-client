@@ -10,6 +10,9 @@ import { OrderComponent } from "./order/order.component";
 import { AuthGuard } from "./config/auth/auth.guard";
 import { ThirdPartPaymentComponent } from "./config/mocks/third-part/third-part-payment/third-part-payment.component";
 import { PaymentSummaryComponent } from "./payment-summary/payment-summary/payment-summary.component";
+import { AccountComponent } from "./user/account/account.component";
+import { ProfileComponent } from "./user/account/profile/profile.component";
+import { TicketsComponent } from "./user/account/tickets/tickets.component";
 
 export const routes: Routes = [
   {
@@ -20,6 +23,16 @@ export const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "account",
+    component: AccountComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "tickets", component: TicketsComponent, canActivate: [AuthGuard] },
+      { path: '', redirectTo: 'profile', pathMatch: 'full' }
+    ]
   },
   {
     path: "restore",

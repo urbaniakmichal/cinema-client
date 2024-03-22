@@ -34,7 +34,7 @@ export class HeaderComponent {
     if (this.authService.isLoggedIn()) {
       return this.authService.userLoginPayload?.email || '';
     } else {
-      return "Account";
+      return "Account"; // ToDo po odswiezeniu znika
     }
   }
 }

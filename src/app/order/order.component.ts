@@ -12,15 +12,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TicketsTypePayload } from "../data-structures/payloads/tickets/TicketsTypePayload";
 import { Router, RouterModule } from "@angular/router";
 import { UserLoginPayloadResponse } from "../data-structures/payloads/user/UserLoginPayloadResponse";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { SubmitOrderPayload } from "../data-structures/payloads/order/SubmitOrderPayload";
 import { OrderIdResponsePayload } from "../data-structures/payloads/order/OrderIdResponsePayload";
 import { environment } from "../../environments/environment";
 import { ToastService } from "../features/toast.service";
 import { AuthService } from "../config/auth/auth.service";
-import { Subject, takeUntil } from "rxjs";
+import { map, Subject, takeUntil } from "rxjs";
 import { faker } from "@faker-js/faker";
 import { ThirdPartPaymentService } from "../config/mocks/third-part/third-part-payment/third-part-payment.service";
+import { PromoCodePayloadRes } from "../data-structures/payloads/code/PromoCodePayloadRes";
 
 @Component({
   selector: "app-order",
@@ -48,6 +49,9 @@ export class OrderComponent implements OnInit, OnDestroy {
   selectedTickets: { ticket: TicketsTypePayload, amount: number }[] = [];
   ticketAmount!: number;
   totalTicketsPrice!: number;
+
+  promoCodePayloadRes!: PromoCodePayloadRes;
+  promoCodeAsParam: string = "";
 
   submitOrderPayload!: SubmitOrderPayload;
   orderIdResponsePayload!: OrderIdResponsePayload;
@@ -90,7 +94,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
 
-  calculateTotalTicketsPrice(): number {
+  protected calculateTotalTicketsPrice(): number {
     let priceSum = 0;
     for (const selectedTicket of this.selectedTickets) {
       const price = parseFloat(selectedTicket.ticket.price);
@@ -101,7 +105,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     return priceSum;
   }
 
-  submitOrder(): void {
+  protected submitOrder(): void {
     this.createOrderPayload();
     console.log(this.submitOrderPayload);
 
@@ -118,13 +122,49 @@ export class OrderComponent implements OnInit, OnDestroy {
       });
   }
 
-  navigateToSelectSeat(): void {
+  protected submitPromoCode(): void {
+    console.log("promo code value " + this.promoCodeAsParam);
+
+    let params = new HttpParams();
+    params = params.append("value", this.promoCodeAsParam);
+
+    this.http
+      .get<PromoCodePayloadRes>(`${environment.apiLocalhostUrl}/code/promo`, { params: params })
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        map(responseData => {
+          console.log(responseData);
+          this.promoCodePayloadRes = responseData;
+
+          if (this.promoCodePayloadRes.isActive) {
+            this.calculatePrice();
+            this.toastService.toastSuccess("Added promo code");
+          } else {
+            this.toastService.toastFail("Invalid promo code");
+          }
+
+          return responseData;
+        })
+      )
+      .subscribe({
+        error: error => {
+          this.toastService.toastError("Invalid promo code");
+        }
+      });
+  }
+
+  protected navigateToSelectSeat(): void {
     this.router
       .navigate(["/select-seat"])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
   }
+
+  protected isPromoCodeAdded(): boolean {
+    return this.promoCodeAsParam.trim() !== "";
+  }
+
 
   private createOrderPayload(): void {
     this.submitOrderPayload = {
@@ -142,5 +182,11 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   private navigateToThirdPartPayment(): void {
     this.thirdPartPaymentService.openDialog();
+  }
+
+  private calculatePrice(): void {
+    console.log("Price before use promo code: " + this.totalTicketsPrice);
+    this.totalTicketsPrice -= this.totalTicketsPrice * (this.promoCodePayloadRes.value / 100);
+    console.log("Price after use promo code: " + this.totalTicketsPrice);
   }
 }
