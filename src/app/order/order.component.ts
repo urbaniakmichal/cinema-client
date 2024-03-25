@@ -22,6 +22,7 @@ import { map, Subject, takeUntil } from "rxjs";
 import { faker } from "@faker-js/faker";
 import { ThirdPartPaymentService } from "../config/mocks/third-part/third-part-payment/third-part-payment.service";
 import { PromoCodePayloadRes } from "../data-structures/payloads/code/PromoCodePayloadRes";
+import { TableModule } from "primeng/table";
 
 @Component({
   selector: "app-order",
@@ -30,7 +31,8 @@ import { PromoCodePayloadRes } from "../data-structures/payloads/code/PromoCodeP
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TableModule
   ],
   templateUrl: "./order.component.html",
   styleUrl: "./order.component.scss"
