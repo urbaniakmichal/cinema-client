@@ -12,7 +12,7 @@ import { ThirdPartPaymentComponent } from "./config/mocks/third-part/third-part-
 import { PaymentSummaryComponent } from "./payment-summary/payment-summary/payment-summary.component";
 import { AccountComponent } from "./user/account/account.component";
 import { ProfileComponent } from "./user/account/profile/profile.component";
-import { TicketsComponent } from "./user/account/tickets/tickets.component";
+import { TicketsComponent } from "./user/account/tickets-history/tickets.component";
 
 export const routes: Routes = [
   {

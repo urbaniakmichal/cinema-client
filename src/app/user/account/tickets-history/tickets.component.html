@@ -1,0 +1,119 @@
+<p-table #dt1
+         [value]="ordersHistoryResponse"
+         selectionMode="single"
+         [(selection)]="getPaymentResult"
+         dataKey="id"
+         [tableStyle]="{'min-width': '50rem'}"
+         [rows]="8"
+         [paginator]="true"
+         stateStorage="session"
+         stateKey="statedemo-session"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="movieTitle" style="width:5%">Movie title
+        <p-sortIcon field="movieTitle"></p-sortIcon>
+      </th>
+      <th pSortableColumn="movieDate" style="width:5%">Movie date
+        <p-sortIcon field="movieDate"></p-sortIcon>
+      </th>
+      <th pSortableColumn="movieHour" style="width:5%">Movie hour
+        <p-sortIcon field="movieHour"></p-sortIcon>
+      </th>
+      <th pSortableColumn="paymentName" style="width:5%">Payment type
+        <p-sortIcon field="paymentName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="paymentStatus" style="width:5%">Payment status
+        <p-sortIcon field="paymentStatus"></p-sortIcon>
+      </th>
+      <th pSortableColumn="orderDate" style="width:5%">Order date
+        <p-sortIcon field="orderDate"></p-sortIcon>
+      </th>
+      <th pSortableColumn="promoCodeValue" style="width:5%">Promo code
+        <p-sortIcon field="promoCodeValue"></p-sortIcon>
+      </th>
+      <th pSortableColumn="orderPrice" style="width:5%">Order price
+        <p-sortIcon field="orderPrice"></p-sortIcon>
+      </th>
+    </tr>
+
+    <tr>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Movie title..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Movie date..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="GMovie hour..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Payment name..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Payment status..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Order date..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Promo code..." />
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+               placeholder="Order price..." />
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-order>
+    <tr [pSelectableRow]="order">
+      <td>
+        <span class="p-column-title">Movie title</span>
+        {{ order.movieTitle }}
+      </td>
+      <td>
+        <span class="p-column-title">Movie date</span>
+        {{ order.movieDate }}
+      </td>
+      <td>
+        <span class="p-column-title">Movie hour</span>
+        {{ order.movieHour }}
+      </td>
+      <td>
+        <span class="p-column-title">Payment type</span>
+        {{ order.paymentName }}
+      </td>
+      <td>
+        <span class="p-column-title">Payment status</span>
+        <p-tag [value]="order.paymentStatus === 'true' ? 'Paid' : 'Unpaid'"
+               [severity]="getPaymentResult(order.paymentStatus)"></p-tag>
+      </td>
+      <td>
+        <span class="p-column-title">Order date</span>
+        {{ order.orderDate | date:'medium' }}
+      </td>
+      <td>
+        <span class="p-column-title">Promo code</span>
+        {{ order.promoCodeValue }}
+      </td>
+      <td>
+        <span class="p-column-title">Order price</span>
+        {{ order.orderPrice }}
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="4">No orders found.</td>
+    </tr>
+  </ng-template>
+</p-table>
