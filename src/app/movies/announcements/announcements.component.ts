@@ -8,6 +8,7 @@ import { MessageService } from "primeng/api";
 import { ToastModule } from "primeng/toast";
 import { ToastService } from "../../features/toast.service";
 import { Subject, takeUntil } from "rxjs";
+import { Paths } from "../../config/Paths";
 
 @Component({
   selector: "app-announcements",
@@ -41,7 +42,7 @@ export class AnnouncementsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.http
-      .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}/announcements/movies`)
+      .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}/announcements` + Paths.MOVIES)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.movieAnnouncementsPayload = responseData,
@@ -54,7 +55,7 @@ export class AnnouncementsComponent implements OnInit, OnDestroy {
 
   navigateToMovieDetails(id: string): void {
     this.router
-      .navigate(["/movie-details", id])
+      .navigate([Paths.MOVIE_DETAILS, id])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

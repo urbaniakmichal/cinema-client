@@ -11,6 +11,7 @@ import { Subject, takeUntil } from "rxjs";
 import { ConfirmationService, PrimeNGConfig } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ToastModule } from "primeng/toast";
+import { Paths } from "../../config/Paths";
 
 @Component({
   selector: "app-select-seat",
@@ -55,7 +56,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.http
-      .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}/auditorium`)
+      .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}` + Paths.AUDITORIUM)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.auditoriumPayload = responseData,
@@ -94,7 +95,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   navigateToSelectTicket(): void {
     this.router
-      .navigate(["/buy-ticket"])
+      .navigate([Paths.BUY_TICKET])
       .then(
         () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
@@ -123,7 +124,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   private navigateToOrder(): void {
     this.router
-      .navigate(["/order"])
+      .navigate([Paths.ORDER])
       .then(
         () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)

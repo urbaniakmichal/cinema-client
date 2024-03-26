@@ -23,6 +23,7 @@ import { faker } from "@faker-js/faker";
 import { ThirdPartPaymentService } from "../config/mocks/third-part/third-part-payment/third-part-payment.service";
 import { PromoCodePayloadRes } from "../data-structures/payloads/code/PromoCodePayloadRes";
 import { TableModule } from "primeng/table";
+import { Paths } from "../config/Paths";
 
 @Component({
   selector: "app-order",
@@ -112,7 +113,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     console.log(this.submitOrderPayload);
 
     this.http
-      .post<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order/submit`, this.submitOrderPayload)
+      .post<OrderIdResponsePayload>(`${environment.apiLocalhostUrl}/order` + Paths.SUBMIT, this.submitOrderPayload)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.orderIdResponsePayload = responseData,
@@ -131,7 +132,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     params = params.append("value", this.promoCodeAsParam);
 
     this.http
-      .get<PromoCodePayloadRes>(`${environment.apiLocalhostUrl}/code/promo`, { params: params })
+      .get<PromoCodePayloadRes>(`${environment.apiLocalhostUrl}/code` + Paths.PROMO, { params: params })
       .pipe(
         takeUntil(this.unsubscribe$),
         map(responseData => {
@@ -157,7 +158,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   protected navigateToSelectSeat(): void {
     this.router
-      .navigate(["/select-seat"])
+      .navigate([Paths.SELECT_SEAT])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

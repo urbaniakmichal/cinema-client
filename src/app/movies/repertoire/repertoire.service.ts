@@ -14,6 +14,7 @@ import { ToastService } from "../../features/toast.service";
 import { environment } from "../../../environments/environment";
 import { Router } from "@angular/router";
 import { Subject, takeUntil } from "rxjs";
+import { Paths } from "../../config/Paths";
 
 @Injectable({
   providedIn: "root"
@@ -56,7 +57,7 @@ export class RepertoireService implements OnDestroy {
 
   navigateToMovieDetails(id: string): void {
     this.router
-      .navigate(["/movie-details", id])
+      .navigate([Paths.MOVIE_DETAILS, id])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
@@ -64,7 +65,7 @@ export class RepertoireService implements OnDestroy {
 
   navigateToTicket(): void {
     this.router
-      .navigate(["/select-ticket"])
+      .navigate([Paths.SELECT_TICKET])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
@@ -98,7 +99,7 @@ export class RepertoireService implements OnDestroy {
 
   private requestForMoviesRepertoire(): void {
     this.http
-      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire/movies`)
+      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire` + Paths.MOVIES)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.rootMoviesRepertoirePayload = responseData,
