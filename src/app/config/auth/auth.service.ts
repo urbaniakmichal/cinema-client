@@ -12,6 +12,7 @@ import { UserChangeDataPayloadRequest } from "../../data-structures/payloads/use
 import {
   UserChangeDataPayloadResponse
 } from "../../data-structures/payloads/user/change/UserChangeDataPayloadResponse";
+import { Paths } from "../Paths";
 
 @Injectable({
   providedIn: "root"
@@ -41,14 +42,14 @@ export class AuthService implements OnDestroy {
 
   login(loginForm: FormGroup): void {
     this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/login`, loginForm.value)
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.LOGIN, loginForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           this.cookieService.set(this.jwtTokenKey, responseData.jwtToken);
           this.userLoginPayload = responseData;
           this.router
-            .navigate(["/repertoire"])
+            .navigate([Paths.REPERTOIRE])
             .then(
               () => this.toastService.toastInfo("Redirect"),
               error => this.toastService.toastError(error)
@@ -66,13 +67,13 @@ export class AuthService implements OnDestroy {
     this.cookieService.delete(this.jwtTokenKey);
 
     this.http
-      .post<UserLogoutPayloadResponse>(`${environment.apiLocalhostUrl}/user/logout`, {})
+      .post<UserLogoutPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.LOGOUT, {})
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           this.userLogoutPayloadResponse = responseData;
           this.router
-            .navigate(["/repertoire"])
+            .navigate([Paths.REPERTOIRE])
             .then(
               () => console.log("Logout user: " + this.userLogoutPayloadResponse),
               error => this.toastService.toastError(error)
@@ -87,13 +88,13 @@ export class AuthService implements OnDestroy {
 
   register(registerForm: FormGroup): void {
     this.http // ToDo pozmieniacn w psotach getach na response zamiast na request i dostosowac co chce ottrzymywac
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/register`, registerForm.value)
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.REGISTER, registerForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           console.log(responseData);
           this.router
-            .navigate(["/login"])
+            .navigate([Paths.LOGOUT])
             .then(
               () => this.toastService.toastInfo("Redirect"),
               error => this.toastService.toastError(error)
@@ -108,7 +109,7 @@ export class AuthService implements OnDestroy {
 
   restore(restoreForm: FormGroup): void {
     this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user/restore`, restoreForm.value)
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.RESTORE, restoreForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => console.log(responseData),
@@ -119,7 +120,7 @@ export class AuthService implements OnDestroy {
 
   changePersonalData(changePersonalDataForm: FormGroup): void {
     this.http
-      .post<UserChangeDataPayloadResponse>(`${environment.apiLocalhostUrl}/user/change-data`, this.createUserChangeDataPayloadRequest(changePersonalDataForm))
+      .post<UserChangeDataPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.CHANGE_DATA, this.createUserChangeDataPayloadRequest(changePersonalDataForm))
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => console.log(responseData), // ToDo pomyslec co dodac tutaj i do podobnych miejsc

@@ -3,6 +3,7 @@ import { TabMenuModule } from "primeng/tabmenu";
 import { MenuItem } from "primeng/api";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
+import { Paths } from "../../config/Paths";
 
 @Component({
   selector: "app-my-account",
@@ -22,8 +23,8 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      { label: "Profile", routerLink: ['./profile']  },
-      { label: "Tickets", routerLink: ['./tickets']  }
+      { label: "Profile", routerLink: ['.' + Paths.PROFILE]  },
+      { label: "Tickets", routerLink: ['.' + Paths.TICKETS]  }
 
     ];
   }

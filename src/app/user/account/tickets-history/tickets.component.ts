@@ -11,6 +11,7 @@ import { Table, TableModule } from "primeng/table";
 import { TagModule } from "primeng/tag";
 import { InputTextModule } from "primeng/inputtext";
 import { DatePipe } from "@angular/common";
+import { Paths } from "../../../config/Paths";
 
 @Component({
   selector: "app-tickets",
@@ -62,7 +63,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
     console.log("Param: " + this.authService.userLoginPayload.id)
 
     this.http
-      .get<OrderHistoryRes[]>(`${environment.apiLocalhostUrl}/order/history`, { params: params })
+      .get<OrderHistoryRes[]>(`${environment.apiLocalhostUrl}/order` + Paths.HISTORY, { params: params })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.ordersHistoryResponse = responseData,

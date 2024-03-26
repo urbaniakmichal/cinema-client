@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastService } from "../../features/toast.service";
+import { Paths } from "../../config/Paths";
 
 @Component({
   selector: "app-payment-summary",
@@ -20,7 +21,7 @@ export class PaymentSummaryComponent {
 
   navigateToMainPage() {
     this.router
-      .navigate(["/repertoire"])
+      .navigate([Paths.REPERTOIRE])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

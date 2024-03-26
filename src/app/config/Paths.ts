@@ -1,0 +1,26 @@
+export enum Paths {
+
+  REPERTOIRE = "/repertoire",
+  LOGIN = "/login",
+  LOGOUT = "/logout",
+  CHANGE_DATA = "/change-data",
+  ACCOUNT = "/account",
+  PROFILE = "/profile",
+  TICKETS = "/tickets",
+  RESTORE = "/restore",
+  REGISTER = "/register",
+  MOVIE_DETAILS_ID = "/movie-details/:id",
+  MOVIE_DETAILS = "/movie-details",
+  MOVIES = "/movies",
+  MOVIE = "/movie",
+  SELECT_SEAT = "/select-seat",
+  BUY_TICKET = "/buy-ticket",
+  SELECT_TICKET = "/select-ticket",
+  ORDER = "/order",
+  PAYMENT = "/payment",
+  PAYMENT_SUMMARY = "/payment-summary",
+  SUBMIT = "/submit",
+  PROMO = "/promo",
+  AUDITORIUM = "/auditorium",
+  HISTORY = "/history"
+}
