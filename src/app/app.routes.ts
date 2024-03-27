@@ -13,70 +13,71 @@ import { PaymentSummaryComponent } from "./payment-summary/payment-summary/payme
 import { AccountComponent } from "./user/account/account.component";
 import { ProfileComponent } from "./user/account/profile/profile.component";
 import { TicketsComponent } from "./user/account/tickets-history/tickets.component";
+import { Paths } from "./config/Paths";
 
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "repertoire",
+    redirectTo: Paths.REPERTOIRE,
     pathMatch: "full"
   },
   {
-    path: "login",
+    path: Paths.LOGIN,
     component: LoginComponent
   },
   {
-    path: "account",
+    path: Paths.ACCOUNT,
     component: AccountComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
-      { path: "tickets", component: TicketsComponent, canActivate: [AuthGuard] },
-      { path: '', redirectTo: 'profile', pathMatch: 'full' }
+      { path: Paths.PROFILE, component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: Paths.TICKETS, component: TicketsComponent, canActivate: [AuthGuard] },
+      { path: '', redirectTo: Paths.PROFILE, pathMatch: 'full' }
     ]
   },
   {
-    path: "restore",
+    path: Paths.RESTORE,
     component: RestorePasswordComponent
   },
   {
-    path: "register",
+    path: Paths.REGISTER,
     component: RegisterComponent
   },
   {
-    path: "repertoire",
+    path: Paths.REPERTOIRE,
     component: RepertoireComponent
   },
   {
-    path: "movie-details/:id",
+    path: Paths.MOVIE_DETAILS_ID,
     component: MovieDetailsComponent
   },
   {
-    path: "select-seat",
+    path: Paths.SELECT_SEAT,
     component: SelectSeatComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "buy-ticket",
+    path: Paths.BUY_TICKET,
     component: SelectTicketComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "select-ticket",
+    path: Paths.SELECT_TICKET,
     component: SelectTicketComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "order",
+    path: Paths.ORDER,
     component: OrderComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "payment",
+    path: Paths.PAYMENT,
     component: ThirdPartPaymentComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: "payment-summary",
+    path: Paths.PAYMENT_SUMMARY,
     component: PaymentSummaryComponent,
     canActivate: [AuthGuard]
   }

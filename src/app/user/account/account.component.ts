@@ -23,8 +23,8 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.items = [
-      { label: "Profile", routerLink: ['.' + Paths.PROFILE]  },
-      { label: "Tickets", routerLink: ['.' + Paths.TICKETS]  }
+      { label: "Profile", routerLink: ["." + Paths.SLASH + Paths.PROFILE] },
+      { label: "Tickets", routerLink: ["." + Paths.SLASH + Paths.TICKETS] }
 
     ];
   }

@@ -42,7 +42,7 @@ export class AuthService implements OnDestroy {
 
   login(loginForm: FormGroup): void {
     this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.LOGIN, loginForm.value)
+      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.USER + Paths.SLASH + Paths.LOGIN, loginForm.value)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
