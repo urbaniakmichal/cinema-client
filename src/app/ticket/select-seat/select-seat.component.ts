@@ -44,8 +44,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
     private selectTicketService: SelectTicketService,
     private selectSeatService: SelectSeatService,
     private toastService: ToastService,
-    private confirmationService: ConfirmationService,
-    private primengConfig: PrimeNGConfig
+    private confirmationService: ConfirmationService
   ) {
   }
 
@@ -56,7 +55,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.http
-      .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}` + Paths.AUDITORIUM)
+      .get<AuditoriumPayload>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.AUDITORIUM)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.auditoriumPayload = responseData,
@@ -95,7 +94,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   navigateToSelectTicket(): void {
     this.router
-      .navigate([Paths.BUY_TICKET])
+      .navigate([Paths.SLASH + Paths.BUY_TICKET])
       .then(
         () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
@@ -124,7 +123,7 @@ export class SelectSeatComponent implements OnInit, OnDestroy {
 
   private navigateToOrder(): void {
     this.router
-      .navigate([Paths.ORDER])
+      .navigate([Paths.SLASH + Paths.ORDER])
       .then(
         () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)

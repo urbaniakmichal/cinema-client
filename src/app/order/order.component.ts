@@ -132,7 +132,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     params = params.append("value", this.promoCodeAsParam);
 
     this.http
-      .get<PromoCodePayloadRes>(`${environment.apiLocalhostUrl}/code` + Paths.PROMO, { params: params })
+      .get<PromoCodePayloadRes>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.CODE + Paths.SLASH + Paths.PROMO, { params: params })
       .pipe(
         takeUntil(this.unsubscribe$),
         map(responseData => {
@@ -158,7 +158,7 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   protected navigateToSelectSeat(): void {
     this.router
-      .navigate([Paths.SELECT_SEAT])
+      .navigate([Paths.SLASH + Paths.SELECT_SEAT])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

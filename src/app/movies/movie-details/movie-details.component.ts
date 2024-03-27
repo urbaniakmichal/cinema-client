@@ -42,7 +42,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.http
-      .get<MoviesRepertoirePayload>(`${environment.apiLocalhostUrl}/details/` + Paths.MOVIE + `/12345`) // dodac movieId do urla
+      .get<MoviesRepertoirePayload>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.DETAILS + Paths.SLASH + Paths.MOVIE + `/12345`) // dodac movieId do urla
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.moviesRepertoirePayload = responseData,
@@ -61,7 +61,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
   navigateToTicket(): void {
     this.router
-      .navigate([Paths.SELECT_TICKET])
+      .navigate([Paths.SLASH + Paths.SELECT_TICKET])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

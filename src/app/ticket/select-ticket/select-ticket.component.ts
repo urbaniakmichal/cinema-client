@@ -8,6 +8,7 @@ import { SelectTicketService } from "./select-ticket.service";
 import { environment } from "../../../environments/environment";
 import { ToastService } from "../../features/toast.service";
 import { Subject, takeUntil } from "rxjs";
+import { Paths } from "../../config/Paths";
 
 @Component({
   selector: "app-select-ticket",
@@ -41,7 +42,7 @@ export class SelectTicketComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.http
-      .get<TicketsTypePayload[]>(`${environment.apiLocalhostUrl}/tickets`)
+      .get<TicketsTypePayload[]>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.TICKETS)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.ticketsTypePayload = responseData,
@@ -52,7 +53,7 @@ export class SelectTicketComponent implements OnInit, OnDestroy {
 
   navigateToSelectSeat(): void {
     this.router
-      .navigate(["/select-seat"])
+      .navigate([Paths.SLASH + Paths.SELECT_SEAT])
       .then(
         () => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)

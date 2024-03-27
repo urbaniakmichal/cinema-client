@@ -21,7 +21,7 @@ export class PaymentSummaryComponent {
 
   navigateToMainPage() {
     this.router
-      .navigate([Paths.REPERTOIRE])
+      .navigate([Paths.SLASH + Paths.REPERTOIRE])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

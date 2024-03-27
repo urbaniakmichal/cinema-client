@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
     if (this.authService.isLoggedIn()) {
       return true;
     } else {
-      this.router.navigate([Paths.LOGIN])
+      this.router.navigate([Paths.SLASH + Paths.LOGIN])
         .then(
           () => this.toastService.toastInfo("Redirect to login page"),
           error => this.toastService.toastError(error));

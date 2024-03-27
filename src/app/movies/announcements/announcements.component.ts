@@ -42,7 +42,7 @@ export class AnnouncementsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.http
-      .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}/announcements` + Paths.MOVIES)
+      .get<MovieAnnouncementsPayload[]>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.ANNOUNCEMENTS + Paths.SLASH + Paths.MOVIES)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.movieAnnouncementsPayload = responseData,
@@ -55,7 +55,7 @@ export class AnnouncementsComponent implements OnInit, OnDestroy {
 
   navigateToMovieDetails(id: string): void {
     this.router
-      .navigate([Paths.MOVIE_DETAILS, id])
+      .navigate([Paths.SLASH + Paths.MOVIE_DETAILS, id])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );

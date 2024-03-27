@@ -57,7 +57,7 @@ export class RepertoireService implements OnDestroy {
 
   navigateToMovieDetails(id: string): void {
     this.router
-      .navigate([Paths.MOVIE_DETAILS, id])
+      .navigate([Paths.SLASH + Paths.MOVIE_DETAILS, id])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
@@ -65,7 +65,7 @@ export class RepertoireService implements OnDestroy {
 
   navigateToTicket(): void {
     this.router
-      .navigate([Paths.SELECT_TICKET])
+      .navigate([Paths.SLASH + Paths.SELECT_TICKET])
       .then(nav => this.toastService.toastInfo("Redirect"),
         error => this.toastService.toastError(error)
       );
@@ -99,7 +99,7 @@ export class RepertoireService implements OnDestroy {
 
   private requestForMoviesRepertoire(): void {
     this.http
-      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}/repertoire` + Paths.MOVIES)
+      .get<RootMoviesRepertoirePayload[]>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.REPERTOIRE + Paths.SLASH + Paths.MOVIES)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => this.rootMoviesRepertoirePayload = responseData,
