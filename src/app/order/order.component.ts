@@ -171,7 +171,6 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   private createOrderPayload(): void {
     this.submitOrderPayload = {
-      orderId: faker.string.uuid(),
       userId: this.userLoginPayload.id,
       selectedMovieId: this.selectedMovie?.id ?? "",
       selectedMovieHourId: this.selectedHour?.id ?? "",

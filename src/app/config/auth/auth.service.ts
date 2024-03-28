@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
@@ -7,7 +7,6 @@ import { UserLogoutPayloadResponse } from "../../data-structures/payloads/user/U
 import { ToastService } from "../../features/toast.service";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
-import { Subject, takeUntil } from "rxjs";
 import { UserChangeDataPayloadRequest } from "../../data-structures/payloads/user/change/UserChangeDataPayloadRequest";
 import {
   UserChangeDataPayloadResponse
@@ -17,11 +16,9 @@ import { Paths } from "../Paths";
 @Injectable({
   providedIn: "root"
 })
-export class AuthService implements OnDestroy {
+export class AuthService {
 
-  private unsubscribe$: Subject<void> = new Subject<void>();
-
-  userLoginPayload!: UserLoginPayloadResponse;
+  public userLoginPayload!: UserLoginPayloadResponse;
 
   private userLogoutPayloadResponse!: UserLogoutPayloadResponse;
   private jwtTokenKey: string = "jwtToken";
@@ -34,16 +31,10 @@ export class AuthService implements OnDestroy {
   ) {
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
 
   login(loginForm: FormGroup): void {
     this.http
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}` + Paths.SLASH + Paths.USER + Paths.SLASH + Paths.LOGIN, loginForm.value)
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           this.cookieService.set(this.jwtTokenKey, responseData.jwtToken);
@@ -67,8 +58,7 @@ export class AuthService implements OnDestroy {
     this.cookieService.delete(this.jwtTokenKey);
 
     this.http
-      .post<UserLogoutPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.LOGOUT, {})
-      .pipe(takeUntil(this.unsubscribe$))
+      .post<UserLogoutPayloadResponse>("${environment.apiLocalhostUrl}" + Paths.SLASH + Paths.USER + Paths.SLASH + Paths.LOGOUT, {})
       .subscribe({
         next: responseData => {
           this.userLogoutPayloadResponse = responseData;
@@ -89,7 +79,6 @@ export class AuthService implements OnDestroy {
   register(registerForm: FormGroup): void {
     this.http // ToDo pozmieniacn w psotach getach na response zamiast na request i dostosowac co chce ottrzymywac
       .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.REGISTER, registerForm.value)
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => {
           console.log(responseData);
@@ -109,8 +98,7 @@ export class AuthService implements OnDestroy {
 
   restore(restoreForm: FormGroup): void {
     this.http
-      .post<UserLoginPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.RESTORE, restoreForm.value)
-      .pipe(takeUntil(this.unsubscribe$))
+      .post<UserLoginPayloadResponse>("${environment.apiLocalhostUrl}" + Paths.SLASH + Paths.USER + Paths.SLASH + Paths.RESTORE, restoreForm.value)
       .subscribe({
         next: responseData => console.log(responseData),
         error: error => this.toastService.toastError(error),
@@ -121,7 +109,6 @@ export class AuthService implements OnDestroy {
   changePersonalData(changePersonalDataForm: FormGroup): void {
     this.http
       .post<UserChangeDataPayloadResponse>(`${environment.apiLocalhostUrl}/user` + Paths.CHANGE_DATA, this.createUserChangeDataPayloadRequest(changePersonalDataForm))
-      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: responseData => console.log(responseData), // ToDo pomyslec co dodac tutaj i do podobnych miejsc
         error: error => this.toastService.toastError(error), // ToDo pomyslec co dodac tutaj i do podobnych miejsc
