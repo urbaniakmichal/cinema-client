@@ -2,7 +2,6 @@ import { TicketsTypePayload } from "../tickets/TicketsTypePayload";
 
 export interface SubmitOrderPayload {
 
-  orderId: string;
   userId: string;
   selectedMovieId: string;
   selectedMovieHourId: string,
